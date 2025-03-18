@@ -1,0 +1,17 @@
+Package: GimmeMyStats
+Title: Descriptive statistics for dataframes
+Version: 0.1.0
+Authors@R: 
+    person("Etienne", "Camenen", , "etienne.camenen@gmail.com", role = c("aut", "cre"))
+Description: 
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+LazyData: false
+Depends:
+    R (>= 2.10),
+    tidyverse
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
