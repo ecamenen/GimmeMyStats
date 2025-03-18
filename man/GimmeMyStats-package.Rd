@@ -4,9 +4,9 @@
 \name{GimmeMyStats-package}
 \alias{GimmeMyStats}
 \alias{GimmeMyStats-package}
-\title{GimmeMyStats: Descriptive statistics for dataframes}
+\title{GimmeMyStats: Statistics utilities}
 \description{
-
+Statistics utilities to facilitate reporting for regression and correlation modeling, hypothesis testing, variance analysis, outlier detection, and detailed descriptive statistics.
 }
 \author{
 \strong{Maintainer}: Etienne Camenen \email{etienne.camenen@gmail.com}

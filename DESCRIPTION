@@ -1,9 +1,9 @@
 Package: GimmeMyStats
-Title: Descriptive statistics for dataframes
+Title: Statistics utilities
 Version: 0.1.0
 Authors@R: 
     person("Etienne", "Camenen", , "etienne.camenen@gmail.com", role = c("aut", "cre"))
-Description: 
+Description: Statistics utilities to facilitate reporting for regression and correlation modeling, hypothesis testing, variance analysis, outlier detection, and detailed descriptive statistics.
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -11,7 +11,8 @@ RoxygenNote: 7.2.3
 LazyData: false
 Depends:
     R (>= 2.10),
-    tidyverse
+    tidyverse,
+    magrittr
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
