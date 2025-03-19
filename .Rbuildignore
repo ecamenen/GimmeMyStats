@@ -16,3 +16,4 @@
 ^.~lock.*
 ^.*\.temp$
 ^GimmeMyStats\.Rproj$
+^data-raw$
