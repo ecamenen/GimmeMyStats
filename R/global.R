@@ -1,0 +1,16 @@
+utils::globalVariables(
+  c(
+    "%",
+    ".",
+    "FDR",
+    "Levels",
+    "Median+/-IQR",
+    "N",
+    "Variables",
+    "f",
+    "p",
+    "p.value.signif",
+    "stat",
+    "value"
+  )
+)
