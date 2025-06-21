@@ -3,6 +3,7 @@
 #' Prints summary statistics (mean, median, quartiles, range, etc.) for numeric variables.
 #'
 #' @inheritParams print_test
+#' @inheritParams print_multinomial
 #' @param x Numeric vector, matrix, or data frame.
 #'
 #' @return Data frame with descriptive statistics for each variable.
@@ -12,14 +13,14 @@
 #' print_numeric(x)
 #'
 #' @export
-print_numeric <- function(x, digits = 1) {
+print_numeric <- function(x, digits = 1, width = 15) {
   as.data.frame(x) %>%
     pivot_longer(everything()) %>%
     set_colnames(c("Variables", "value")) %>%
     group_by(Variables) %>%
     summarise(
-      "Mean+/-SD" = print_dispersion(value, digits, "mean"),
-      "Median+/-IQR" = print_dispersion(value, digits, "median"),
+      "Mean+/-SD" = print_dispersion(value, digits, "mean", width),
+      "Median+/-IQR" = print_dispersion(value, digits, "median", width),
       "Q1-Q3" = paste(
         quantile(value, .25, na.rm = TRUE) %>% round(digits),
         quantile(value, .75, na.rm = TRUE) %>% round(digits),
@@ -169,7 +170,8 @@ count_cat <- function(
 #'
 #' @export
 print_binomial <- function(x, digits = 1) {
-  pivot_longer(x, everything()) %>%
+  as.data.frame(x) %>%
+    pivot_longer(everything()) %>%
     set_colnames(c("Variables", "value")) %>%
     group_by(Variables) %>%
     summarise(
@@ -182,6 +184,24 @@ print_binomial <- function(x, digits = 1) {
     ) %>%
     ungroup() %>%
     select(Variables, Levels, stat)
+}
+
+#' Summarizes descriptive statistics for binomial variables
+#'
+#' @inheritParams print_binomial
+#'
+#' @return Data frame with formatted descriptive statistics.
+#'
+#' @examples
+#' x <- data.frame(A = sample(c("X", "Y"), 100, replace = TRUE))
+#' summary_binomial(x)
+#'
+#' @export
+summary_binomial <- function(x, digits = 1) {
+  print_binomial(x, digits) %>%
+    group_by(Variables) %>%
+    slice(1) %>%
+    summarise(Statistics = paste(Levels, ":", stat))
 }
 
 #' Prints descriptive statistics for multinomial variables
@@ -204,29 +224,14 @@ print_binomial <- function(x, digits = 1) {
 #' print_multinomial(x, var = "A")
 #'
 #' @export
-print_multinomial <- function(x, var, digits = 1, parse = FALSE, width = 20, collapse = FALSE, label = NULL, n = nrow(x)) {
+print_multinomial <- function(x, var = NULL, digits = 1, parse = FALSE, width = 20, collapse = FALSE, label = NULL, n = nrow(x)) {
+  var <- ifelse(is.null(var) && !is.null(colnames(x)), colnames(x), "Variable")
   count_cat(x, width = width) %>%
     set_colnames(c("Levels", "N")) %>%
     mutate(
       `%` = round((N / n) * 100, digits),
       Variables = var,
-      stat = paste0(N, " (", `%`, "%)")
+      Statistics = paste0(N, " (", `%`, "%)")
     ) %>%
-    select(Variables, Levels, stat)
-}
-
-#' Summarizes descriptive statistics for binomial variables
-#'
-#' @inheritParams print_binomial
-#'
-#' @return Data frame with formatted descriptive statistics.
-#'
-#' @examples
-#' x <- data.frame(A = sample(c("X", "Y"), 100, replace = TRUE))
-#' summary_binomial(x)
-#'
-#' @export
-summary_binomial <- function(x, digits = 1) {
-  print_binomial(x, digits) %>%
-    summarise(Levels = paste(stat, collapse = "; "))
+    select(Variables, Levels, Statistics)
 }
