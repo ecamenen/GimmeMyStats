@@ -24,6 +24,14 @@ add_significance0 <- function(data, p.col = NULL, output.col = NULL) {
   )
 }
 
+pval_stars <- function(p) {
+  if (p < 0.001) return("***")
+  if (p < 0.01) return("**")
+  if (p < 0.05) return("*")
+  # if (p < 0.1) return(".")
+  return("ns")
+}
+
 #' Formats a hypothesis test
 #'
 #' Formats and prints the results of a hypothesis test (ANOVA, Kruskal-Wallis,
@@ -50,34 +58,50 @@ add_significance0 <- function(data, p.col = NULL, output.col = NULL) {
 #'
 #' @export
 print_test <- function(x, digits = 2, digits_p = 3) {
-  if (!inherits(x, c("anova_test", "kruskal_test", "wilcox_test"))) {
-    stop("x must be a test object from anova_test, kruskal_test, or wilcox_test.")
+  if (!inherits(x, c("anova_test", "kruskal_test", "wilcox_test", "lmerModLmerTest", "htest"))) {
+    stop("x must be a test object from anova_test, kruskal_test, wilcox_test, friedman.test or lmerTest::lmer.")
   }
 
-  method <- sub("_test", "", class(x)[2])
-  method <- ifelse(method == "data.frame", "anova", method)
-
-  if (is.null(x$p.signif)) {
-    x <- add_significance0(x)
+  tmp <- class(x)
+  if (length(tmp) == 1) {
+    method <- tmp
+  } else {
+   method <- sub("_test", "", tmp[2])
+    method <- ifelse(method == "data.frame", "anova", method)
   }
-
-  x[x == "ns"] <- ""
-  x$p <- paste0("= ", round(x$p, digits_p)) %>%
-    str_replace_all("^= 0$", "< 0.001")
 
   if (method == "anova") {
     par <- paste0("(", x$DFn, ", ", x$DFd, ")")
     statistic <- round(x$F, digits)
     index <- "Anova, F"
   } else if (method %in% c("kruskal", "t")) {
-    par <- paste0("(", round(x$df, 1), ")")
+    par <- paste0("(", x$df, ")")
     statistic <- round(x$statistic, digits)
-    index <- ifelse(method == "t", "T-test, F", "Kruskal-Wallis, K")
+    index <- switch(
+      method,
+      "t" = "T-test, F",
+      "kruskal" = "Kruskal-Wallis, K",
+      "htest" = paste0("Friedman, ", "\u03C7\u00B2")
+    )
   } else if (method == "wilcox") {
     par <- ""
     statistic <- round(x$statistic, digits)
-    index <- "W"
+    index <- "Wilcoxon, W"
+  } else if (method == "lmerModLmerTest") {
+    x <- anova(x)
+    par <- paste0("(", x$NumDF, ", ", round(x$DenDF), ")")
+    statistic <- round(x$F, digits)
+    index <- "Lmer, T"
+    x$p <- x[, "Pr(>F)"]
   }
+
+  if (!"p.signif" %in% colnames(x)) {
+    x <- add_significance0(x)
+  }
+
+  x[x == "ns"] <- ""
+  x$p <- paste0("= ", round(x$p, digits_p)) %>%
+    str_replace_all("^= 0$", "< 0.001")
 
   paste0(index, par, " = ", statistic, ",", " p ", x$p, x$p.signif)
 }
@@ -148,7 +172,7 @@ print_chi2_test <- function(x, digits = 3) {
 #' x <- c(rep("A", 100), rep("B", 78), rep("C", 25))
 #' post_hoc_chi2(x)
 #'
-#' x <- c(A = 100, B = 78, C = 25)
+#' x <- data.frame(G1 = c(Yes = 100, No = 78), G2 =  c(Yes = 75, No = 23))
 #' post_hoc_chi2(x, count = TRUE, method = "chisq")
 #'
 #' data("housetasks")
@@ -212,11 +236,11 @@ post_hoc_chi2 <- function(
     }
   ) %>%
     Reduce(rbind, .) %>%
-    mutate(FDR = round(p.adjust(p, method_adjust), digits)) %>%
+    mutate(FDR = p.adjust(p, method_adjust)) %>%
     add_significance(p.col = "FDR", output.col = "fdr.signif") %>%
   mutate(
     p = ifelse(p < 0.001, "< 0.001", round(p, digits)),
-    FDR = ifelse(FDR < 0.001, "< 0.001", FDR)
+    FDR = ifelse(FDR < 0.001, "< 0.001", round(FDR, digits))
   ) %>%
   select(-matches("method"))
 
