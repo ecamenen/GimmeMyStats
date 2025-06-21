@@ -20,8 +20,16 @@ identify_outliers <- function(
     probabilities = c(0.25, 0.75),
     method = "iqr",
     weight = 1.5,
-    replace = TRUE
+    replace = FALSE
 ) {
+  if (!is.null(rownames(x)))
+    name_out <- rownames(x)
+  else if(!is.null(names(x))) {
+    name_out <- names(x)
+  } else {
+    name_out <- NULL
+  }
+  x <- unlist(x)
   stopifnot(method %in% c("iqr", "percentiles", "hampel", "mad", "sd"))
   med <- median(x, na.rm = TRUE)
 
@@ -47,7 +55,10 @@ identify_outliers <- function(
   if (!replace) {
     i <- which(x < low | x > up)
     x <- x[i]
+    if (is.null(name_out))
     names(x) <- i
+    else
+      names(x) <- name_out[i]
   } else {
     x[which(x < low | x > up)] <- NA
   }
