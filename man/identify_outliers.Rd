@@ -9,7 +9,7 @@ identify_outliers(
   probabilities = c(0.25, 0.75),
   method = "iqr",
   weight = 1.5,
-  replace = TRUE
+  replace = FALSE
 )
 }
 \arguments{

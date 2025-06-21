@@ -1,0 +1,157 @@
+---
+title: "getting_started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{getting_started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+```{r setup, results="hide"}
+library("tidyverse")
+library("rstatix")
+library("magrittr")
+library("GimmeMyStats")
+```
+
+## Clinical Dataset
+
+```{r}
+set.seed(123)
+n <- 150  # Number of patients
+clinical_data <- tibble(
+  Country = sample(c("France", "Germany", "UK", "Italy", "Spain"), n, replace = TRUE),
+  Age = rnorm(n, mean = 60, sd = 10),
+  Sex = sample(c("Male", "Female"), n, replace = TRUE),
+  Cancer_Type = sample(c("Lung", "Breast", "Colorectal", "Healthy"), n, replace = TRUE),
+  Cancer_Stage = sample(1:4, n, replace = TRUE),
+  Weight = rnorm(n, mean = 75, sd = 15),
+  Height = rnorm(n, mean = 170, sd = 10),
+  Fatigue_Score = sample(0:10, n, replace = TRUE),
+  Physician_Score = sample(0:10, n, replace = TRUE),
+  CRP = rnorm(n, mean = 5, sd = 2),
+  IL6 = rnorm(n, mean = 10, sd = 5),
+  Leukocytes = rnorm(n, mean = 6.5, sd = 2),
+  Neutrophils = rnorm(n, mean = 55, sd = 10),
+  Lymphocytes = rnorm(n, mean = 35, sd = 8),
+  KRAS_Mutation = sample(c("Mutated", "Wild-type"), n, replace = TRUE),
+  Treatment_Response = sample(c("Complete", "Partial", "None"), n, replace = TRUE)
+)
+head(clinical_data)
+```
+
+## Descriptive Statistics
+
+We summarize categorical and multinomial variables using `print_multinomial`.
+
+```{r}
+print_multinomial(select(clinical_data,  "Cancer_Type"))
+```
+*Here, we see if the distribution of cancer types and treatment responses is balanced across the dataset. If a category is underrepresented, statistical comparisons may lack power.*
+
+Binary variables can be summarized using `summary_binomial`.
+
+```{r}
+summary_binomial(select(clinical_data, c("KRAS_Mutation", "Sex")))
+```
+*Checking for imbalances in binary variables is crucial. If `KRAS_Mutation` is highly imbalanced, conclusions regarding its association with outcomes should be interpreted cautiously.*
+
+For continuous variables, `summary_numeric` provides a robust summary.
+
+```{r}
+print_numeric(select(clinical_data, c("Age", "Weight", "CRP")))
+summary_numeric(clinical_data$Age)
+```
+*We verify if the distributions are symmetric or skewed. A strong skew might indicate outliers or a non-normal distribution requiring transformation before parametric testing.*
+
+### **Identifying Outliers**
+
+Outliers in continuous variables can affect statistical analyses. We use different methods to detect them:
+
+```{r}
+identify_outliers(clinical_data$CRP, method = "iqr")
+```
+```{r}
+identify_outliers(clinical_data$CRP, method = "percentiles")
+```
+```{r}
+identify_outliers(clinical_data$CRP, method = "hampel")
+```
+```{r}
+identify_outliers(clinical_data$CRP, method = "mad")
+```
+```{r}
+identify_outliers(select(clinical_data, CRP), method = "sd")
+```
+*Different methods have different sensitivity levels. The `iqr` method identifies extreme values based on quartiles, while `mad` and `hampel` are robust to skewed distributions. `sd` assumes normality and may not be ideal for skewed data.*
+
+## Correlation Analysis
+
+```{r}
+mcor_test(clinical_data[, c("CRP", "IL6", "Leukocytes")], method = "pearson")
+```
+```{r}
+mcor_test(
+  clinical_data[, c("CRP", "IL6", "Leukocytes")],
+  clinical_data[, c("Physician_Score", "Fatigue_Score")],
+  method = "spearman",
+  p.value = TRUE,
+  method_adjust = "bonferroni"
+)
+```
+*Pearson's correlation assumes linear relationships, whereas Spearman's is rank-based and better suited for skewed or non-linear associations. If Pearson's r differs significantly from Spearman's rho, the relationship might not be linear.*
+
+## Group Comparisons
+
+### **ANOVA (Parametric)**
+
+```{r}
+anova_res <- anova_test(data = clinical_data, Age ~ Country)
+print_test(anova_res)
+```
+*A significant ANOVA result suggests at least one group mean differs. If non-significant, we fail to reject the null hypothesis that all means are equal.*
+
+### **Kruskal-Wallis (Non-Parametric)**
+
+```{r}
+kruskal_res <- kruskal_test(data = clinical_data, CRP ~ Cancer_Type)
+print_test(kruskal_res)
+```
+*This test is an alternative to ANOVA when normality is violated. A significant result means at least one group median differs.*
+
+### **Wilcoxon Test (Two Groups)**
+
+```{r}
+wilcox_res <- wilcox_test(data = clinical_data, IL6 ~ KRAS_Mutation)
+print_test(wilcox_res)
+```
+*A significant result suggests IL6 levels differ significantly between `KRAS_Mutation` groups.*
+
+## Chi-Square and Fisher’s Exact Test
+
+```{r}
+chi2_res <- chisq_test(table(clinical_data$Cancer_Type, clinical_data$Treatment_Response))
+print_chi2_test(chi2_res)
+```
+*Chi-square tests independence between categorical variables. A significant result suggests an association between cancer type and treatment response.*
+
+```{r}
+post_hoc_chi2(clinical_data$Cancer_Type, method = "fisher")
+```
+*Post-hoc Fisher tests determine which specific categories differ, useful when the chi-square test is significant.*
+
+## Session Information
+```{r end, echo = FALSE}
+sessionInfo()
+```
+
+

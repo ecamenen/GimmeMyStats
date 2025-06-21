@@ -12,7 +12,7 @@
 #' print_dispersion(runif(10), method = "mean", digits = 2)
 #'
 #' @export
-print_dispersion <- function(x, digits = 2, method = "median", width = 10) {
+print_dispersion <- function(x, digits = 1, method = "median", width = 10) {
   x <- unlist(x)
   method <- match.arg(method, c("median", "mean"))
 

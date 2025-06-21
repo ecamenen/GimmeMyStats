@@ -11,6 +11,7 @@ utils::globalVariables(
     "p",
     "p.value.signif",
     "stat",
+    "Statistics",
     "value"
   )
 )

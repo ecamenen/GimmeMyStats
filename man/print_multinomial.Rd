@@ -6,7 +6,7 @@
 \usage{
 print_multinomial(
   x,
-  var,
+  var = NULL,
   digits = 1,
   parse = FALSE,
   width = 20,

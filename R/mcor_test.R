@@ -69,8 +69,8 @@ mcor_test <- function(
                   x[, i],
                   y[, j],
                   method = method,
-                  na.rm = TRUE
-                )
+                  use = "complete.obs"
+                ) %>% suppressWarnings()
               },
               error = function(e) NA
             )

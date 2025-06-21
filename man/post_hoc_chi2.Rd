@@ -46,7 +46,7 @@ characters are used.
 x <- c(rep("A", 100), rep("B", 78), rep("C", 25))
 post_hoc_chi2(x)
 
-x <- c(A = 100, B = 78, C = 25)
+x <- data.frame(G1 = c(Yes = 100, No = 78), G2 =  c(Yes = 75, No = 23))
 post_hoc_chi2(x, count = TRUE, method = "chisq")
 
 data("housetasks")

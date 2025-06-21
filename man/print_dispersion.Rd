@@ -4,7 +4,7 @@
 \alias{print_dispersion}
 \title{Prints the dispersion of a numeric vector}
 \usage{
-print_dispersion(x, digits = 2, method = "median", width = 10)
+print_dispersion(x, digits = 1, method = "median", width = 10)
 }
 \arguments{
 \item{x}{Numeric vector.}

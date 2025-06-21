@@ -4,13 +4,15 @@
 \alias{print_numeric}
 \title{Prints descriptive statistics for numeric variables}
 \usage{
-print_numeric(x, digits = 1)
+print_numeric(x, digits = 1, width = 15)
 }
 \arguments{
 \item{x}{Numeric vector, matrix, or data frame.}
 
 \item{digits}{Integer specifying the number of decimal places for the test
 statistic.}
+
+\item{width}{Integer specifying the maximum width for wrapping text.}
 }
 \value{
 Data frame with descriptive statistics for each variable.
