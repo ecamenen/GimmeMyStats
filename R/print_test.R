@@ -57,7 +57,7 @@ pval_stars <- function(p) {
 #' print_test(res)
 #'
 #' @export
-print_test <- function(x, digits = 2, digits_p = 3) {
+print_test <- function(x, digits = 0, digits_p = 2) {
   if (!inherits(x, c("anova_test", "kruskal_test", "wilcox_test", "lmerModLmerTest", "htest"))) {
     stop("x must be a test object from anova_test, kruskal_test, wilcox_test, friedman.test or lmerTest::lmer.")
   }

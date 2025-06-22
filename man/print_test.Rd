@@ -4,7 +4,7 @@
 \alias{print_test}
 \title{Formats a hypothesis test}
 \usage{
-print_test(x, digits = 2, digits_p = 3)
+print_test(x, digits = 0, digits_p = 2)
 }
 \arguments{
 \item{x}{Test object from \code{rstatix} among \code{anova_test}, \code{kruskal_test}, or
