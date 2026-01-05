@@ -20,3 +20,4 @@ Meta
 .DS_Store
 .quarto
 *\.BiocCheck
+docs

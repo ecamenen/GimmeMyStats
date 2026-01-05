@@ -12,6 +12,7 @@ Statistics utilities to facilitate reporting for regression and correlation mode
 Useful links:
 \itemize{
   \item \url{https://github.com/ecamenen/GimmeMyStats}
+  \item \url{https://ecamenen.github.io/GimmeMyStats/}
   \item Report bugs at \url{https://github.com/ecamenen/GimmeMyStats/issues}
 }
 
