@@ -7,7 +7,7 @@ Description: Statistics utilities to facilitate reporting for regression and cor
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 LazyData: false
 Imports:
     dplyr,
@@ -21,7 +21,7 @@ Imports:
     tidyselect,
     utils
 Depends:
-    R (>= 2.10),
+    R (>= 3.8),
     magrittr,
     tidyverse
 Suggests: 
