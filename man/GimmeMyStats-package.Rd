@@ -8,6 +8,14 @@
 \description{
 Statistics utilities to facilitate reporting for regression and correlation modeling, hypothesis testing, variance analysis, outlier detection, and detailed descriptive statistics.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/ecamenen/GimmeMyStats}
+  \item Report bugs at \url{https://github.com/ecamenen/GimmeMyStats/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Etienne Camenen \email{etienne.camenen@gmail.com}
 
