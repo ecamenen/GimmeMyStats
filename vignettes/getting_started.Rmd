@@ -1,5 +1,5 @@
 ---
-title: "getting_started"
+title: "Getting started"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{getting_started}
@@ -14,9 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Introduction
-
-```{r setup, results="hide"}
+```{r setup, message = FALSE}
 library("tidyverse")
 library("rstatix")
 library("magrittr")
