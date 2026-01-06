@@ -21,6 +21,6 @@ Calculates and prints the median and interquartile range (IQR) or the mean and s
 }
 \examples{
 print_dispersion(runif(10))
-print_dispersion(runif(10), method = "mean", digits = 2)
+print_dispersion(runif(10), method = "mean", digits = 2, width = 5)
 
 }

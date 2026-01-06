@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' print_dispersion(runif(10))
-#' print_dispersion(runif(10), method = "mean", digits = 2)
+#' print_dispersion(runif(10), method = "mean", digits = 2, width = 5)
 #'
 #' @export
 print_dispersion <- function(x, digits = 1, method = "median", width = 10) {

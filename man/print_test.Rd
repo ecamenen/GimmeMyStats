@@ -32,4 +32,9 @@ print_test(res)
 res <- wilcox_test(ToothGrowth, len ~ supp)
 print_test(res)
 
+library(lmerTest)
+data("sleepstudy", package = "lme4")
+res <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+print_test(res)
+
 }

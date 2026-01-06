@@ -18,6 +18,8 @@ Imports:
     dplyr,
     e1071,
     forcats,
+    lme4,
+    lmerTest,
     rstatix,
     stats,
     stringi,

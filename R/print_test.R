@@ -61,6 +61,11 @@ pval_stars <- function(p) {
 #' res <- wilcox_test(ToothGrowth, len ~ supp)
 #' print_test(res)
 #'
+#' library(lmerTest)
+#' data("sleepstudy", package = "lme4")
+#' res <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+#' print_test(res)
+#'
 #' @export
 print_test <- function(x, digits = 0, digits_p = 2) {
     if (!inherits(x, c("anova_test", "kruskal_test", "wilcox_test", "lmerModLmerTest", "htest"))) {

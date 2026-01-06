@@ -11,12 +11,20 @@ test_that("mean_test test works", {
     res <- wilcox_test(df, len ~ supp) %>% print_test()
     expect_type(res, "character")
     expect_equal(res, "Wilcoxon, W = 576, p = 0.06")
+
+    data("sleepstudy", package="lme4")
+    res <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy) %>% print_test()
+    expect_type(res, "character")
+    expect_equal(res, "Lmer, T(1, 17) = 46, p < 0.001***")
 })
 
 test_that("median test works", {
     res <- print_dispersion(c(0, 0, 0, 1, 1, 1))
     expect_type(res, "character")
     expect_equal(res, "0.5+/-1")
+    res <- print_dispersion(c(0, 0, 0, 1, 1, 1), method = "mean", digits = 2, width = 5)
+    expect_type(res, "character")
+    expect_equal(res, "0.5\n+/-0.55")
 })
 
 test_that("add_significance0 test works", {
