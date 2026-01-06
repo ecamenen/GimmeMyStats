@@ -13,6 +13,9 @@
 #' @examples
 #' x <- rnorm(100)
 #' identify_outliers(x, method = "iqr")
+#' identify_outliers(x, method = "percentiles", probabilities = c(0.1, 0.9))
+#' identify_outliers(x, method = "sd", weight = 3)
+#' identify_outliers(x, method = "mad", replace = TRUE)
 #'
 #' @export
 identify_outliers <- function(
