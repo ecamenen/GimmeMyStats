@@ -13,22 +13,22 @@
 #'
 #' @export
 print_dispersion <- function(x, digits = 1, method = "median", width = 10) {
-  x <- unlist(x)
-  method <- match.arg(method, c("median", "mean"))
+    x <- unlist(x)
+    method <- match.arg(method, c("median", "mean"))
 
-  if (method == "mean") {
-    center <- mean(x, na.rm = TRUE)
-    dispersion <- sd(x, na.rm = TRUE)
-  } else {
-    center <- median(x, na.rm = TRUE)
-    dispersion <- IQR(x, na.rm = TRUE)
-  }
+    if (method == "mean") {
+        center <- mean(x, na.rm = TRUE)
+        dispersion <- sd(x, na.rm = TRUE)
+    } else {
+        center <- median(x, na.rm = TRUE)
+        dispersion <- IQR(x, na.rm = TRUE)
+    }
 
-  result <- paste0(round(center, digits), "+/-", round(dispersion, digits))
+    result <- paste0(round(center, digits), "+/-", round(dispersion, digits))
 
-  if (nchar(result) > width) {
-    str_replace_all(result, "\\+\\/-", "\n+/-")
-  } else {
-    result
-  }
+    if (nchar(result) > width) {
+        str_replace_all(result, "\\+\\/-", "\n+/-")
+    } else {
+        result
+    }
 }

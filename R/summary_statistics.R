@@ -1,14 +1,14 @@
 to_title <- function(x) {
-  lapply(
-    x,
-    function(i) {
-      if (!is.na(i) && !is.null(i)) {
-        paste0(toupper(substr(i, 1, 1)), substr(i, 2, nchar(i)))
-      } else {
-        i
-      }
-    }
-  ) %>% unlist()
+    lapply(
+        x,
+        function(i) {
+            if (!is.na(i) && !is.null(i)) {
+                paste0(toupper(substr(i, 1, 1)), substr(i, 2, nchar(i)))
+            } else {
+                i
+            }
+        }
+    ) %>% unlist()
 }
 
 
@@ -28,39 +28,39 @@ to_title <- function(x) {
 #'
 #' @export
 print_numeric <- function(x, digits = 1, width = 15) {
-  as.data.frame(x) %>%
-    pivot_longer(everything()) %>%
-    set_colnames(c("Variables", "value")) %>%
-    group_by(Variables) %>%
-    summarise(
-      "Mean+/-SD" = print_dispersion(value, digits, "mean", width),
-      "Median+/-IQR" = print_dispersion(value, digits, "median", width),
-      "Q1-Q3" = paste(
-        quantile(value, .25, na.rm = TRUE) %>% round(digits),
-        quantile(value, .75, na.rm = TRUE) %>% round(digits),
-        sep = "-"
-      ),
-      Range = paste(
-        min(value, na.rm = TRUE) %>% round(digits),
-        max(value, na.rm = TRUE) %>% round(digits),
-        sep = "-"
-      ),
-      Kurtosis = kurtosis(value, na.rm = TRUE) %>% round(digits),
-      Skewness = skewness(value, na.rm = TRUE) %>% round(digits),
-      Normality = {
-        if (unique(value) %>% na.omit() %>% length() < 3) {
-          NA
-        } else {
-          ifelse(length(value) > 5000, 5000, length(value)) %>%
-            sample(value, .) %>%
-            shapiro_test() %>%
-            add_significance0() %>%
-            pull(p.value.signif)
-        }
-      },
-      Zeros = length(which(value == 0)),
-      NAs = length(which(is.na(value)))
-    )
+    as.data.frame(x) %>%
+        pivot_longer(everything()) %>%
+        set_colnames(c("Variables", "value")) %>%
+        group_by(Variables) %>%
+        summarise(
+            "Mean+/-SD" = print_dispersion(value, digits, "mean", width),
+            "Median+/-IQR" = print_dispersion(value, digits, "median", width),
+            "Q1-Q3" = paste(
+                quantile(value, .25, na.rm = TRUE) %>% round(digits),
+                quantile(value, .75, na.rm = TRUE) %>% round(digits),
+                sep = "-"
+            ),
+            Range = paste(
+                min(value, na.rm = TRUE) %>% round(digits),
+                max(value, na.rm = TRUE) %>% round(digits),
+                sep = "-"
+            ),
+            Kurtosis = kurtosis(value, na.rm = TRUE) %>% round(digits),
+            Skewness = skewness(value, na.rm = TRUE) %>% round(digits),
+            Normality = {
+                if (unique(value) %>% na.omit() %>% length() < 3) {
+                    NA
+                } else {
+                    ifelse(length(value) > 5000, 5000, length(value)) %>%
+                        sample(value, .) %>%
+                        shapiro_test() %>%
+                        add_significance0() %>%
+                        pull(p.value.signif)
+                }
+            },
+            Zeros = length(which(value == 0)),
+            NAs = length(which(is.na(value)))
+        )
 }
 
 #' Summarizes descriptive statistics for numeric variables
@@ -77,8 +77,8 @@ print_numeric <- function(x, digits = 1, width = 15) {
 #'
 #' @export
 summary_numeric <- function(x, digits = 1) {
-  print_numeric(x, digits) %>%
-    select(Variables, `Median+/-IQR`)
+    print_numeric(x, digits) %>%
+        select(Variables, `Median+/-IQR`)
 }
 
 #' Frequency of categorical variables
@@ -113,60 +113,59 @@ count_cat <- function(
     width = 20,
     collapse = FALSE,
     sort = TRUE,
-    format = TRUE
-) {
-  x <- as.data.frame(x)
-  col_name <- colnames(x)
+    format = TRUE) {
+    x <- as.data.frame(x)
+    col_name <- colnames(x)
 
-  if (ncol(x) > 1) {
-    x <- sapply(
-      colnames(x),
-      function(i) rep(i, pull(x, i) %>% unlist() %>% sum(na.rm = TRUE))
-    )
-  }
-
-  x0 <- unlist(x) %>%
-    stri_trans_general("latin-ascii") %>%
-    str_replace_all("\n", " ") %>%
-    to_title() %>%
-    str_wrap(width) %>%
-    factor()
-
-  if (isTRUE(sort)) {
-    x0 <- fct_infreq(x0) %>%
-      fct_rev()
-  } else if (!isFALSE(sort)) {
-    x0 <- ordered(x0, levels = str_wrap(sort, width))
-  }
-
-  df <- fct_relabel(x0, ~ str_remove_all(.x, "\\s*\\([^\\)]+\\)")) %>%
-    fct_relabel(~ str_remove_all(.x, "\\$\\$[^\\)]+"))
-
-  if (format) {
-    df <- df %>%
-      fct_relabel(~ str_replace_all(.x, "^0$", "No")) %>%
-      fct_relabel(
-        ~ str_replace_all(
-          .x,
-          "^1$",
-          ifelse(col_name[1] == "x", "Yes", col_name[1])
+    if (ncol(x) > 1) {
+        x <- sapply(
+            colnames(x),
+            function(i) rep(i, pull(x, i) %>% unlist() %>% sum(na.rm = TRUE))
         )
-      )
-  }
+    }
 
-  df <- fct_count(df)
+    x0 <- unlist(x) %>%
+        stri_trans_general("latin-ascii") %>%
+        str_replace_all("\n", " ") %>%
+        to_title() %>%
+        str_wrap(width) %>%
+        factor()
 
-  if (collapse) {
-    df <- group_by(df, n) %>%
-      summarise(
-        f = paste(f, collapse = ", ") %>%
-          str_wrap(width)
-      ) %>%
-      mutate(f = factor(f))
-    df$f <- reorder(df$f, df$n)
-  }
+    if (isTRUE(sort)) {
+        x0 <- fct_infreq(x0) %>%
+            fct_rev()
+    } else if (!isFALSE(sort)) {
+        x0 <- ordered(x0, levels = str_wrap(sort, width))
+    }
 
-  return(df)
+    df <- fct_relabel(x0, ~ str_remove_all(.x, "\\s*\\([^\\)]+\\)")) %>%
+        fct_relabel(~ str_remove_all(.x, "\\$\\$[^\\)]+"))
+
+    if (format) {
+        df <- df %>%
+            fct_relabel(~ str_replace_all(.x, "^0$", "No")) %>%
+            fct_relabel(
+                ~ str_replace_all(
+                    .x,
+                    "^1$",
+                    ifelse(col_name[1] == "x", "Yes", col_name[1])
+                )
+            )
+    }
+
+    df <- fct_count(df)
+
+    if (collapse) {
+        df <- group_by(df, n) %>%
+            summarise(
+                f = paste(f, collapse = ", ") %>%
+                    str_wrap(width)
+            ) %>%
+            mutate(f = factor(f))
+        df$f <- reorder(df$f, df$n)
+    }
+
+    return(df)
 }
 
 #' Prints descriptive statistics for binomial variables
@@ -184,19 +183,19 @@ count_cat <- function(
 #'
 #' @export
 print_binomial <- function(x, digits = 1) {
-  as.data.frame(x) %>%
-    pivot_longer(everything()) %>%
-    set_colnames(c("Variables", "value")) %>%
-    group_by(Variables) %>%
-    reframe(
-      fct_count(value) %>%
-        set_colnames(c("Levels", "N")) %>%
-        mutate(
-          `%` = (N / length(value) * 100) %>% round(digits),
-          stat = paste0(N, " (", `%`, "%)")
-        )
-    ) %>%
-    select(Variables, Levels, stat)
+    as.data.frame(x) %>%
+        pivot_longer(everything()) %>%
+        set_colnames(c("Variables", "value")) %>%
+        group_by(Variables) %>%
+        reframe(
+            fct_count(value) %>%
+                set_colnames(c("Levels", "N")) %>%
+                mutate(
+                    `%` = (N / length(value) * 100) %>% round(digits),
+                    stat = paste0(N, " (", `%`, "%)")
+                )
+        ) %>%
+        select(Variables, Levels, stat)
 }
 
 #' Summarizes descriptive statistics for binomial variables
@@ -211,10 +210,10 @@ print_binomial <- function(x, digits = 1) {
 #'
 #' @export
 summary_binomial <- function(x, digits = 1) {
-  print_binomial(x, digits) %>%
-    group_by(Variables) %>%
-    slice(1) %>%
-    summarise(Statistics = paste(Levels, ":", stat))
+    print_binomial(x, digits) %>%
+        group_by(Variables) %>%
+        slice(1) %>%
+        summarise(Statistics = paste(Levels, ":", stat))
 }
 
 #' Prints descriptive statistics for multinomial variables
@@ -238,13 +237,13 @@ summary_binomial <- function(x, digits = 1) {
 #'
 #' @export
 print_multinomial <- function(x, var = NULL, digits = 1, parse = FALSE, width = 20, collapse = FALSE, label = NULL, n = nrow(x)) {
-  var <- ifelse(is.null(var) && !is.null(colnames(x)), colnames(x), "Variable")
-  count_cat(x, width = width) %>%
-    set_colnames(c("Levels", "N")) %>%
-    mutate(
-      `%` = round((N / n) * 100, digits),
-      Variables = var,
-      Statistics = paste0(N, " (", `%`, "%)")
-    ) %>%
-    select(Variables, Levels, Statistics)
+    var <- ifelse(is.null(var) && !is.null(colnames(x)), colnames(x), "Variable")
+    count_cat(x, width = width) %>%
+        set_colnames(c("Levels", "N")) %>%
+        mutate(
+            `%` = round((N / n) * 100, digits),
+            Variables = var,
+            Statistics = paste0(N, " (", `%`, "%)")
+        ) %>%
+        select(Variables, Levels, Statistics)
 }

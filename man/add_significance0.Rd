@@ -25,8 +25,8 @@ library(magrittr)
 library(rstatix)
 data("ToothGrowth")
 ToothGrowth \%>\%
-  t_test(len ~ dose) \%>\%
-  adjust_pvalue() \%>\%
-  add_significance0("p.adj")
+    t_test(len ~ dose) \%>\%
+    adjust_pvalue() \%>\%
+    add_significance0("p.adj")
 
 }

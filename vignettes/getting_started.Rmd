@@ -9,8 +9,8 @@ vignette: >
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+    collapse = TRUE,
+    comment = "#>"
 )
 ```
 
@@ -25,24 +25,24 @@ library("GimmeMyStats")
 
 ```{r}
 set.seed(123)
-n <- 150  # Number of patients
+n <- 150 # Number of patients
 clinical_data <- tibble(
-  Country = sample(c("France", "Germany", "UK", "Italy", "Spain"), n, replace = TRUE),
-  Age = rnorm(n, mean = 60, sd = 10),
-  Sex = sample(c("Male", "Female"), n, replace = TRUE),
-  Cancer_Type = sample(c("Lung", "Breast", "Colorectal", "Healthy"), n, replace = TRUE),
-  Cancer_Stage = sample(1:4, n, replace = TRUE),
-  Weight = rnorm(n, mean = 75, sd = 15),
-  Height = rnorm(n, mean = 170, sd = 10),
-  Fatigue_Score = sample(0:10, n, replace = TRUE),
-  Physician_Score = sample(0:10, n, replace = TRUE),
-  CRP = rnorm(n, mean = 5, sd = 2),
-  IL6 = rnorm(n, mean = 10, sd = 5),
-  Leukocytes = rnorm(n, mean = 6.5, sd = 2),
-  Neutrophils = rnorm(n, mean = 55, sd = 10),
-  Lymphocytes = rnorm(n, mean = 35, sd = 8),
-  KRAS_Mutation = sample(c("Mutated", "Wild-type"), n, replace = TRUE),
-  Treatment_Response = sample(c("Complete", "Partial", "None"), n, replace = TRUE)
+    Country = sample(c("France", "Germany", "UK", "Italy", "Spain"), n, replace = TRUE),
+    Age = rnorm(n, mean = 60, sd = 10),
+    Sex = sample(c("Male", "Female"), n, replace = TRUE),
+    Cancer_Type = sample(c("Lung", "Breast", "Colorectal", "Healthy"), n, replace = TRUE),
+    Cancer_Stage = sample(1:4, n, replace = TRUE),
+    Weight = rnorm(n, mean = 75, sd = 15),
+    Height = rnorm(n, mean = 170, sd = 10),
+    Fatigue_Score = sample(0:10, n, replace = TRUE),
+    Physician_Score = sample(0:10, n, replace = TRUE),
+    CRP = rnorm(n, mean = 5, sd = 2),
+    IL6 = rnorm(n, mean = 10, sd = 5),
+    Leukocytes = rnorm(n, mean = 6.5, sd = 2),
+    Neutrophils = rnorm(n, mean = 55, sd = 10),
+    Lymphocytes = rnorm(n, mean = 35, sd = 8),
+    KRAS_Mutation = sample(c("Mutated", "Wild-type"), n, replace = TRUE),
+    Treatment_Response = sample(c("Complete", "Partial", "None"), n, replace = TRUE)
 )
 head(clinical_data)
 ```
@@ -52,7 +52,7 @@ head(clinical_data)
 We summarize categorical and multinomial variables using `print_multinomial`.
 
 ```{r}
-print_multinomial(select(clinical_data,  "Cancer_Type"))
+print_multinomial(select(clinical_data, "Cancer_Type"))
 ```
 *Here, we see if the distribution of cancer types and treatment responses is balanced across the dataset. If a category is underrepresented, statistical comparisons may lack power.*
 
@@ -99,11 +99,11 @@ mcor_test(clinical_data[, c("CRP", "IL6", "Leukocytes")], method = "pearson")
 ```
 ```{r}
 mcor_test(
-  clinical_data[, c("CRP", "IL6", "Leukocytes")],
-  clinical_data[, c("Physician_Score", "Fatigue_Score")],
-  method = "spearman",
-  p.value = TRUE,
-  method_adjust = "bonferroni"
+    clinical_data[, c("CRP", "IL6", "Leukocytes")],
+    clinical_data[, c("Physician_Score", "Fatigue_Score")],
+    method = "spearman",
+    p.value = TRUE,
+    method_adjust = "bonferroni"
 )
 ```
 *Pearson's correlation assumes linear relationships, whereas Spearman's is rank-based and better suited for skewed or non-linear associations. If Pearson's r differs significantly from Spearman's rho, the relationship might not be linear.*

@@ -20,47 +20,47 @@ identify_outliers <- function(
     probabilities = c(0.25, 0.75),
     method = "iqr",
     weight = 1.5,
-    replace = FALSE
-) {
-  if (!is.null(rownames(x)))
-    name_out <- rownames(x)
-  else if(!is.null(names(x))) {
-    name_out <- names(x)
-  } else {
-    name_out <- NULL
-  }
-  x <- unlist(x)
-  stopifnot(method %in% c("iqr", "percentiles", "hampel", "mad", "sd"))
-  med <- median(x, na.rm = TRUE)
-
-  if (method %in% c("hampel", "mad", "sd")) {
-    if (method %in% c("hampel", "mad")) {
-      mad3 <- weight * mad(x, na.rm = TRUE, constant = 1)
+    replace = FALSE) {
+    if (!is.null(rownames(x))) {
+        name_out <- rownames(x)
+    } else if (!is.null(names(x))) {
+        name_out <- names(x)
     } else {
-      mad3 <- weight * sd(x, na.rm = TRUE)
+        name_out <- NULL
     }
-    up <- med + mad3
-    low <- med - mad3
-  } else {
-    quant <- quantile(x, probs = probabilities, na.rm = TRUE)
-    if (method == "iqr") {
-      iqr <- (quant[2] - quant[1]) * weight
-      quant[2] <- med + iqr
-      quant[1] <- med - iqr
-    }
-    up <- quant[2]
-    low <- quant[1]
-  }
+    x <- unlist(x)
+    stopifnot(method %in% c("iqr", "percentiles", "hampel", "mad", "sd"))
+    med <- median(x, na.rm = TRUE)
 
-  if (!replace) {
-    i <- which(x < low | x > up)
-    x <- x[i]
-    if (is.null(name_out))
-    names(x) <- i
-    else
-      names(x) <- name_out[i]
-  } else {
-    x[which(x < low | x > up)] <- NA
-  }
-  return(x)
+    if (method %in% c("hampel", "mad", "sd")) {
+        if (method %in% c("hampel", "mad")) {
+            mad3 <- weight * mad(x, na.rm = TRUE, constant = 1)
+        } else {
+            mad3 <- weight * sd(x, na.rm = TRUE)
+        }
+        up <- med + mad3
+        low <- med - mad3
+    } else {
+        quant <- quantile(x, probs = probabilities, na.rm = TRUE)
+        if (method == "iqr") {
+            iqr <- (quant[2] - quant[1]) * weight
+            quant[2] <- med + iqr
+            quant[1] <- med - iqr
+        }
+        up <- quant[2]
+        low <- quant[1]
+    }
+
+    if (!replace) {
+        i <- which(x < low | x > up)
+        x <- x[i]
+        if (is.null(name_out)) {
+            names(x) <- i
+        } else {
+            names(x) <- name_out[i]
+        }
+    } else {
+        x[which(x < low | x > up)] <- NA
+    }
+    return(x)
 }

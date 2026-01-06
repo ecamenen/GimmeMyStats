@@ -1,4 +1,3 @@
-
 #' @description Redefine the default parameters of `rstatix::add_significance()`
 #' by adding p-value significance symbols to a data frame.
 #'
@@ -9,27 +8,33 @@
 #' library(rstatix)
 #' data("ToothGrowth")
 #' ToothGrowth %>%
-#'   t_test(len ~ dose) %>%
-#'   adjust_pvalue() %>%
-#'   add_significance0("p.adj")
+#'     t_test(len ~ dose) %>%
+#'     adjust_pvalue() %>%
+#'     add_significance0("p.adj")
 #'
 #' @export
 add_significance0 <- function(data, p.col = NULL, output.col = NULL) {
-  add_significance(
-    data,
-    p.col = p.col,
-    output.col = output.col,
-    cutpoints = c(0, 1e-03, 1e-02, 5e-02, 1),
-    symbols = c("***", "**", "*", "ns")
-  )
+    add_significance(
+        data,
+        p.col = p.col,
+        output.col = output.col,
+        cutpoints = c(0, 1e-03, 1e-02, 5e-02, 1),
+        symbols = c("***", "**", "*", "ns")
+    )
 }
 
 pval_stars <- function(p) {
-  if (p < 0.001) return("***")
-  if (p < 0.01) return("**")
-  if (p < 0.05) return("*")
-  # if (p < 0.1) return(".")
-  return("ns")
+    if (p < 0.001) {
+        return("***")
+    }
+    if (p < 0.01) {
+        return("**")
+    }
+    if (p < 0.05) {
+        return("*")
+    }
+    # if (p < 0.1) return(".")
+    return("ns")
 }
 
 #' Formats a hypothesis test
@@ -58,52 +63,51 @@ pval_stars <- function(p) {
 #'
 #' @export
 print_test <- function(x, digits = 0, digits_p = 2) {
-  if (!inherits(x, c("anova_test", "kruskal_test", "wilcox_test", "lmerModLmerTest", "htest"))) {
-    stop("x must be a test object from anova_test, kruskal_test, wilcox_test, friedman.test or lmerTest::lmer.")
-  }
+    if (!inherits(x, c("anova_test", "kruskal_test", "wilcox_test", "lmerModLmerTest", "htest"))) {
+        stop("x must be a test object from anova_test, kruskal_test, wilcox_test, friedman.test or lmerTest::lmer.")
+    }
 
-  tmp <- class(x)
-  if (length(tmp) == 1) {
-    method <- tmp
-  } else {
-   method <- sub("_test", "", tmp[2])
-    method <- ifelse(method == "data.frame", "anova", method)
-  }
+    tmp <- class(x)
+    if (length(tmp) == 1) {
+        method <- tmp
+    } else {
+        method <- sub("_test", "", tmp[2])
+        method <- ifelse(method == "data.frame", "anova", method)
+    }
 
-  if (method == "anova") {
-    par <- paste0("(", x$DFn, ", ", x$DFd, ")")
-    statistic <- round(x$F, digits)
-    index <- "Anova, F"
-  } else if (method %in% c("kruskal", "t")) {
-    par <- paste0("(", x$df, ")")
-    statistic <- round(x$statistic, digits)
-    index <- switch(
-      method,
-      "t" = "T-test, F",
-      "kruskal" = "Kruskal-Wallis, K",
-      "htest" = paste0("Friedman, ", "\u03C7\u00B2")
-    )
-  } else if (method == "wilcox") {
-    par <- ""
-    statistic <- round(x$statistic, digits)
-    index <- "Wilcoxon, W"
-  } else if (method == "lmerModLmerTest") {
-    x <- anova(x)
-    par <- paste0("(", x$NumDF, ", ", round(x$DenDF), ")")
-    statistic <- round(x$F, digits)
-    index <- "Lmer, T"
-    x$p <- x[, "Pr(>F)"]
-  }
+    if (method == "anova") {
+        par <- paste0("(", x$DFn, ", ", x$DFd, ")")
+        statistic <- round(x$F, digits)
+        index <- "Anova, F"
+    } else if (method %in% c("kruskal", "t")) {
+        par <- paste0("(", x$df, ")")
+        statistic <- round(x$statistic, digits)
+        index <- switch(method,
+            "t" = "T-test, F",
+            "kruskal" = "Kruskal-Wallis, K",
+            "htest" = paste0("Friedman, ", "\u03C7\u00B2")
+        )
+    } else if (method == "wilcox") {
+        par <- ""
+        statistic <- round(x$statistic, digits)
+        index <- "Wilcoxon, W"
+    } else if (method == "lmerModLmerTest") {
+        x <- anova(x)
+        par <- paste0("(", x$NumDF, ", ", round(x$DenDF), ")")
+        statistic <- round(x$F, digits)
+        index <- "Lmer, T"
+        x$p <- x[, "Pr(>F)"]
+    }
 
-  if (!"p.signif" %in% colnames(x)) {
-    x <- add_significance0(x)
-  }
+    if (!"p.signif" %in% colnames(x)) {
+        x <- add_significance0(x)
+    }
 
-  x[x == "ns"] <- ""
-  x$p <- paste0("= ", round(x$p, digits_p)) %>%
-    str_replace_all("^= 0$", "< 0.001")
+    x[x == "ns"] <- ""
+    x$p <- paste0("= ", round(x$p, digits_p)) %>%
+        str_replace_all("^= 0$", "< 0.001")
 
-  paste0(index, par, " = ", statistic, ",", " p ", x$p, x$p.signif)
+    paste0(index, par, " = ", statistic, ",", " p ", x$p, x$p.signif)
 }
 
 #' Prints the results of a Chi2 or Fisher's exact test
@@ -127,26 +131,26 @@ print_test <- function(x, digits = 0, digits_p = 2) {
 #'
 #' @export
 print_chi2_test <- function(x, digits = 3) {
-  if ("chisq_test" %in% class(x)) {
-    x$statistic <- paste0("X2(", x$df, ") = ", round(x$statistic, 1), ", ")
-    x$method <- paste0(x$method, ", ")
-  } else {
-    x$method <- "Fisher's Exact test"
-    x$statistic <- ""
-  }
+    if ("chisq_test" %in% class(x)) {
+        x$statistic <- paste0("X2(", x$df, ") = ", round(x$statistic, 1), ", ")
+        x$method <- paste0(x$method, ", ")
+    } else {
+        x$method <- "Fisher's Exact test"
+        x$statistic <- ""
+    }
 
-  if (x$p.signif == "ns") {
-    x$p.signif <- ""
-  }
+    if (x$p.signif == "ns") {
+        x$p.signif <- ""
+    }
 
-  if (x$p < 0.001) {
-    x$p <- "< 0.001"
-  } else {
-    x$p <- paste("=", round(x$p, digits))
-  }
+    if (x$p < 0.001) {
+        x$p <- "< 0.001"
+    } else {
+        x$p <- paste("=", round(x$p, digits))
+    }
 
-  x$p.signif[x$p.signif == "****"] <- "***"
-  paste0(x$statistic, "P ", x$p, x$p.signif, ", N = ", x$n)
+    x$p.signif[x$p.signif == "****"] <- "***"
+    paste0(x$statistic, "P ", x$p, x$p.signif, ", N = ", x$n)
 }
 
 #' Performs post hoc analysis for chi-squared or Fisher's exact test
@@ -172,7 +176,7 @@ print_chi2_test <- function(x, digits = 3) {
 #' x <- c(rep("A", 100), rep("B", 78), rep("C", 25))
 #' post_hoc_chi2(x)
 #'
-#' x <- data.frame(G1 = c(Yes = 100, No = 78), G2 =  c(Yes = 75, No = 23))
+#' x <- data.frame(G1 = c(Yes = 100, No = 78), G2 = c(Yes = 75, No = 23))
 #' post_hoc_chi2(x, count = TRUE, method = "chisq")
 #'
 #' data("housetasks")
@@ -193,64 +197,63 @@ post_hoc_chi2 <- function(
     method_adjust = "BH",
     digits = 3,
     count = FALSE,
-    ...
-) {
-  df0 <- as.data.frame(x)
+    ...) {
+    df0 <- as.data.frame(x)
 
-  if (ncol(df0) > 1) {
-    if (count) {
-      x <- colnames(df0)
+    if (ncol(df0) > 1) {
+        if (count) {
+            x <- colnames(df0)
+        } else {
+            x <- pull(df0, 2)
+        }
+    }
+
+    comb <- combn(unique(x) %>% length() %>% seq(), 2)
+
+    res <- lapply(
+        seq(ncol(comb)),
+        function(i) {
+            if (ncol(df0) > 1) {
+                if (!count) {
+                    x0 <- table(df0)
+                } else {
+                    x0 <- df0
+                }
+                df <- x0[, comb[, i]]
+                dimn <- colnames(df)
+            } else {
+                if (method == "fisher") {
+                    method <- "chisq"
+                    warning(
+                        "With a single categorical data, Fisher's test cannot be performed. Using chi-squared test instead."
+                    )
+                }
+                if (!count) {
+                    x0 <- as.character(x) %>% table()
+                } else {
+                    x0 <- x
+                }
+                df <- x0[comb[, i]]
+                dimn <- names(df)
+            }
+            get(paste0(method, "_test"))(df, ...) %>%
+                mutate(group1 = dimn[1], group2 = dimn[2])
+        }
+    ) %>%
+        Reduce(rbind, .) %>%
+        mutate(FDR = p.adjust(p, method_adjust)) %>%
+        add_significance(p.col = "FDR", output.col = "fdr.signif") %>%
+        mutate(
+            p = ifelse(p < 0.001, "< 0.001", round(p, digits)),
+            FDR = ifelse(FDR < 0.001, "< 0.001", round(FDR, digits))
+        ) %>%
+        select(-matches("method"))
+
+    res[res == "****"] <- "***"
+
+    if (method == "chisq") {
+        relocate(res, df, .before = p)
     } else {
-      x <- pull(df0, 2)
+        res
     }
-  }
-
-  comb <- combn(unique(x) %>% length() %>% seq(), 2)
-
-  res <- lapply(
-    seq(ncol(comb)),
-    function(i) {
-      if (ncol(df0) > 1) {
-        if (!count) {
-          x0 <- table(df0)
-        } else {
-          x0 <- df0
-        }
-        df <- x0[, comb[, i]]
-        dimn <- colnames(df)
-      } else {
-        if (method == "fisher") {
-          method <- "chisq"
-          warning(
-            "With a single categorical data, Fisher's test cannot be performed. Using chi-squared test instead."
-          )
-        }
-        if (!count) {
-          x0 <-  as.character(x) %>% table()
-        } else {
-          x0 <- x
-        }
-        df <- x0[comb[, i]]
-        dimn <- names(df)
-      }
-      get(paste0(method, "_test"))(df, ...) %>%
-        mutate(group1 = dimn[1], group2 = dimn[2])
-    }
-  ) %>%
-    Reduce(rbind, .) %>%
-    mutate(FDR = p.adjust(p, method_adjust)) %>%
-    add_significance(p.col = "FDR", output.col = "fdr.signif") %>%
-  mutate(
-    p = ifelse(p < 0.001, "< 0.001", round(p, digits)),
-    FDR = ifelse(FDR < 0.001, "< 0.001", round(FDR, digits))
-  ) %>%
-  select(-matches("method"))
-
-res[res == "****"] <- "***"
-
-if (method == "chisq") {
-  relocate(res, df, .before = p)
-} else {
-  res
-}
 }

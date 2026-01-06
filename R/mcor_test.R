@@ -43,79 +43,78 @@ mcor_test <- function(
     estimate = TRUE,
     p.value = FALSE,
     method = "spearman",
-    method_adjust = "BH"
-) {
-  x <- as.data.frame(x)
+    method_adjust = "BH") {
+    x <- as.data.frame(x)
 
-  if (!is.null(y)) {
-    y <- as.data.frame(y)
-    if (nrow(x) != nrow(y)) {
-      stop("The number of rows in x must match the number of rows in y.")
-    }
-  } else {
-    y <- x
-  }
-
-  res <- lapply(
-    seq(ncol(x)),
-    function(i) {
-      lapply(
-        seq(ncol(y)),
-        function(j) {
-          if (is.numeric(x[, i]) & is.numeric(y[, j])) {
-            tryCatch(
-              {
-                result <- withCallingHandlers(
-                  cor.test(
-                    x[, i],
-                    y[, j],
-                    method = method,
-                    use = "complete.obs"
-                  ),
-                  warning = function(w) {
-                    invokeRestart("muffleWarning")
-                  }
-                )
-                result
-              },
-              error = function(e) NA
-            )
-          } else {
-            NA
-          }
+    if (!is.null(y)) {
+        y <- as.data.frame(y)
+        if (nrow(x) != nrow(y)) {
+            stop("The number of rows in x must match the number of rows in y.")
         }
-      )
+    } else {
+        y <- x
     }
-  )
 
-  if (estimate) {
-    rho <- lapply(res, function(i) lapply(i, function(j) j$estimate)) %>%
-      unlist() %>%
-      matrix(nrow = NCOL(y), ncol = NCOL(x))
-    colnames(rho) <- colnames(x)
-    rownames(rho) <- colnames(y)
-  }
+    res <- lapply(
+        seq(ncol(x)),
+        function(i) {
+            lapply(
+                seq(ncol(y)),
+                function(j) {
+                    if (is.numeric(x[, i]) & is.numeric(y[, j])) {
+                        tryCatch(
+                            {
+                                result <- withCallingHandlers(
+                                    cor.test(
+                                        x[, i],
+                                        y[, j],
+                                        method = method,
+                                        use = "complete.obs"
+                                    ),
+                                    warning = function(w) {
+                                        invokeRestart("muffleWarning")
+                                    }
+                                )
+                                result
+                            },
+                            error = function(e) NA
+                        )
+                    } else {
+                        NA
+                    }
+                }
+            )
+        }
+    )
 
-  if (p.value) {
-    p <- lapply(res, function(i) lapply(i, function(j) j$p.value)) %>%
-      unlist() %>%
-      matrix(nrow = NCOL(y), ncol = NCOL(x))
-  }
-  if (p.value && method_adjust != "none") {
-    p <- as.vector(p) %>%
-      p.adjust(method_adjust) %>%
-      matrix(nrow = NCOL(y), ncol = NCOL(x))
-  }
-  if (p.value) {
-    colnames(p) <- colnames(x)
-    rownames(p) <- colnames(y)
-  }
+    if (estimate) {
+        rho <- lapply(res, function(i) lapply(i, function(j) j$estimate)) %>%
+            unlist() %>%
+            matrix(nrow = NCOL(y), ncol = NCOL(x))
+        colnames(rho) <- colnames(x)
+        rownames(rho) <- colnames(y)
+    }
 
-  if (estimate && p.value) {
-    return(list(estimate = rho, p.value = p))
-  } else if (estimate) {
-    return(rho)
-  } else {
-    return(p)
-  }
+    if (p.value) {
+        p <- lapply(res, function(i) lapply(i, function(j) j$p.value)) %>%
+            unlist() %>%
+            matrix(nrow = NCOL(y), ncol = NCOL(x))
+    }
+    if (p.value && method_adjust != "none") {
+        p <- as.vector(p) %>%
+            p.adjust(method_adjust) %>%
+            matrix(nrow = NCOL(y), ncol = NCOL(x))
+    }
+    if (p.value) {
+        colnames(p) <- colnames(x)
+        rownames(p) <- colnames(y)
+    }
+
+    if (estimate && p.value) {
+        return(list(estimate = rho, p.value = p))
+    } else if (estimate) {
+        return(rho)
+    } else {
+        return(p)
+    }
 }
