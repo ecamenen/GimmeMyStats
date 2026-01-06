@@ -65,12 +65,18 @@ mcor_test <- function(
           if (is.numeric(x[, i]) & is.numeric(y[, j])) {
             tryCatch(
               {
-                cor.test(
-                  x[, i],
-                  y[, j],
-                  method = method,
-                  use = "complete.obs"
-                ) %>% suppressWarnings()
+                result <- withCallingHandlers(
+                  cor.test(
+                    x[, i],
+                    y[, j],
+                    method = method,
+                    use = "complete.obs"
+                  ),
+                  warning = function(w) {
+                    invokeRestart("muffleWarning")
+                  }
+                )
+                result
               },
               error = function(e) NA
             )

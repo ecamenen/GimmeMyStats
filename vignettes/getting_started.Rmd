@@ -143,9 +143,9 @@ print_chi2_test(chi2_res)
 *Chi-square tests independence between categorical variables. A significant result suggests an association between cancer type and treatment response.*
 
 ```{r}
-post_hoc_chi2(clinical_data$Cancer_Type, method = "fisher")
+post_hoc_chi2(clinical_data$Cancer_Type, method = "chisq")
 ```
-*Post-hoc Fisher tests determine which specific categories differ, useful when the chi-square test is significant.*
+*Post-hoc tests determine which specific categories differ, useful when the chi-square test is significant.*
 
 ## Session Information
 ```{r end, echo = FALSE}

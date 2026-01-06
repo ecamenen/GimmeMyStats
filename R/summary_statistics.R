@@ -188,7 +188,7 @@ print_binomial <- function(x, digits = 1) {
     pivot_longer(everything()) %>%
     set_colnames(c("Variables", "value")) %>%
     group_by(Variables) %>%
-    summarise(
+    reframe(
       fct_count(value) %>%
         set_colnames(c("Levels", "N")) %>%
         mutate(
@@ -196,7 +196,6 @@ print_binomial <- function(x, digits = 1) {
           stat = paste0(N, " (", `%`, "%)")
         )
     ) %>%
-    ungroup() %>%
     select(Variables, Levels, stat)
 }
 

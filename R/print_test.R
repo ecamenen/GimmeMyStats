@@ -219,10 +219,12 @@ post_hoc_chi2 <- function(
         df <- x0[, comb[, i]]
         dimn <- colnames(df)
       } else {
-        method <- "chisq"
-        warning(
-          "With a single categorical data, Fisher's test cannot be performed. Using chi-squared test instead."
-        )
+        if (method == "fisher") {
+          method <- "chisq"
+          warning(
+            "With a single categorical data, Fisher's test cannot be performed. Using chi-squared test instead."
+          )
+        }
         if (!count) {
           x0 <-  as.character(x) %>% table()
         } else {
