@@ -21,7 +21,7 @@ identify_outliers(
 
 \item{weight}{Numeric value specifying the multiplier for the detection threshold.}
 
-\item{replace}{Logical indicating whether to replace outliers with \code{NA}.}
+\item{replace}{Logical specifying whether to replace outliers with \code{NA}.}
 }
 \value{
 Numeric vector with outliers replaced by \code{NA} or their indices.

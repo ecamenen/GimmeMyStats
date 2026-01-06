@@ -23,11 +23,11 @@ print_multinomial(
 \item{digits}{Integer specifying the number of decimal places for the test
 statistic.}
 
-\item{parse}{Logical indicating whether to parse variable names.}
+\item{parse}{Logical specifying whether to parse variable names.}
 
 \item{width}{Integer specifying the maximum width for wrapping text.}
 
-\item{collapse}{Logical indicating whether to collapse categories into a single string.}
+\item{collapse}{Logical specifying whether to collapse categories into a single string.}
 
 \item{label}{Character vector specifying labels for variables.}
 

@@ -26,7 +26,7 @@ or \code{fisher} for Fisher's exact test.}
 \item{digits}{Integer specifying the number of decimal places for the test
 statistic.}
 
-\item{count}{Logical indicating if \code{x} is a contingency table.}
+\item{count}{Logical specifying if \code{x} is a contingency table.}
 
 \item{...}{Additional arguments passed to \code{chisq.test} or \code{fisher.test}.}
 }

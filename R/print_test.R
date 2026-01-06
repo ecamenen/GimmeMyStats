@@ -5,7 +5,7 @@
 #'
 #' @examples
 #' library(magrittr)
-#' library(rstatix)
+#' library(rstatix, warn.conflicts = FALSE)
 #' data("ToothGrowth")
 #' ToothGrowth %>%
 #'     t_test(len ~ dose) %>%
@@ -165,7 +165,7 @@ print_chi2_test <- function(x, digits = 3) {
 #' the factor or the characters are used.
 #' @param method Character specifying the type of test: `chisq` for chi-squared
 #' or `fisher` for Fisher's exact test.
-#' @param count Logical indicating if `x` is a contingency table.
+#' @param count Logical specifying if `x` is a contingency table.
 #' @param ... Additional arguments passed to `chisq.test` or `fisher.test`.
 #' @details If x is numeric, it is treated as a contingency table and the names
 #' are considered as categories; otherwise, the levels of the factor or the

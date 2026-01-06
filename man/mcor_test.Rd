@@ -18,9 +18,9 @@ mcor_test(
 
 \item{y}{Data frame of numerical variables. If \code{NULL}, correlations are calculated within \code{x}.}
 
-\item{estimate}{Logical indicating whether to return correlation coefficients.}
+\item{estimate}{Logical specifying whether to return correlation coefficients.}
 
-\item{p.value}{Logical indicating whether to return adjusted p-values.}
+\item{p.value}{Logical specifying whether to return adjusted p-values.}
 
 \item{method}{Character specifying the correlation method: \code{pearson}, \code{kendall}, or \code{spearman}.}
 

@@ -4,8 +4,8 @@
 #'
 #' @param x Data frame of numerical variables.
 #' @param y Data frame of numerical variables. If `NULL`, correlations are calculated within `x`.
-#' @param estimate Logical indicating whether to return correlation coefficients.
-#' @param p.value Logical indicating whether to return adjusted p-values.
+#' @param estimate Logical specifying whether to return correlation coefficients.
+#' @param p.value Logical specifying whether to return adjusted p-values.
 #' @param method Character specifying the correlation method: `pearson`, `kendall`, or `spearman`.
 #' @param method_adjust Character specifying the p-value adjustment method.
 #'

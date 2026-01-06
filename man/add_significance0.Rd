@@ -22,7 +22,7 @@ by adding p-value significance symbols to a data frame.
 }
 \examples{
 library(magrittr)
-library(rstatix)
+library(rstatix, warn.conflicts = FALSE)
 data("ToothGrowth")
 ToothGrowth \%>\%
     t_test(len ~ dose) \%>\%

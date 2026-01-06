@@ -11,11 +11,11 @@ count_cat(x, width = 20, collapse = FALSE, sort = TRUE, format = TRUE)
 
 \item{width}{Integer specifying the maximum width for wrapping text.}
 
-\item{collapse}{Logical indicating whether to merge categories with identical proportions.}
+\item{collapse}{Logical specifying whether to merge categories with identical proportions.}
 
 \item{sort}{Logical or character vector. If \code{TRUE}, orders categories by frequency. If \code{FALSE}, orders by names. If a character vector, renames and orders categories accordingly.}
 
-\item{format}{Logical indicating whether to format category names if the input is a vector.}
+\item{format}{Logical specifying whether to format category names if the input is a vector.}
 }
 \value{
 Data frame with two columns: \code{f} (category names) and \code{n} (frequency counts).

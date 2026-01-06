@@ -87,9 +87,9 @@ summary_numeric <- function(x, digits = 1) {
 #'
 #' @inheritParams print_multinomial
 #' @param x Vector or data frame of categorical variables.
-#' @param collapse Logical indicating whether to merge categories with identical proportions.
+#' @param collapse Logical specifying whether to merge categories with identical proportions.
 #' @param sort Logical or character vector. If `TRUE`, orders categories by frequency. If `FALSE`, orders by names. If a character vector, renames and orders categories accordingly.
-#' @param format Logical indicating whether to format category names if the input is a vector.
+#' @param format Logical specifying whether to format category names if the input is a vector.
 #'
 #' @return Data frame with two columns: `f` (category names) and `n` (frequency counts).
 #'
@@ -223,9 +223,9 @@ summary_binomial <- function(x, digits = 1) {
 #' @inheritParams print_test
 #' @param x Data frame, matrix, or vector containing multinomial variables.
 #' @param var Character vector specifying the names of the categorical variables.
-#' @param parse Logical indicating whether to parse variable names.
+#' @param parse Logical specifying whether to parse variable names.
 #' @param width Integer specifying the maximum width for wrapping text.
-#' @param collapse Logical indicating whether to collapse categories into a single string.
+#' @param collapse Logical specifying whether to collapse categories into a single string.
 #' @param label Character vector specifying labels for variables.
 #' @param n Integer specifying the total number of observations.
 #'
