@@ -5,8 +5,6 @@ Statistics utilities to facilitate reporting
 [![CRAN
 status](https://www.r-pkg.org/badges/version/GimmeMyStats)](https://CRAN.R-project.org/package=GimmeMyStats)
 [![R-CMD-check](https://github.com/ecamenen/GimmeMyStats/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ecamenen/GimmeMyStats/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/ecamenen/GimmeMyStats/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ecamenen/GimmeMyStats?branch=main)
 
 ## Overview
 

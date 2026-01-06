@@ -29,13 +29,6 @@ Data frame with frequency counts and percentages for each category.
 ``` r
 x <- data.frame(A = sample(c("X", "Y"), 100, replace = TRUE))
 print_binomial(x)
-#> Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
-#> dplyr 1.1.0.
-#> ℹ Please use `reframe()` instead.
-#> ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
-#>   always returns an ungrouped data frame and adjust accordingly.
-#> ℹ The deprecated feature was likely used in the GimmeMyStats package.
-#>   Please report the issue at <https://github.com/ecamenen/GimmeMyStats/issues>.
 #> # A tibble: 2 × 3
 #>   Variables Levels stat    
 #>   <chr>     <fct>  <chr>   

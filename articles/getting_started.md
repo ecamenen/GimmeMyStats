@@ -11,24 +11,24 @@ library("GimmeMyStats")
 
 ``` r
 set.seed(123)
-n <- 150  # Number of patients
+n <- 150 # Number of patients
 clinical_data <- tibble(
-  Country = sample(c("France", "Germany", "UK", "Italy", "Spain"), n, replace = TRUE),
-  Age = rnorm(n, mean = 60, sd = 10),
-  Sex = sample(c("Male", "Female"), n, replace = TRUE),
-  Cancer_Type = sample(c("Lung", "Breast", "Colorectal", "Healthy"), n, replace = TRUE),
-  Cancer_Stage = sample(1:4, n, replace = TRUE),
-  Weight = rnorm(n, mean = 75, sd = 15),
-  Height = rnorm(n, mean = 170, sd = 10),
-  Fatigue_Score = sample(0:10, n, replace = TRUE),
-  Physician_Score = sample(0:10, n, replace = TRUE),
-  CRP = rnorm(n, mean = 5, sd = 2),
-  IL6 = rnorm(n, mean = 10, sd = 5),
-  Leukocytes = rnorm(n, mean = 6.5, sd = 2),
-  Neutrophils = rnorm(n, mean = 55, sd = 10),
-  Lymphocytes = rnorm(n, mean = 35, sd = 8),
-  KRAS_Mutation = sample(c("Mutated", "Wild-type"), n, replace = TRUE),
-  Treatment_Response = sample(c("Complete", "Partial", "None"), n, replace = TRUE)
+    Country = sample(c("France", "Germany", "UK", "Italy", "Spain"), n, replace = TRUE),
+    Age = rnorm(n, mean = 60, sd = 10),
+    Sex = sample(c("Male", "Female"), n, replace = TRUE),
+    Cancer_Type = sample(c("Lung", "Breast", "Colorectal", "Healthy"), n, replace = TRUE),
+    Cancer_Stage = sample(1:4, n, replace = TRUE),
+    Weight = rnorm(n, mean = 75, sd = 15),
+    Height = rnorm(n, mean = 170, sd = 10),
+    Fatigue_Score = sample(0:10, n, replace = TRUE),
+    Physician_Score = sample(0:10, n, replace = TRUE),
+    CRP = rnorm(n, mean = 5, sd = 2),
+    IL6 = rnorm(n, mean = 10, sd = 5),
+    Leukocytes = rnorm(n, mean = 6.5, sd = 2),
+    Neutrophils = rnorm(n, mean = 55, sd = 10),
+    Lymphocytes = rnorm(n, mean = 35, sd = 8),
+    KRAS_Mutation = sample(c("Mutated", "Wild-type"), n, replace = TRUE),
+    Treatment_Response = sample(c("Complete", "Partial", "None"), n, replace = TRUE)
 )
 head(clinical_data)
 #> # A tibble: 6 × 16
@@ -51,7 +51,7 @@ We summarize categorical and multinomial variables using
 `print_multinomial`.
 
 ``` r
-print_multinomial(select(clinical_data,  "Cancer_Type"))
+print_multinomial(select(clinical_data, "Cancer_Type"))
 #> # A tibble: 4 × 3
 #>   Variables   Levels     Statistics
 #>   <chr>       <fct>      <chr>     
@@ -69,16 +69,6 @@ Binary variables can be summarized using `summary_binomial`.
 
 ``` r
 summary_binomial(select(clinical_data, c("KRAS_Mutation", "Sex")))
-#> Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
-#> dplyr 1.1.0.
-#> ℹ Please use `reframe()` instead.
-#> ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
-#>   always returns an ungrouped data frame and adjust accordingly.
-#> ℹ The deprecated feature was likely used in the GimmeMyStats package.
-#>   Please report the issue at <https://github.com/ecamenen/GimmeMyStats/issues>.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 #> # A tibble: 2 × 2
 #>   Variables     Statistics          
 #>   <chr>         <chr>               
@@ -212,11 +202,11 @@ mcor_test(clinical_data[, c("CRP", "IL6", "Leukocytes")], method = "pearson")
 
 ``` r
 mcor_test(
-  clinical_data[, c("CRP", "IL6", "Leukocytes")],
-  clinical_data[, c("Physician_Score", "Fatigue_Score")],
-  method = "spearman",
-  p.value = TRUE,
-  method_adjust = "bonferroni"
+    clinical_data[, c("CRP", "IL6", "Leukocytes")],
+    clinical_data[, c("Physician_Score", "Fatigue_Score")],
+    method = "spearman",
+    p.value = TRUE,
+    method_adjust = "bonferroni"
 )
 #> $estimate
 #>                          CRP         IL6  Leukocytes
@@ -283,32 +273,20 @@ significant result suggests an association between cancer type and
 treatment response.*
 
 ``` r
-post_hoc_chi2(clinical_data$Cancer_Type, method = "fisher")
-#> Warning in FUN(X[[i]], ...): With a single categorical data, Fisher's test
-#> cannot be performed. Using chi-squared test instead.
-#> Warning in FUN(X[[i]], ...): With a single categorical data, Fisher's test
-#> cannot be performed. Using chi-squared test instead.
-#> Warning in FUN(X[[i]], ...): With a single categorical data, Fisher's test
-#> cannot be performed. Using chi-squared test instead.
-#> Warning in FUN(X[[i]], ...): With a single categorical data, Fisher's test
-#> cannot be performed. Using chi-squared test instead.
-#> Warning in FUN(X[[i]], ...): With a single categorical data, Fisher's test
-#> cannot be performed. Using chi-squared test instead.
-#> Warning in FUN(X[[i]], ...): With a single categorical data, Fisher's test
-#> cannot be performed. Using chi-squared test instead.
+post_hoc_chi2(clinical_data$Cancer_Type, method = "chisq")
 #> # A tibble: 6 × 9
-#>       n statistic     p    df p.signif group1     group2       FDR fdr.signif
+#>       n statistic    df     p p.signif group1     group2       FDR fdr.signif
 #>   <int>     <dbl> <dbl> <dbl> <chr>    <chr>      <chr>      <dbl> <chr>     
-#> 1    67     0.373 0.541     1 ns       Breast     Colorectal 0.7   ns        
-#> 2    70     0.914 0.339     1 ns       Breast     Healthy    0.7   ns        
-#> 3    75     2.25  0.133     1 ns       Breast     Lung       0.7   ns        
-#> 4    75     0.12  0.729     1 ns       Colorectal Healthy    0.729 ns        
-#> 5    80     0.8   0.371     1 ns       Colorectal Lung       0.7   ns        
-#> 6    83     0.301 0.583     1 ns       Healthy    Lung       0.7   ns
+#> 1    67     0.373     1 0.541 ns       Breast     Colorectal 0.7   ns        
+#> 2    70     0.914     1 0.339 ns       Breast     Healthy    0.7   ns        
+#> 3    75     2.25      1 0.133 ns       Breast     Lung       0.7   ns        
+#> 4    75     0.12      1 0.729 ns       Colorectal Healthy    0.729 ns        
+#> 5    80     0.8       1 0.371 ns       Colorectal Lung       0.7   ns        
+#> 6    83     0.301     1 0.583 ns       Healthy    Lung       0.7   ns
 ```
 
-*Post-hoc Fisher tests determine which specific categories differ,
-useful when the chi-square test is significant.*
+*Post-hoc tests determine which specific categories differ, useful when
+the chi-square test is significant.*
 
 ## Session Information
 
@@ -344,12 +322,11 @@ useful when the chi-square test is significant.*
     #>  [9] grid_4.5.2         timechange_0.3.0   RColorBrewer_1.1-3 fastmap_1.2.0     
     #> [13] jsonlite_2.0.0     e1071_1.7-17       backports_1.5.0    Formula_1.2-5     
     #> [17] scales_1.4.0       textshaping_1.0.4  jquerylib_0.1.4    abind_1.4-8       
-    #> [21] cli_3.6.5          crayon_1.5.3       rlang_1.1.6        withr_3.0.2       
-    #> [25] cachem_1.1.0       yaml_2.3.12        tools_4.5.2        tzdb_0.5.0        
-    #> [29] broom_1.0.11       vctrs_0.6.5        R6_2.6.1           proxy_0.4-29      
-    #> [33] lifecycle_1.0.4    fs_1.6.6           car_3.1-3          ragg_1.5.0        
-    #> [37] pkgconfig_2.0.3    desc_1.4.3         pkgdown_2.2.0      pillar_1.11.1     
-    #> [41] bslib_0.9.0        gtable_0.3.6       glue_1.8.0         systemfonts_1.3.1 
-    #> [45] xfun_0.55          tidyselect_1.2.1   knitr_1.51         farver_2.1.2      
-    #> [49] htmltools_0.5.9    rmarkdown_2.30     carData_3.0-5      compiler_4.5.2    
-    #> [53] S7_0.2.1
+    #> [21] cli_3.6.5          rlang_1.1.6        withr_3.0.2        cachem_1.1.0      
+    #> [25] yaml_2.3.12        tools_4.5.2        tzdb_0.5.0         broom_1.0.11      
+    #> [29] vctrs_0.6.5        R6_2.6.1           proxy_0.4-29       lifecycle_1.0.4   
+    #> [33] fs_1.6.6           car_3.1-3          ragg_1.5.0         pkgconfig_2.0.3   
+    #> [37] desc_1.4.3         pkgdown_2.2.0      pillar_1.11.1      bslib_0.9.0       
+    #> [41] gtable_0.3.6       glue_1.8.0         systemfonts_1.3.1  xfun_0.55         
+    #> [45] tidyselect_1.2.1   knitr_1.51         farver_2.1.2       htmltools_0.5.9   
+    #> [49] rmarkdown_2.30     carData_3.0-5      compiler_4.5.2     S7_0.2.1

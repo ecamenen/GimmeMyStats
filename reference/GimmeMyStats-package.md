@@ -10,6 +10,8 @@ Useful links:
 
 - <https://github.com/ecamenen/GimmeMyStats>
 
+- <https://ecamenen.github.io/GimmeMyStats/>
+
 - Report bugs at <https://github.com/ecamenen/GimmeMyStats/issues>
 
 ## Author
