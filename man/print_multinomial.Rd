@@ -18,7 +18,7 @@ statistic.}
 
 \item{n}{Integer specifying the total number of observations.}
 
-\item{...}{Additional arguments passed to \code{count_cat}.}
+\item{...}{Additional arguments passed to \code{count_category}.}
 }
 \value{
 Data frame with frequency counts and percentages for each category.

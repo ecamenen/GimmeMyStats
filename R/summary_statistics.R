@@ -17,7 +17,7 @@ to_title <- function(x) {
 #' Prints summary statistics (mean, median, quartiles, range, etc.) for numeric variables.
 #'
 #' @inheritParams print_test
-#' @inheritParams count_cat
+#' @inheritParams count_category
 #' @param x Data frame, matrix, or vector containing numerical variables.
 #'
 #' @return Data frame with descriptive statistics for each variable.
@@ -104,18 +104,18 @@ summary_numeric <- function(x, ...) {
 #' x <- paste("Level", seq(k)) %>%
 #'     mapply(function(x, y) rep(x, y), ., n) %>%
 #'     unlist()
-#' count_cat(x)
+#' count_category(x)
 #'
 #' # Data frame of categorical variable
 #' df <- sapply(seq(k), function(x) runif(10) %>% round()) %>% as.data.frame()
 #' colnames(df) <- paste("Level", seq(k))
-#' count_cat(df)
-#' count_cat(x, sort = FALSE, width = 5)
-#' count_cat(x, sort = seq(k), format = FALSE)
+#' count_category(df)
+#' count_category(x, sort = FALSE, width = 5)
+#' count_category(x, sort = seq(k), format = FALSE)
 #' x2 <- c(x, rep("Level 6", n[1]))
-#' count_cat(x2, collapse = TRUE)
+#' count_category(x2, collapse = TRUE)
 #' @export
-count_cat <- function(
+count_category <- function(
     x,
     width = 15,
     collapse = FALSE,
@@ -233,11 +233,11 @@ summary_binomial <- function(x, ...) {
 #' Calculates and prints frequency counts and percentages for multinomial (multi-level) categorical variables.
 #'
 #' @inheritParams print_test
-#' @inheritParams count_cat
+#' @inheritParams count_category
 #' @param x Data frame, matrix, or vector containing multinomial variables.
 #' @param label Character vector specifying the names of the categorical variables.
 #' @param n Integer specifying the total number of observations.
-#' @param ... Additional arguments passed to `count_cat`.
+#' @param ... Additional arguments passed to `count_category`.
 #'
 #' @return Data frame with frequency counts and percentages for each category.
 #'
@@ -267,7 +267,7 @@ print_multinomial <- function(
     } else {
         label <- str_wrap(label, width)
     }
-    count_cat(x, width = width, ...) %>%
+    count_category(x, width = width, ...) %>%
         set_colnames(c("Levels", "N")) %>%
         mutate(
             `%` = round((N / n) * 100, digits),

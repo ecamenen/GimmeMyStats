@@ -69,46 +69,46 @@ test_that("summary binomial works", {
     expect_equal(unname(unlist(res[1, ])), c("Variable\nA", "Level\nX1 : 47\n(47%)"))
 })
 
-test_count_cat <- function(x) {
+test_count_category <- function(x) {
     expect_equal(colnames(x), c("f", "n"))
     expect_lte(nrow(x), 5)
 }
 
-test_that("count cat works", {
+test_that("count category works", {
     k <- 5
     n <- runif(k, 1, 10) %>% round()
     x <- paste("Level", seq(k)) %>%
         mapply(function(x, y) rep(x, y), ., n) %>%
         unlist()
-    res <- count_cat(x)
-    test_count_cat(res)
+    res <- count_category(x)
+    test_count_category(res)
     expect_equal(as.character(res[[1, 1]]), "Level 3")
-    res <- count_cat(x, sort = FALSE, width = 5)
-    test_count_cat(res)
+    res <- count_category(x, sort = FALSE, width = 5)
+    test_count_category(res)
     expect_equal(as.character(res[[1, 1]]), "Level\n1")
-    res <- count_cat(x, sort = seq(k))
-    test_count_cat(res)
+    res <- count_category(x, sort = seq(k))
+    test_count_category(res)
     expect_equal(as.character(res[[1, 1]]), "Yes")
-    res <- count_cat(x, sort = seq(k), format = FALSE)
-    test_count_cat(res)
+    res <- count_category(x, sort = seq(k), format = FALSE)
+    test_count_category(res)
     expect_equal(as.character(res[[1, 1]]), "1")
     x2 <- c(x, rep("Level 6", n[1]))
-    res <- count_cat(x2, collapse = TRUE)
-    test_count_cat(res)
+    res <- count_category(x2, collapse = TRUE)
+    test_count_category(res)
 
     # Data frame of categorical variable
     df <- sapply(seq(k), function(x) runif(10) %>% round()) %>%
         as.data.frame()
     colnames(df) <- paste("Level", seq(k))
 
-    res <- count_cat(df, width = 5)
-    test_count_cat(res)
+    res <- count_category(df, width = 5)
+    test_count_category(res)
     expect_equal(as.character(res[[1, 1]]), "Level\n4")
-    res <- count_cat(df, sort = FALSE)
-    test_count_cat(res)
+    res <- count_category(df, sort = FALSE)
+    test_count_category(res)
     expect_equal(as.character(res[[1, 1]]), "Level 1")
-    res <- count_cat(df, sort = seq(k), format = FALSE)
-    test_count_cat(res)
+    res <- count_category(df, sort = seq(k), format = FALSE)
+    test_count_category(res)
 })
 
 test_print_multinomial <- function(x) {
