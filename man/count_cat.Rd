@@ -7,7 +7,7 @@
 count_cat(x, width = 15, collapse = FALSE, sort = TRUE, format = TRUE)
 }
 \arguments{
-\item{x}{Vector or data frame of categorical variables.}
+\item{x}{Data frame or vector containing categorical variables.}
 
 \item{width}{Integer specifying the maximum width for wrapping text.}
 

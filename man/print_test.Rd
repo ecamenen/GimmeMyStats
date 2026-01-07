@@ -2,7 +2,7 @@
 % Please edit documentation in R/print_test.R
 \name{print_test}
 \alias{print_test}
-\title{Formats a hypothesis test}
+\title{Prints a hypothesis test}
 \usage{
 print_test(x, digits = 0, digits_p = 2)
 }
@@ -17,8 +17,7 @@ statistic.}
 p-value.}
 }
 \description{
-Formats and prints the results of a hypothesis test (ANOVA, Kruskal-Wallis,
-or Wilcoxon).
+Formats the results of a hypothesis test (ANOVA, Kruskal-Wallis, or Wilcoxon).
 }
 \examples{
 library(rstatix)

@@ -9,7 +9,7 @@ summary_binomial(x, ...)
 \arguments{
 \item{x}{Data frame, matrix, or vector containing binomial variables.}
 
-\item{...}{See parameters in \code{print_binomial}.}
+\item{...}{Additional arguments passed to \code{print_binomial}.}
 }
 \value{
 Data frame with formatted descriptive statistics.

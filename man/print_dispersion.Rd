@@ -4,17 +4,17 @@
 \alias{print_dispersion}
 \title{Prints the dispersion of a numeric vector}
 \usage{
-print_dispersion(x, digits = 1, method = "median", width = 10)
+print_dispersion(x, digits = 1, width = 15, method = "median")
 }
 \arguments{
-\item{x}{Numeric vector.}
+\item{x}{Vector containing numerical values.}
 
 \item{digits}{Integer specifying the number of decimal places for the test
 statistic.}
 
-\item{method}{Character specifying the method: \code{median} for median and IQR, or \code{mean} for mean and SD.}
-
 \item{width}{Integer specifying the maximum width for wrapping text.}
+
+\item{method}{Character specifying the method: \code{median} for median and IQR, or \code{mean} for mean and SD.}
 }
 \description{
 Calculates and prints the median and interquartile range (IQR) or the mean and standard deviation (SD).

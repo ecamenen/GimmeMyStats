@@ -37,10 +37,9 @@ pval_stars <- function(p) {
     return("ns")
 }
 
-#' Formats a hypothesis test
+#' Prints a hypothesis test
 #'
-#' Formats and prints the results of a hypothesis test (ANOVA, Kruskal-Wallis,
-#' or Wilcoxon).
+#' Formats the results of a hypothesis test (ANOVA, Kruskal-Wallis, or Wilcoxon).
 #'
 #' @param x Test object from `rstatix` among `anova_test`, `kruskal_test`, or
 #' `wilcox_test`.
@@ -115,9 +114,9 @@ print_test <- function(x, digits = 0, digits_p = 2) {
     paste0(index, par, " = ", statistic, ",", " p ", x$p, x$p.signif)
 }
 
-#' Prints the results of a Chi2 or Fisher's exact test
+#' Prints the results of a Chi2
 #'
-#' Formats and prints the results of a chi-squared or Fisher's exact test.
+#' Formats the results of a Chi-squared or Fisher's exact test.
 #'
 #' @inheritParams print_test
 #' @param x Test object from `rstatix` among `chisq_test` or `fisher_test`.
@@ -168,7 +167,7 @@ print_chi2_test <- function(x, digits = 3) {
 #' @param x Data frame, vector, or table. If numeric, treated as a contingency
 #' table and the names are considered as categories; otherwise, the levels of
 #' the factor or the characters are used.
-#' @param method Character specifying the type of test: `chisq` for chi-squared
+#' @param method Character specifying the statistical test: `chisq` for chi-squared
 #' or `fisher` for Fisher's exact test.
 #' @param count Logical specifying if `x` is a contingency table.
 #' @param ... Additional arguments passed to `chisq.test` or `fisher.test`.

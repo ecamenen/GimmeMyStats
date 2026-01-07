@@ -18,7 +18,7 @@ post_hoc_chi2(
 table and the names are considered as categories; otherwise, the levels of
 the factor or the characters are used.}
 
-\item{method}{Character specifying the type of test: \code{chisq} for chi-squared
+\item{method}{Character specifying the statistical test: \code{chisq} for chi-squared
 or \code{fisher} for Fisher's exact test.}
 
 \item{method_adjust}{Character specifying the p-value adjustment method.}

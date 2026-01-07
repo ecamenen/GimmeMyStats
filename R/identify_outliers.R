@@ -5,7 +5,7 @@
 #' @inheritParams print_dispersion
 #' @param probabilities Numeric vector specifying probabilities for percentiles.
 #' @param method Character specifying the method: `iqr`, `percentiles`, `hampel`, `mad`, or `sd`.
-#' @param weight Numeric value specifying the multiplier for the detection threshold.
+#' @param weight Double specifying the multiplier for the detection threshold.
 #' @param replace Logical specifying whether to replace outliers with `NA`.
 #'
 #' @return Numeric vector with outliers replaced by `NA` or their indices.

@@ -7,7 +7,7 @@
 print_numeric(x, digits = 1, width = 15)
 }
 \arguments{
-\item{x}{Numeric vector, matrix, or data frame.}
+\item{x}{Data frame, matrix, or vector containing numerical variables.}
 
 \item{digits}{Integer specifying the number of decimal places for the test
 statistic.}

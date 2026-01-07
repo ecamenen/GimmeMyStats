@@ -18,7 +18,7 @@ to_title <- function(x) {
 #'
 #' @inheritParams print_test
 #' @inheritParams count_cat
-#' @param x Numeric vector, matrix, or data frame.
+#' @param x Data frame, matrix, or vector containing numerical variables.
 #'
 #' @return Data frame with descriptive statistics for each variable.
 #'
@@ -34,8 +34,8 @@ print_numeric <- function(x, digits = 1, width = 15) {
         set_colnames(c("Variables", "value")) %>%
         group_by(Variables) %>%
         summarise(
-            "Mean+/-SD" = print_dispersion(value, digits, "mean", width),
-            "Median+/-IQR" = print_dispersion(value, digits, "median", width),
+            "Mean+/-SD" = print_dispersion(value, digits, width, "mean"),
+            "Median+/-IQR" = print_dispersion(value, digits, width, "median"),
             "Q1-Q3" = paste(
                 quantile(value, .25, na.rm = TRUE) %>% round(digits),
                 quantile(value, .75, na.rm = TRUE) %>% round(digits),
@@ -70,7 +70,7 @@ print_numeric <- function(x, digits = 1, width = 15) {
 #' Formats the output of `print_numeric` into a concise summary.
 #'
 #' @inheritParams print_numeric
-#' @param ... See parameters in `print_numeric`.
+#' @param ... Additional arguments passed to `print_numeric`.
 #'
 #' @return Data frame with formatted descriptive statistics.
 #'
@@ -89,7 +89,7 @@ summary_numeric <- function(x, ...) {
 #'
 #' Formats a data frame or vector containing categorical variables and calculates the frequency of each category.
 #'
-#' @param x Vector or data frame of categorical variables.
+#' @param x Data frame or vector containing categorical variables.
 #' @param width Integer specifying the maximum width for wrapping text.
 #' @param collapse Logical specifying whether to merge categories with identical proportions.
 #' @param sort Logical or character vector. If `TRUE`, orders categories by frequency. If `FALSE`, orders by names. If a character vector, renames and orders categories accordingly.
@@ -211,7 +211,7 @@ print_binomial <- function(x, digits = 1, width = 15) {
 #' Summarizes descriptive statistics for binomial variables
 #'
 #' @inheritParams print_binomial
-#' @param ... See parameters in `print_binomial`.
+#' @param ... Additional arguments passed to `print_binomial`.
 #'
 #' @return Data frame with formatted descriptive statistics.
 #'
@@ -235,20 +235,19 @@ summary_binomial <- function(x, ...) {
 #' @inheritParams print_test
 #' @inheritParams count_cat
 #' @param x Data frame, matrix, or vector containing multinomial variables.
-#' @param var Character vector specifying the names of the categorical variables.
-#' @param label Character vector specifying labels for variables.
+#' @param label Character vector specifying the names of the categorical variables.
 #' @param n Integer specifying the total number of observations.
-#' @param ... See parameters in `count_cat`.
+#' @param ... Additional arguments passed to `count_cat`.
 #'
 #' @return Data frame with frequency counts and percentages for each category.
 #'
 #' @examples
 #' x <- data.frame(A = sample(c("X", "Y", "Z"), 100, replace = TRUE))
-#' print_multinomial(x, var = "A")
+#' print_multinomial(x, label = "A")
 #' x2 <- rbind(x, data.frame(A = rep("Level A", length(x[x == "Level X", ]))))
 #' print_multinomial(
 #'     x,
-#'     var = "Variable A",
+#'     label = "Variable A",
 #'     sort = FALSE,
 #'     n = 90,
 #'     digits = 2,
@@ -256,17 +255,23 @@ summary_binomial <- function(x, ...) {
 #' )
 #'
 #' @export
-print_multinomial <- function(x, var = NULL, digits = 1, label = NULL, n = nrow(x), width = 15, ...) {
-    if (is.null(var)) {
-        var <- ifelse(!is.null(colnames(x)), colnames(x), "Variable")
+print_multinomial <- function(
+        x,
+        label = NULL,
+        digits = 1,
+        width = 15,
+        n = nrow(x),
+        ...) {
+    if (is.null(label)) {
+        label <- ifelse(!is.null(colnames(x)), colnames(x), "Variable")
     } else {
-        var <- str_wrap(var, width)
+        label <- str_wrap(label, width)
     }
     count_cat(x, width = width, ...) %>%
         set_colnames(c("Levels", "N")) %>%
         mutate(
             `%` = round((N / n) * 100, digits),
-            Variables = var,
+            Variables = label,
             Statistics = paste0(N, " (", `%`, "%)") %>% str_wrap(width)
         ) %>%
         select(Variables, Levels, Statistics)

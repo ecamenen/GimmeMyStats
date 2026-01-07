@@ -2,8 +2,8 @@
 #'
 #' Calculates correlations between multiple variables.
 #'
-#' @param x Data frame of numerical variables.
-#' @param y Data frame of numerical variables. If `NULL`, correlations are calculated within `x`.
+#' @param x Data frame containing numerical variables.
+#' @param y Data frame containing numerical variables. If `NULL`, correlations are calculated within `x`.
 #' @param estimate Logical specifying whether to return correlation coefficients.
 #' @param p.value Logical specifying whether to return adjusted p-values.
 #' @param method Character specifying the correlation method: `pearson`, `kendall`, or `spearman`.

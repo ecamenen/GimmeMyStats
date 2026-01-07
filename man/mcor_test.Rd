@@ -14,9 +14,9 @@ mcor_test(
 )
 }
 \arguments{
-\item{x}{Data frame of numerical variables.}
+\item{x}{Data frame containing numerical variables.}
 
-\item{y}{Data frame of numerical variables. If \code{NULL}, correlations are calculated within \code{x}.}
+\item{y}{Data frame containing numerical variables. If \code{NULL}, correlations are calculated within \code{x}.}
 
 \item{estimate}{Logical specifying whether to return correlation coefficients.}
 

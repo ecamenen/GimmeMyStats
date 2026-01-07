@@ -4,7 +4,7 @@
 #'
 #' @inheritParams print_test
 #' @inheritParams print_multinomial
-#' @param x Numeric vector.
+#' @param x Vector containing numerical values.
 #' @param method Character specifying the method: `median` for median and IQR, or `mean` for mean and SD.
 #'
 #' @examples
@@ -12,7 +12,7 @@
 #' print_dispersion(runif(10), method = "mean", digits = 2, width = 5)
 #'
 #' @export
-print_dispersion <- function(x, digits = 1, method = "median", width = 10) {
+print_dispersion <- function(x, digits = 1, width = 15, method = "median") {
     x <- unlist(x)
     method <- match.arg(method, c("median", "mean"))
 

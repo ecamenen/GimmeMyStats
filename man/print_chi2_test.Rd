@@ -2,7 +2,7 @@
 % Please edit documentation in R/print_test.R
 \name{print_chi2_test}
 \alias{print_chi2_test}
-\title{Prints the results of a Chi2 or Fisher's exact test}
+\title{Prints the results of a Chi2}
 \usage{
 print_chi2_test(x, digits = 3)
 }
@@ -13,7 +13,7 @@ print_chi2_test(x, digits = 3)
 statistic.}
 }
 \description{
-Formats and prints the results of a chi-squared or Fisher's exact test.
+Formats the results of a Chi-squared or Fisher's exact test.
 }
 \examples{
 x <- c(A = 100, B = 78, C = 25)

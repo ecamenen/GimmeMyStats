@@ -12,7 +12,7 @@ test_that("mean_test test works", {
     expect_type(res, "character")
     expect_equal(res, "Wilcoxon, W = 576, p = 0.06")
 
-    data("sleepstudy", package="lme4")
+    data("sleepstudy", package = "lme4")
     res <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy) %>% print_test()
     expect_type(res, "character")
     expect_equal(res, "Lmer, T(1, 17) = 46, p < 0.001***")

@@ -7,9 +7,9 @@
 summary_numeric(x, ...)
 }
 \arguments{
-\item{x}{Numeric vector, matrix, or data frame.}
+\item{x}{Data frame, matrix, or vector containing numerical variables.}
 
-\item{...}{See parameters in \code{print_numeric}.}
+\item{...}{Additional arguments passed to \code{print_numeric}.}
 }
 \value{
 Data frame with formatted descriptive statistics.

@@ -13,13 +13,13 @@ identify_outliers(
 )
 }
 \arguments{
-\item{x}{Numeric vector.}
+\item{x}{Vector containing numerical values.}
 
 \item{probabilities}{Numeric vector specifying probabilities for percentiles.}
 
 \item{method}{Character specifying the method: \code{iqr}, \code{percentiles}, \code{hampel}, \code{mad}, or \code{sd}.}
 
-\item{weight}{Numeric value specifying the multiplier for the detection threshold.}
+\item{weight}{Double specifying the multiplier for the detection threshold.}
 
 \item{replace}{Logical specifying whether to replace outliers with \code{NA}.}
 }

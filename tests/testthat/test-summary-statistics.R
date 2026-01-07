@@ -123,7 +123,7 @@ test_that("print multinomial works", {
     test_print_multinomial(res)
     res <- print_multinomial(
         x,
-        var = "Variable A",
+        label = "Variable A",
         sort = FALSE,
         n = 90,
         digits = 2,

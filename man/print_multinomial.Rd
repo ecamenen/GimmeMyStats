@@ -4,31 +4,21 @@
 \alias{print_multinomial}
 \title{Prints descriptive statistics for multinomial variables}
 \usage{
-print_multinomial(
-  x,
-  var = NULL,
-  digits = 1,
-  label = NULL,
-  n = nrow(x),
-  width = 15,
-  ...
-)
+print_multinomial(x, label = NULL, digits = 1, width = 15, n = nrow(x), ...)
 }
 \arguments{
 \item{x}{Data frame, matrix, or vector containing multinomial variables.}
 
-\item{var}{Character vector specifying the names of the categorical variables.}
+\item{label}{Character vector specifying the names of the categorical variables.}
 
 \item{digits}{Integer specifying the number of decimal places for the test
 statistic.}
 
-\item{label}{Character vector specifying labels for variables.}
+\item{width}{Integer specifying the maximum width for wrapping text.}
 
 \item{n}{Integer specifying the total number of observations.}
 
-\item{width}{Integer specifying the maximum width for wrapping text.}
-
-\item{...}{See parameters in \code{count_cat}.}
+\item{...}{Additional arguments passed to \code{count_cat}.}
 }
 \value{
 Data frame with frequency counts and percentages for each category.
@@ -38,11 +28,11 @@ Calculates and prints frequency counts and percentages for multinomial (multi-le
 }
 \examples{
 x <- data.frame(A = sample(c("X", "Y", "Z"), 100, replace = TRUE))
-print_multinomial(x, var = "A")
+print_multinomial(x, label = "A")
 x2 <- rbind(x, data.frame(A = rep("Level A", length(x[x == "Level X", ]))))
 print_multinomial(
     x,
-    var = "Variable A",
+    label = "Variable A",
     sort = FALSE,
     n = 90,
     digits = 2,
