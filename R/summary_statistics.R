@@ -17,7 +17,7 @@ to_title <- function(x) {
 #' Prints summary statistics (mean, median, quartiles, range, etc.) for numeric variables.
 #'
 #' @inheritParams print_test
-#' @inheritParams print_multinomial
+#' @inheritParams count_cat
 #' @param x Numeric vector, matrix, or data frame.
 #'
 #' @return Data frame with descriptive statistics for each variable.
@@ -25,6 +25,7 @@ to_title <- function(x) {
 #' @examples
 #' x <- data.frame(A = rnorm(100), B = rnorm(100))
 #' print_numeric(x)
+#' print_numeric(x, digits = 2, width = 5)
 #'
 #' @export
 print_numeric <- function(x, digits = 1, width = 15) {
@@ -38,12 +39,12 @@ print_numeric <- function(x, digits = 1, width = 15) {
             "Q1-Q3" = paste(
                 quantile(value, .25, na.rm = TRUE) %>% round(digits),
                 quantile(value, .75, na.rm = TRUE) %>% round(digits),
-                sep = "-"
+                sep = ";"
             ),
             Range = paste(
                 min(value, na.rm = TRUE) %>% round(digits),
                 max(value, na.rm = TRUE) %>% round(digits),
-                sep = "-"
+                sep = ";"
             ),
             Kurtosis = kurtosis(value, na.rm = TRUE) %>% round(digits),
             Skewness = skewness(value, na.rm = TRUE) %>% round(digits),
@@ -60,7 +61,8 @@ print_numeric <- function(x, digits = 1, width = 15) {
             },
             Zeros = length(which(value == 0)),
             NAs = length(which(is.na(value)))
-        )
+        ) %>%
+        mutate(Variables = str_wrap(Variables, width))
 }
 
 #' Summarizes descriptive statistics for numeric variables
@@ -68,16 +70,18 @@ print_numeric <- function(x, digits = 1, width = 15) {
 #' Formats the output of `print_numeric` into a concise summary.
 #'
 #' @inheritParams print_numeric
+#' @param ... See parameters in `print_numeric`.
 #'
 #' @return Data frame with formatted descriptive statistics.
 #'
 #' @examples
 #' x <- data.frame(A = rnorm(100), B = rnorm(100))
 #' summary_numeric(x)
+#' summary_numeric(x, digits = 2, width = 5)
 #'
 #' @export
-summary_numeric <- function(x, digits = 1) {
-    print_numeric(x, digits) %>%
+summary_numeric <- function(x, ...) {
+    print_numeric(x, ...) %>%
         select(Variables, `Median+/-IQR`)
 }
 
@@ -85,8 +89,8 @@ summary_numeric <- function(x, digits = 1) {
 #'
 #' Formats a data frame or vector containing categorical variables and calculates the frequency of each category.
 #'
-#' @inheritParams print_multinomial
 #' @param x Vector or data frame of categorical variables.
+#' @param width Integer specifying the maximum width for wrapping text.
 #' @param collapse Logical specifying whether to merge categories with identical proportions.
 #' @param sort Logical or character vector. If `TRUE`, orders categories by frequency. If `FALSE`, orders by names. If a character vector, renames and orders categories accordingly.
 #' @param format Logical specifying whether to format category names if the input is a vector.
@@ -95,7 +99,7 @@ summary_numeric <- function(x, digits = 1) {
 #'
 #' @examples
 #' # Vector of categorical variable
-#' k <- 10
+#' k <- 5
 #' n <- runif(k, 1, 10) %>% round()
 #' x <- paste("Level", seq(k)) %>%
 #'     mapply(function(x, y) rep(x, y), ., n) %>%
@@ -103,14 +107,17 @@ summary_numeric <- function(x, digits = 1) {
 #' count_cat(x)
 #'
 #' # Data frame of categorical variable
-#' df <- sapply(seq(10), function(x) runif(10) %>% round()) %>% as.data.frame()
-#' colnames(df) <- paste("Level", seq(10))
+#' df <- sapply(seq(k), function(x) runif(10) %>% round()) %>% as.data.frame()
+#' colnames(df) <- paste("Level", seq(k))
 #' count_cat(df)
-#'
+#' count_cat(x, sort = FALSE, width = 5)
+#' count_cat(x, sort = seq(k), format = FALSE)
+#' x2 <- c(x, rep("Level 6", n[1]))
+#' count_cat(x2, collapse = TRUE)
 #' @export
 count_cat <- function(
     x,
-    width = 20,
+    width = 15,
     collapse = FALSE,
     sort = TRUE,
     format = TRUE) {
@@ -135,7 +142,7 @@ count_cat <- function(
         x0 <- fct_infreq(x0) %>%
             fct_rev()
     } else if (!isFALSE(sort)) {
-        x0 <- ordered(x0, levels = str_wrap(sort, width))
+        x0 <- factor(x0, labels = str_wrap(sort, width))
     }
 
     df <- fct_relabel(x0, ~ str_remove_all(.x, "\\s*\\([^\\)]+\\)")) %>%
@@ -161,8 +168,8 @@ count_cat <- function(
                 f = paste(f, collapse = ", ") %>%
                     str_wrap(width)
             ) %>%
-            mutate(f = factor(f))
-        df$f <- reorder(df$f, df$n)
+            mutate(f = factor(f)) %>%
+            relocate(f)
     }
 
     return(df)
@@ -173,6 +180,7 @@ count_cat <- function(
 #' Calculates and prints frequency counts and percentages for binomial (two-level) categorical variables.
 #'
 #' @inheritParams print_test
+#' @inheritParams print_multinomial
 #' @param x Data frame, matrix, or vector containing binomial variables.
 #'
 #' @return Data frame with frequency counts and percentages for each category.
@@ -180,9 +188,10 @@ count_cat <- function(
 #' @examples
 #' x <- data.frame(A = sample(c("X", "Y"), 100, replace = TRUE))
 #' print_binomial(x)
+#' print_binomial(x, digits = 2, width = 5)
 #'
 #' @export
-print_binomial <- function(x, digits = 1) {
+print_binomial <- function(x, digits = 1, width = 15) {
     as.data.frame(x) %>%
         pivot_longer(everything()) %>%
         set_colnames(c("Variables", "value")) %>%
@@ -192,28 +201,31 @@ print_binomial <- function(x, digits = 1) {
                 set_colnames(c("Levels", "N")) %>%
                 mutate(
                     `%` = (N / length(value) * 100) %>% round(digits),
-                    stat = paste0(N, " (", `%`, "%)")
+                    Statistics = paste0(N, " (", `%`, "%)")
                 )
         ) %>%
-        select(Variables, Levels, stat)
+        mutate(across(c(Variables, Levels, Statistics), ~ str_wrap(.x, width = width))) %>%
+        select(Variables, Levels, Statistics)
 }
 
 #' Summarizes descriptive statistics for binomial variables
 #'
 #' @inheritParams print_binomial
+#' @param ... See parameters in `print_binomial`.
 #'
 #' @return Data frame with formatted descriptive statistics.
 #'
 #' @examples
 #' x <- data.frame(A = sample(c("X", "Y"), 100, replace = TRUE))
 #' summary_binomial(x)
+#' summary_binomial(x, digits = 2, width = 5)
 #'
 #' @export
-summary_binomial <- function(x, digits = 1) {
-    print_binomial(x, digits) %>%
+summary_binomial <- function(x, ...) {
+    print_binomial(x, ...) %>%
         group_by(Variables) %>%
         slice(1) %>%
-        summarise(Statistics = paste(Levels, ":", stat))
+        summarise(Statistics = paste(Levels, ":", Statistics))
 }
 
 #' Prints descriptive statistics for multinomial variables
@@ -221,29 +233,41 @@ summary_binomial <- function(x, digits = 1) {
 #' Calculates and prints frequency counts and percentages for multinomial (multi-level) categorical variables.
 #'
 #' @inheritParams print_test
+#' @inheritParams count_cat
 #' @param x Data frame, matrix, or vector containing multinomial variables.
 #' @param var Character vector specifying the names of the categorical variables.
-#' @param parse Logical specifying whether to parse variable names.
-#' @param width Integer specifying the maximum width for wrapping text.
-#' @param collapse Logical specifying whether to collapse categories into a single string.
 #' @param label Character vector specifying labels for variables.
 #' @param n Integer specifying the total number of observations.
+#' @param ... See parameters in `count_cat`.
 #'
 #' @return Data frame with frequency counts and percentages for each category.
 #'
 #' @examples
 #' x <- data.frame(A = sample(c("X", "Y", "Z"), 100, replace = TRUE))
 #' print_multinomial(x, var = "A")
+#' x2 <- rbind(x, data.frame(A = rep("Level A", length(x[x == "Level X", ]))))
+#' print_multinomial(
+#'     x,
+#'     var = "Variable A",
+#'     sort = FALSE,
+#'     n = 90,
+#'     digits = 2,
+#'     width = 5
+#' )
 #'
 #' @export
-print_multinomial <- function(x, var = NULL, digits = 1, parse = FALSE, width = 20, collapse = FALSE, label = NULL, n = nrow(x)) {
-    var <- ifelse(is.null(var) && !is.null(colnames(x)), colnames(x), "Variable")
-    count_cat(x, width = width) %>%
+print_multinomial <- function(x, var = NULL, digits = 1, label = NULL, n = nrow(x), width = 15, ...) {
+    if (is.null(var)) {
+        var <- ifelse(!is.null(colnames(x)), colnames(x), "Variable")
+    } else {
+        var <- str_wrap(var, width)
+    }
+    count_cat(x, width = width, ...) %>%
         set_colnames(c("Levels", "N")) %>%
         mutate(
             `%` = round((N / n) * 100, digits),
             Variables = var,
-            Statistics = paste0(N, " (", `%`, "%)")
+            Statistics = paste0(N, " (", `%`, "%)") %>% str_wrap(width)
         ) %>%
         select(Variables, Levels, Statistics)
 }

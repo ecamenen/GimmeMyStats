@@ -23,5 +23,6 @@ Prints summary statistics (mean, median, quartiles, range, etc.) for numeric var
 \examples{
 x <- data.frame(A = rnorm(100), B = rnorm(100))
 print_numeric(x)
+print_numeric(x, digits = 2, width = 5)
 
 }

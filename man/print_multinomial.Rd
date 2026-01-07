@@ -8,11 +8,10 @@ print_multinomial(
   x,
   var = NULL,
   digits = 1,
-  parse = FALSE,
-  width = 20,
-  collapse = FALSE,
   label = NULL,
-  n = nrow(x)
+  n = nrow(x),
+  width = 15,
+  ...
 )
 }
 \arguments{
@@ -23,15 +22,13 @@ print_multinomial(
 \item{digits}{Integer specifying the number of decimal places for the test
 statistic.}
 
-\item{parse}{Logical specifying whether to parse variable names.}
-
-\item{width}{Integer specifying the maximum width for wrapping text.}
-
-\item{collapse}{Logical specifying whether to collapse categories into a single string.}
-
 \item{label}{Character vector specifying labels for variables.}
 
 \item{n}{Integer specifying the total number of observations.}
+
+\item{width}{Integer specifying the maximum width for wrapping text.}
+
+\item{...}{See parameters in \code{count_cat}.}
 }
 \value{
 Data frame with frequency counts and percentages for each category.
@@ -42,5 +39,14 @@ Calculates and prints frequency counts and percentages for multinomial (multi-le
 \examples{
 x <- data.frame(A = sample(c("X", "Y", "Z"), 100, replace = TRUE))
 print_multinomial(x, var = "A")
+x2 <- rbind(x, data.frame(A = rep("Level A", length(x[x == "Level X", ]))))
+print_multinomial(
+    x,
+    var = "Variable A",
+    sort = FALSE,
+    n = 90,
+    digits = 2,
+    width = 5
+)
 
 }

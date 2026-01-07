@@ -4,13 +4,15 @@
 \alias{print_binomial}
 \title{Prints descriptive statistics for binomial variables}
 \usage{
-print_binomial(x, digits = 1)
+print_binomial(x, digits = 1, width = 15)
 }
 \arguments{
 \item{x}{Data frame, matrix, or vector containing binomial variables.}
 
 \item{digits}{Integer specifying the number of decimal places for the test
 statistic.}
+
+\item{width}{Integer specifying the maximum width for wrapping text.}
 }
 \value{
 Data frame with frequency counts and percentages for each category.
@@ -21,5 +23,6 @@ Calculates and prints frequency counts and percentages for binomial (two-level) 
 \examples{
 x <- data.frame(A = sample(c("X", "Y"), 100, replace = TRUE))
 print_binomial(x)
+print_binomial(x, digits = 2, width = 5)
 
 }

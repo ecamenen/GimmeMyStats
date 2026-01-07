@@ -4,7 +4,7 @@
 \alias{count_cat}
 \title{Frequency of categorical variables}
 \usage{
-count_cat(x, width = 20, collapse = FALSE, sort = TRUE, format = TRUE)
+count_cat(x, width = 15, collapse = FALSE, sort = TRUE, format = TRUE)
 }
 \arguments{
 \item{x}{Vector or data frame of categorical variables.}
@@ -25,7 +25,7 @@ Formats a data frame or vector containing categorical variables and calculates t
 }
 \examples{
 # Vector of categorical variable
-k <- 10
+k <- 5
 n <- runif(k, 1, 10) \%>\% round()
 x <- paste("Level", seq(k)) \%>\%
     mapply(function(x, y) rep(x, y), ., n) \%>\%
@@ -33,8 +33,11 @@ x <- paste("Level", seq(k)) \%>\%
 count_cat(x)
 
 # Data frame of categorical variable
-df <- sapply(seq(10), function(x) runif(10) \%>\% round()) \%>\% as.data.frame()
-colnames(df) <- paste("Level", seq(10))
+df <- sapply(seq(k), function(x) runif(10) \%>\% round()) \%>\% as.data.frame()
+colnames(df) <- paste("Level", seq(k))
 count_cat(df)
-
+count_cat(x, sort = FALSE, width = 5)
+count_cat(x, sort = seq(k), format = FALSE)
+x2 <- c(x, rep("Level 6", n[1]))
+count_cat(x2, collapse = TRUE)
 }

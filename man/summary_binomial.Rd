@@ -4,13 +4,12 @@
 \alias{summary_binomial}
 \title{Summarizes descriptive statistics for binomial variables}
 \usage{
-summary_binomial(x, digits = 1)
+summary_binomial(x, ...)
 }
 \arguments{
 \item{x}{Data frame, matrix, or vector containing binomial variables.}
 
-\item{digits}{Integer specifying the number of decimal places for the test
-statistic.}
+\item{...}{See parameters in \code{print_binomial}.}
 }
 \value{
 Data frame with formatted descriptive statistics.
@@ -21,5 +20,6 @@ Summarizes descriptive statistics for binomial variables
 \examples{
 x <- data.frame(A = sample(c("X", "Y"), 100, replace = TRUE))
 summary_binomial(x)
+summary_binomial(x, digits = 2, width = 5)
 
 }
