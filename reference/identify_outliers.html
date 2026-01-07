@@ -56,7 +56,7 @@
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>Numeric vector.</p></dd>
+<dd><p>Vector containing numerical values.</p></dd>
 
 
 <dt id="arg-probabilities">probabilities<a class="anchor" aria-label="anchor" href="#arg-probabilities"></a></dt>
@@ -68,11 +68,11 @@
 
 
 <dt id="arg-weight">weight<a class="anchor" aria-label="anchor" href="#arg-weight"></a></dt>
-<dd><p>Numeric value specifying the multiplier for the detection threshold.</p></dd>
+<dd><p>Double specifying the multiplier for the detection threshold.</p></dd>
 
 
 <dt id="arg-replace">replace<a class="anchor" aria-label="anchor" href="#arg-replace"></a></dt>
-<dd><p>Logical indicating whether to replace outliers with <code>NA</code>.</p></dd>
+<dd><p>Logical specifying whether to replace outliers with <code>NA</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -85,6 +85,12 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">identify_outliers</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"iqr"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in identify_outliers(x, method = "iqr"):</span> data should be a data frame</span>
+<span class="r-in"><span><span class="fu">identify_outliers</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"percentiles"</span>, probabilities <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.9</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in identify_outliers(x, method = "percentiles", probabilities = c(0.1,     0.9)):</span> data should be a data frame</span>
+<span class="r-in"><span><span class="fu">identify_outliers</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"sd"</span>, weight <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in identify_outliers(x, method = "sd", weight = 3):</span> data should be a data frame</span>
+<span class="r-in"><span><span class="fu">identify_outliers</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"mad"</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in identify_outliers(x, method = "mad", replace = TRUE):</span> data should be a data frame</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

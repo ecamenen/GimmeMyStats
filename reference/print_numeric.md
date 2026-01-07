@@ -13,7 +13,7 @@ print_numeric(x, digits = 1, width = 15)
 
 - x:
 
-  Numeric vector, matrix, or data frame.
+  Data frame, matrix, or vector containing numerical variables.
 
 - digits:
 
@@ -36,7 +36,14 @@ print_numeric(x)
 #> # A tibble: 2 × 10
 #>   Variables `Mean+/-SD` `Median+/-IQR` `Q1-Q3` Range Kurtosis Skewness Normality
 #>   <chr>     <chr>       <chr>          <chr>   <chr>    <dbl>    <dbl> <chr>    
-#> 1 A         -0.1+/-1    -0.1+/-1.3     -0.7-0… -2.8…      0.5     -0.1 ns       
-#> 2 B         -0.2+/-1    -0.2+/-1.4     -0.9-0… -2.5…     -0.1      0.2 ns       
+#> 1 A         0+/-1       -0.2+/-1.3     -0.7;0… -2.8…      0.3        0 ns       
+#> 2 B         -0.1+/-0.9  -0.1+/-1.3     -0.8;0… -2.5…      0          0 ns       
+#> # ℹ 2 more variables: Zeros <int>, NAs <int>
+print_numeric(x, digits = 2, width = 5)
+#> # A tibble: 2 × 10
+#>   Variables `Mean+/-SD` `Median+/-IQR` `Q1-Q3` Range Kurtosis Skewness Normality
+#>   <chr>     <chr>       <chr>          <chr>   <chr>    <dbl>    <dbl> <chr>    
+#> 1 A         "-0.05\n+/… "-0.16\n+/-1.… -0.69;… -2.8…     0.33    -0.02 ns       
+#> 2 B         "-0.12\n+/… "-0.12\n+/-1.… -0.78;… -2.5…    -0.02    -0.01 ns       
 #> # ℹ 2 more variables: Zeros <int>, NAs <int>
 ```

@@ -5,7 +5,7 @@ Summarizes descriptive statistics for binomial variables
 ## Usage
 
 ``` r
-summary_binomial(x, digits = 1)
+summary_binomial(x, ...)
 ```
 
 ## Arguments
@@ -14,10 +14,9 @@ summary_binomial(x, digits = 1)
 
   Data frame, matrix, or vector containing binomial variables.
 
-- digits:
+- ...:
 
-  Integer specifying the number of decimal places for the test
-  statistic.
+  Additional arguments passed to `print_binomial`.
 
 ## Value
 
@@ -31,5 +30,10 @@ summary_binomial(x)
 #> # A tibble: 1 × 2
 #>   Variables Statistics  
 #>   <chr>     <chr>       
-#> 1 A         X : 44 (44%)
+#> 1 A         X : 53 (53%)
+summary_binomial(x, digits = 2, width = 5)
+#> # A tibble: 1 × 2
+#>   Variables Statistics     
+#>   <chr>     <chr>          
+#> 1 A         "X : 53\n(53%)"
 ```

@@ -1,6 +1,6 @@
-# Prints the results of a Chi2 or Fisher's exact test
+# Prints the results of a Chi2
 
-Formats and prints the results of a chi-squared or Fisher's exact test.
+Formats the results of a Chi-squared or Fisher's exact test.
 
 ## Usage
 

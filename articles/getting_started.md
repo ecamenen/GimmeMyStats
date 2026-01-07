@@ -87,9 +87,9 @@ print_numeric(select(clinical_data, c("Age", "Weight", "CRP")))
 #> # A tibble: 3 × 10
 #>   Variables `Mean+/-SD` `Median+/-IQR` `Q1-Q3` Range Kurtosis Skewness Normality
 #>   <chr>     <chr>       <chr>          <chr>   <chr>    <dbl>    <dbl> <chr>    
-#> 1 Age       59.9+/-9.9  58.8+/-12.8    53.5-6… 39.5…      0        0.5 *        
-#> 2 CRP       4.9+/-2.2   5+/-3.1        3.3-6.5 -0.2…     -0.6      0   ns       
-#> 3 Weight    73.6+/-14.6 73.7+/-20.7    63.3-84 32.9…     -0.2     -0.1 ns       
+#> 1 Age       59.9+/-9.9  58.8+/-12.8    53.5;6… 39.5…      0        0.5 *        
+#> 2 CRP       4.9+/-2.2   5+/-3.1        3.3;6.5 -0.2…     -0.6      0   ns       
+#> 3 Weight    73.6+/-14.6 73.7+/-20.7    63.3;84 32.9…     -0.2     -0.1 ns       
 #> # ℹ 2 more variables: Zeros <int>, NAs <int>
 summary_numeric(clinical_data$Age)
 #> # A tibble: 1 × 2
@@ -317,16 +317,26 @@ the chi-square test is significant.*
     #> [13] tidyverse_2.0.0   
     #> 
     #> loaded via a namespace (and not attached):
-    #>  [1] utf8_1.2.6         sass_0.4.10        generics_0.1.4     class_7.3-23      
-    #>  [5] stringi_1.8.7      hms_1.1.4          digest_0.6.39      evaluate_1.0.5    
-    #>  [9] grid_4.5.2         timechange_0.3.0   RColorBrewer_1.1-3 fastmap_1.2.0     
-    #> [13] jsonlite_2.0.0     e1071_1.7-17       backports_1.5.0    Formula_1.2-5     
-    #> [17] scales_1.4.0       textshaping_1.0.4  jquerylib_0.1.4    abind_1.4-8       
-    #> [21] cli_3.6.5          rlang_1.1.6        withr_3.0.2        cachem_1.1.0      
-    #> [25] yaml_2.3.12        tools_4.5.2        tzdb_0.5.0         broom_1.0.11      
-    #> [29] vctrs_0.6.5        R6_2.6.1           proxy_0.4-29       lifecycle_1.0.4   
-    #> [33] fs_1.6.6           car_3.1-3          ragg_1.5.0         pkgconfig_2.0.3   
-    #> [37] desc_1.4.3         pkgdown_2.2.0      pillar_1.11.1      bslib_0.9.0       
-    #> [41] gtable_0.3.6       glue_1.8.0         systemfonts_1.3.1  xfun_0.55         
-    #> [45] tidyselect_1.2.1   knitr_1.51         farver_2.1.2       htmltools_0.5.9   
-    #> [49] rmarkdown_2.30     carData_3.0-5      compiler_4.5.2     S7_0.2.1
+    #>  [1] gtable_0.3.6        xfun_0.55           bslib_0.9.0        
+    #>  [4] lattice_0.22-7      numDeriv_2016.8-1.1 tzdb_0.5.0         
+    #>  [7] vctrs_0.6.5         tools_4.5.2         Rdpack_2.6.4       
+    #> [10] generics_0.1.4      proxy_0.4-29        pkgconfig_2.0.3    
+    #> [13] Matrix_1.7-4        RColorBrewer_1.1-3  S7_0.2.1           
+    #> [16] desc_1.4.3          lifecycle_1.0.4     compiler_4.5.2     
+    #> [19] farver_2.1.2        textshaping_1.0.4   lmerTest_3.1-3     
+    #> [22] carData_3.0-5       htmltools_0.5.9     class_7.3-23       
+    #> [25] sass_0.4.10         yaml_2.3.12         Formula_1.2-5      
+    #> [28] nloptr_2.2.1        pillar_1.11.1       pkgdown_2.2.0      
+    #> [31] car_3.1-3           jquerylib_0.1.4     MASS_7.3-65        
+    #> [34] cachem_1.1.0        reformulas_0.4.3    boot_1.3-32        
+    #> [37] abind_1.4-8         nlme_3.1-168        tidyselect_1.2.1   
+    #> [40] digest_0.6.39       stringi_1.8.7       splines_4.5.2      
+    #> [43] fastmap_1.2.0       grid_4.5.2          cli_3.6.5          
+    #> [46] utf8_1.2.6          broom_1.0.11        e1071_1.7-17       
+    #> [49] withr_3.0.2         scales_1.4.0        backports_1.5.0    
+    #> [52] timechange_0.3.0    rmarkdown_2.30      lme4_1.1-38        
+    #> [55] ragg_1.5.0          hms_1.1.4           evaluate_1.0.5     
+    #> [58] knitr_1.51          rbibutils_2.4       rlang_1.1.6        
+    #> [61] Rcpp_1.1.0          glue_1.8.0          minqa_1.2.8        
+    #> [64] jsonlite_2.0.0      R6_2.6.1            systemfonts_1.3.1  
+    #> [67] fs_1.6.6

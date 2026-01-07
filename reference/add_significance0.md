@@ -32,20 +32,12 @@ a data frame
 
 ``` r
 library(magrittr)
-library(rstatix)
-#> 
-#> Attaching package: ‘rstatix’
-#> The following object is masked from ‘package:GimmeMyStats’:
-#> 
-#>     identify_outliers
-#> The following object is masked from ‘package:stats’:
-#> 
-#>     filter
+library(rstatix, warn.conflicts = FALSE)
 data("ToothGrowth")
 ToothGrowth %>%
-  t_test(len ~ dose) %>%
-  adjust_pvalue() %>%
-  add_significance0("p.adj")
+    t_test(len ~ dose) %>%
+    adjust_pvalue() %>%
+    add_significance0("p.adj")
 #> # A tibble: 3 × 10
 #>   .y.   group1 group2    n1    n2 statistic    df        p    p.adj p.adj.signif
 #>   <chr> <chr>  <chr>  <int> <int>     <dbl> <dbl>    <dbl>    <dbl> <chr>       

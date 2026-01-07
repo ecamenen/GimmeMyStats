@@ -26,7 +26,7 @@ post_hoc_chi2(
 
 - method:
 
-  Character specifying the type of test: `chisq` for chi-squared or
+  Character specifying the statistical test: `chisq` for chi-squared or
   `fisher` for Fisher's exact test.
 
 - method_adjust:
@@ -40,7 +40,7 @@ post_hoc_chi2(
 
 - count:
 
-  Logical indicating if `x` is a contingency table.
+  Logical specifying if `x` is a contingency table.
 
 - ...:
 
@@ -71,7 +71,7 @@ post_hoc_chi2(x)
 #> 2   125     45    < 0.001     1 ***      A      C      < 0.001 ***       
 #> 3   103     27.3  < 0.001     1 ***      B      C      < 0.001 ***       
 
-x <- data.frame(G1 = c(Yes = 100, No = 78), G2 =  c(Yes = 75, No = 23))
+x <- data.frame(G1 = c(Yes = 100, No = 78), G2 = c(Yes = 75, No = 23))
 post_hoc_chi2(x, count = TRUE, method = "chisq")
 #> # A tibble: 1 × 9
 #>       n statistic    df     p p.signif group1 group2   FDR fdr.signif

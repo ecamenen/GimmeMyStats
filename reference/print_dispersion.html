@@ -42,7 +42,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">print_dispersion</span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">1</span>, method <span class="op">=</span> <span class="st">"median"</span>, width <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">print_dispersion</span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">1</span>, width <span class="op">=</span> <span class="fl">15</span>, method <span class="op">=</span> <span class="st">"median"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -50,7 +50,7 @@
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>Numeric vector.</p></dd>
+<dd><p>Vector containing numerical values.</p></dd>
 
 
 <dt id="arg-digits">digits<a class="anchor" aria-label="anchor" href="#arg-digits"></a></dt>
@@ -58,21 +58,21 @@
 statistic.</p></dd>
 
 
-<dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
-<dd><p>Character specifying the method: <code>median</code> for median and IQR, or <code>mean</code> for mean and SD.</p></dd>
-
-
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
 <dd><p>Integer specifying the maximum width for wrapping text.</p></dd>
+
+
+<dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
+<dd><p>Character specifying the method: <code>median</code> for median and IQR, or <code>mean</code> for mean and SD.</p></dd>
 
 </dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">print_dispersion</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0.4+/-0.4"</span>
-<span class="r-in"><span><span class="fu">print_dispersion</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"mean"</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0.56\n+/-0.29"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0.5+/-0.5"</span>
+<span class="r-in"><span><span class="fu">print_dispersion</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"mean"</span>, digits <span class="op">=</span> <span class="fl">2</span>, width <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0.33\n+/-0.32"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

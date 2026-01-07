@@ -6,16 +6,7 @@ Calculates and prints frequency counts and percentages for multinomial
 ## Usage
 
 ``` r
-print_multinomial(
-  x,
-  var = NULL,
-  digits = 1,
-  parse = FALSE,
-  width = 20,
-  collapse = FALSE,
-  label = NULL,
-  n = nrow(x)
-)
+print_multinomial(x, label = NULL, digits = 1, width = 15, n = nrow(x), ...)
 ```
 
 ## Arguments
@@ -24,7 +15,7 @@ print_multinomial(
 
   Data frame, matrix, or vector containing multinomial variables.
 
-- var:
+- label:
 
   Character vector specifying the names of the categorical variables.
 
@@ -33,26 +24,17 @@ print_multinomial(
   Integer specifying the number of decimal places for the test
   statistic.
 
-- parse:
-
-  Logical indicating whether to parse variable names.
-
 - width:
 
   Integer specifying the maximum width for wrapping text.
 
-- collapse:
-
-  Logical indicating whether to collapse categories into a single
-  string.
-
-- label:
-
-  Character vector specifying labels for variables.
-
 - n:
 
   Integer specifying the total number of observations.
+
+- ...:
+
+  Additional arguments passed to `count_category`.
 
 ## Value
 
@@ -62,11 +44,26 @@ Data frame with frequency counts and percentages for each category.
 
 ``` r
 x <- data.frame(A = sample(c("X", "Y", "Z"), 100, replace = TRUE))
-print_multinomial(x, var = "A")
+print_multinomial(x, label = "A")
 #> # A tibble: 3 × 3
 #>   Variables Levels Statistics
 #>   <chr>     <fct>  <chr>     
-#> 1 Variable  Z      29 (29%)  
-#> 2 Variable  X      33 (33%)  
-#> 3 Variable  Y      38 (38%)  
+#> 1 A         X      24 (24%)  
+#> 2 A         Z      34 (34%)  
+#> 3 A         Y      42 (42%)  
+x2 <- rbind(x, data.frame(A = rep("Level A", length(x[x == "Level X", ]))))
+print_multinomial(
+    x,
+    label = "Variable A",
+    sort = FALSE,
+    n = 90,
+    digits = 2,
+    width = 5
+)
+#> # A tibble: 3 × 3
+#>   Variables     Levels Statistics    
+#>   <chr>         <fct>  <chr>         
+#> 1 "Variable\nA" X      "24\n(26.67%)"
+#> 2 "Variable\nA" Y      "42\n(46.67%)"
+#> 3 "Variable\nA" Z      "34\n(37.78%)"
 ```

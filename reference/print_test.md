@@ -1,7 +1,7 @@
-# Formats a hypothesis test
+# Prints a hypothesis test
 
-Formats and prints the results of a hypothesis test (ANOVA,
-Kruskal-Wallis, or Wilcoxon).
+Formats the results of a hypothesis test (ANOVA, Kruskal-Wallis, or
+Wilcoxon).
 
 ## Usage
 
@@ -41,4 +41,25 @@ print_test(res)
 res <- wilcox_test(ToothGrowth, len ~ supp)
 print_test(res)
 #> [1] "Wilcoxon, W = 576, p = 0.06"
+
+library(lmerTest)
+#> Loading required package: lme4
+#> Loading required package: Matrix
+#> 
+#> Attaching package: ‘Matrix’
+#> The following objects are masked from ‘package:tidyr’:
+#> 
+#>     expand, pack, unpack
+#> 
+#> Attaching package: ‘lmerTest’
+#> The following object is masked from ‘package:lme4’:
+#> 
+#>     lmer
+#> The following object is masked from ‘package:stats’:
+#> 
+#>     step
+data("sleepstudy", package = "lme4")
+res <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+print_test(res)
+#> [1] "Lmer, T(1, 17) = 46, p < 0.001***"
 ```
