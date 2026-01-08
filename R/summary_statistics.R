@@ -1,17 +1,3 @@
-to_title <- function(x) {
-    lapply(
-        x,
-        function(i) {
-            if (!is.na(i) && !is.null(i)) {
-                paste0(toupper(substr(i, 1, 1)), substr(i, 2, nchar(i)))
-            } else {
-                i
-            }
-        }
-    ) %>% unlist()
-}
-
-
 #' Prints descriptive statistics for numeric variables
 #'
 #' Prints summary statistics (mean, median, quartiles, range, etc.) for numeric variables.

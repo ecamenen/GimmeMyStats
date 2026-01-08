@@ -1,5 +1,5 @@
 Package: GimmeMyStats
-Title: Statistics utilities
+Title: Statistics Utilities
 Version: 1.0.0
 Authors@R: 
     person("Etienne", "Camenen", , "etienne.camenen@gmail.com", role = c("aut", "cre"))
