@@ -16,6 +16,11 @@ statistic.}
 
 \item{method}{Character specifying the method: \code{median} for median and IQR, or \code{mean} for mean and SD.}
 }
+\value{
+A character string containing a measure of central tendency and
+dispersion. Depending on \code{method}, this is either the median and
+interquartile range or the mean and standard deviation.
+}
 \description{
 Calculates and prints the median and interquartile range (IQR) or the mean and standard deviation (SD).
 }

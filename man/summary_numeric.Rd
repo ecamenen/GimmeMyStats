@@ -12,7 +12,11 @@ summary_numeric(x, ...)
 \item{...}{Additional arguments passed to \code{print_numeric}.}
 }
 \value{
-Data frame with formatted descriptive statistics.
+A tibble with one row per numeric variable and the following columns:
+\describe{
+\item{Variables}{Character specifying the variable name.}
+\item{Median+/-IQR}{Character specifying the median and interquartile range.}
+}
 }
 \description{
 Formats the output of \code{print_numeric} into a concise summary.

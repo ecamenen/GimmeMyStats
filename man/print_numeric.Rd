@@ -15,7 +15,19 @@ statistic.}
 \item{width}{Integer specifying the maximum width for wrapping text.}
 }
 \value{
-Data frame with descriptive statistics for each variable.
+A tibble with one row per numeric variable and the following columns:
+\describe{
+\item{Variables}{Character specifying the variable name.}
+\item{Mean+/-SD}{Character specifying the mean and standard deviation.}
+\item{Median+/-IQR}{Character specifying the median and interquartile range.}
+\item{Q1-Q3}{Character specifying the first and third quartiles.}
+\item{Range}{Character specifying the minimum and maximum values.}
+\item{Kurtosis}{Numeric specifying the kurtosis coefficient.}
+\item{Skewness}{Numeric specifying the skewness coefficient.}
+\item{Normality}{Character specifying the Shapiro-Wilk normality test significance code.}
+\item{Zeros}{Integer specifying the number of zero values.}
+\item{NAs}{Integer specifying the number of missing values.}
+}
 }
 \description{
 Prints summary statistics (mean, median, quartiles, range, etc.) for numeric variables.

@@ -12,6 +12,15 @@ print_chi2_test(x, digits = 3)
 \item{digits}{Integer specifying the number of decimal places for the test
 statistic.}
 }
+\value{
+A character string containing the formatted test results with:
+\describe{
+\item{Test statistic}{For Chi-squared test.}
+\item{P-value}{Formatted p-value with significance stars.}
+\item{Sample size}{Total count for sample size.}
+}
+For Fisher's exact test, only the P-value and sample size are included.
+}
 \description{
 Formats the results of a Chi-squared or Fisher's exact test.
 }

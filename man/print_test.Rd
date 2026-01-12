@@ -14,7 +14,16 @@ print_test(x, digits = 0, digits_p = 2)
 statistic.}
 
 \item{digits_p}{Integer specifying the number of decimal places for the
-p-value.}
+p-value.
+
+#' @return A character string containing the formatted test results with:
+\describe{
+\item{Test name}{Name of the statistical test (ANOVA, Kruskal-Wallis, Wilcoxon,
+t-test, Friedman, or mixed-effects model).}
+\item{Test statistic}{Test statistic (F, K, W, T, or \eqn{\chi^2})
+with degrees of freedom when applicable.}
+\item{P-value}{P-value with significance stars.}
+}}
 }
 \description{
 Formats the results of a hypothesis test (ANOVA, Kruskal-Wallis, or Wilcoxon).

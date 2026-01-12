@@ -24,7 +24,13 @@ identify_outliers(
 \item{replace}{Logical specifying whether to replace outliers with \code{NA}.}
 }
 \value{
-Numeric vector with outliers replaced by \code{NA} or their indices.
+A numeric vector whose content depends on the value of \code{replace}:
+\describe{
+\item{replace = FALSE}{A numeric vector containing only the detected outlier
+values. The vector is named with the original indices or names of \code{x}.}
+\item{replace = TRUE}{A numeric vector of the same length as \code{x}, where
+detected outliers are replaced by \code{NA}.}
+}
 }
 \description{
 Detects outliers using methods like IQR, percentiles, Hampel, MAD, or SD.

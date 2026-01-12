@@ -6,7 +6,20 @@
 #' @inheritParams count_category
 #' @param x Data frame, matrix, or vector containing numerical variables.
 #'
-#' @return Data frame with descriptive statistics for each variable.
+#' @return
+#' A tibble with one row per numeric variable and the following columns:
+#' \describe{
+#'   \item{Variables}{Character specifying the variable name.}
+#'   \item{Mean+/-SD}{Character specifying the mean and standard deviation.}
+#'   \item{Median+/-IQR}{Character specifying the median and interquartile range.}
+#'   \item{Q1-Q3}{Character specifying the first and third quartiles.}
+#'   \item{Range}{Character specifying the minimum and maximum values.}
+#'   \item{Kurtosis}{Numeric specifying the kurtosis coefficient.}
+#'   \item{Skewness}{Numeric specifying the skewness coefficient.}
+#'   \item{Normality}{Character specifying the Shapiro-Wilk normality test significance code.}
+#'   \item{Zeros}{Integer specifying the number of zero values.}
+#'   \item{NAs}{Integer specifying the number of missing values.}
+#' }
 #'
 #' @examples
 #' x <- data.frame(A = rnorm(100), B = rnorm(100))
@@ -58,7 +71,12 @@ print_numeric <- function(x, digits = 1, width = 15) {
 #' @inheritParams print_numeric
 #' @param ... Additional arguments passed to `print_numeric`.
 #'
-#' @return Data frame with formatted descriptive statistics.
+#' @return
+#' A tibble with one row per numeric variable and the following columns:
+#' \describe{
+#'   \item{Variables}{Character specifying the variable name.}
+#'   \item{Median+/-IQR}{Character specifying the median and interquartile range.}
+#' }
 #'
 #' @examples
 #' x <- data.frame(A = rnorm(100), B = rnorm(100))
@@ -81,7 +99,14 @@ summary_numeric <- function(x, ...) {
 #' @param sort Logical or character vector. If `TRUE`, orders categories by frequency. If `FALSE`, orders by names. If a character vector, renames and orders categories accordingly.
 #' @param format Logical specifying whether to format category names if the input is a vector.
 #'
-#' @return Data frame with two columns: `f` (category names) and `n` (frequency counts).
+#' @return
+#' A tibble with one row per category and the following columns:
+#' \describe{
+#'   \item{f}{Factor specifying the category labels, possibly wrapped to the specified width. When
+#'   \code{collapse = TRUE}, multiple categories with identical frequencies are
+#'   merged into a single label separated by commas.}
+#'   \item{n}{Integer specifying the frequency count for each category.}
+#' }
 #'
 #' @examples
 #' # Vector of categorical variable
@@ -169,8 +194,6 @@ count_category <- function(
 #' @inheritParams print_multinomial
 #' @param x Data frame, matrix, or vector containing binomial variables.
 #'
-#' @return Data frame with frequency counts and percentages for each category.
-#'
 #' @examples
 #' x <- data.frame(A = sample(c("X", "Y"), 100, replace = TRUE))
 #' print_binomial(x)
@@ -199,7 +222,11 @@ print_binomial <- function(x, digits = 1, width = 15) {
 #' @inheritParams print_binomial
 #' @param ... Additional arguments passed to `print_binomial`.
 #'
-#' @return Data frame with formatted descriptive statistics.
+#' @return A tibble with descriptive statistics containing the following columns:
+#' \describe{
+#'   \item{Variables}{Character vector specifying the name of each variable.}
+#'   \item{Statistics}{Character vector combining the reference level of a variable with its frequency count and its percentage.}
+#' }
 #'
 #' @examples
 #' x <- data.frame(A = sample(c("X", "Y"), 100, replace = TRUE))
@@ -225,7 +252,13 @@ summary_binomial <- function(x, ...) {
 #' @param n Integer specifying the total number of observations.
 #' @param ... Additional arguments passed to `count_category`.
 #'
-#' @return Data frame with frequency counts and percentages for each category.
+#'
+#' @return A tibble with one row per level for each categorical level containing the following columns:
+#' \describe{
+#'   \item{Variables}{Character vector specifying the name of each variable.}
+#'   \item{Levels}{Character vector specifying the category level for each variable.}
+#'   \item{Statistics}{Character vector combining the frequency count and the percentage for each level.}
+#' }
 #'
 #' @examples
 #' x <- data.frame(A = sample(c("X", "Y", "Z"), 100, replace = TRUE))

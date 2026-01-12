@@ -7,6 +7,11 @@
 #' @param x Vector containing numerical values.
 #' @param method Character specifying the method: `median` for median and IQR, or `mean` for mean and SD.
 #'
+#' @return
+#' A character string containing a measure of central tendency and
+#' dispersion. Depending on \code{method}, this is either the median and
+#' interquartile range or the mean and standard deviation.
+#'
 #' @examples
 #' print_dispersion(runif(10))
 #' print_dispersion(runif(10), method = "mean", digits = 2, width = 5)

@@ -14,9 +14,6 @@ statistic.}
 
 \item{width}{Integer specifying the maximum width for wrapping text.}
 }
-\value{
-Data frame with frequency counts and percentages for each category.
-}
 \description{
 Calculates and prints frequency counts and percentages for binomial (two-level) categorical variables.
 }

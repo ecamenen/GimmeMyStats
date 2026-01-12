@@ -18,7 +18,13 @@ count_category(x, width = 15, collapse = FALSE, sort = TRUE, format = TRUE)
 \item{format}{Logical specifying whether to format category names if the input is a vector.}
 }
 \value{
-Data frame with two columns: \code{f} (category names) and \code{n} (frequency counts).
+A tibble with one row per category and the following columns:
+\describe{
+\item{f}{Factor specifying the category labels, possibly wrapped to the specified width. When
+\code{collapse = TRUE}, multiple categories with identical frequencies are
+merged into a single label separated by commas.}
+\item{n}{Integer specifying the frequency count for each category.}
+}
 }
 \description{
 Formats a data frame or vector containing categorical variables and calculates the frequency of each category.

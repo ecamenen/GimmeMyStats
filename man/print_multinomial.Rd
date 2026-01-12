@@ -21,7 +21,12 @@ statistic.}
 \item{...}{Additional arguments passed to \code{count_category}.}
 }
 \value{
-Data frame with frequency counts and percentages for each category.
+A tibble with one row per level for each categorical level containing the following columns:
+\describe{
+\item{Variables}{Character vector specifying the name of each variable.}
+\item{Levels}{Character vector specifying the category level for each variable.}
+\item{Statistics}{Character vector combining the frequency count and the percentage for each level.}
+}
 }
 \description{
 Calculates and prints frequency counts and percentages for multinomial (multi-level) categorical variables.

@@ -9,7 +9,22 @@
 #' @param method Character specifying the correlation method: `pearson`, `kendall`, or `spearman`.
 #' @param method_adjust Character specifying the p-value adjustment method.
 #'
-#' @return List containing two data frames corresponding to correlation coefficients and p-values.
+#' @return
+#' Depending on the values of \code{estimate} and \code{p.value}, one of the following:
+#' \describe{
+#'   \item{estimate = TRUE, p.value = FALSE}{A numeric matrix of correlation
+#'   coefficients, with columns corresponding to variables in \code{x} and rows
+#'   to variables in \code{y}.}
+#'   \item{estimate = FALSE, p.value = TRUE}{A numeric matrix of adjusted p-values,
+#'   with columns corresponding to variables in \code{x} and rows to variables in
+#'   \code{y}.}
+#'   \item{estimate = TRUE, p.value = TRUE}{A named list with two elements:
+#'     \describe{
+#'       \item{estimate}{Numeric matrix of correlation coefficients.}
+#'       \item{p.value}{Numeric matrix of adjusted p-values.}
+#'     }
+#'   }
+#' }
 #'
 #' @examples
 #' library(magrittr)

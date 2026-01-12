@@ -31,7 +31,21 @@ statistic.}
 \item{...}{Additional arguments passed to \code{chisq.test} or \code{fisher.test}.}
 }
 \value{
-Data frame with pairwise test results.
+A tibble with pairwise test results containing the following columns:
+\describe{
+\item{group1, group2}{Character vectors specifying the pair of groups being compared.}
+\item{n}{Numeric vector specifying the total count or sample size for the comparison.}
+\item{statistic}{Numeric vector specifying the test statistic (for chi-squared tests only).}
+\item{df}{Numeric vector specifying the degrees of freedom (for chi-squared tests only).}
+\item{p}{Raw p-value for the pairwise comparison, formatted as numeric or character
+("< 0.001" for very small p-values).}
+\item{p.signif}{Character vectors specifying the significance codes for raw p-values: 'ns' (not significant).}
+\item{FDR}{False Discovery Rate adjusted p-value using the specified method,
+formatted as numeric or character ("< 0.001" for very small values).}
+\item{fdr.signif}{Character vectors specifying the significance codes for FDR-adjusted p-values: 'ns' (not significant),
+'\emph{' (p < 0.05), '\strong{' (p < 0.01), '}}' (p < 0.001).}
+}
+For Fisher's exact tests, the \code{statistic} and \code{df} columns are not included..
 }
 \description{
 Identifies pairwise differences between categories following a chi-squared

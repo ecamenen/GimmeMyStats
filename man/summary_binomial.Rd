@@ -12,7 +12,11 @@ summary_binomial(x, ...)
 \item{...}{Additional arguments passed to \code{print_binomial}.}
 }
 \value{
-Data frame with formatted descriptive statistics.
+A tibble with descriptive statistics containing the following columns:
+\describe{
+\item{Variables}{Character vector specifying the name of each variable.}
+\item{Statistics}{Character vector combining the reference level of a variable with its frequency count and its percentage.}
+}
 }
 \description{
 Summarizes descriptive statistics for binomial variables

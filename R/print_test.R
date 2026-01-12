@@ -48,6 +48,15 @@ pval_stars <- function(p) {
 #' @param digits_p Integer specifying the number of decimal places for the
 #' p-value.
 #'
+#' #' @return A character string containing the formatted test results with:
+#' \describe{
+#'   \item{Test name}{Name of the statistical test (ANOVA, Kruskal-Wallis, Wilcoxon,
+#'   t-test, Friedman, or mixed-effects model).}
+#'   \item{Test statistic}{Test statistic (F, K, W, T, or \eqn{\chi^2})
+#'   with degrees of freedom when applicable.}
+#'   \item{P-value}{P-value with significance stars.}
+#' }
+#'
 #' @examples
 #' library(rstatix)
 #' data("ToothGrowth")
@@ -121,6 +130,14 @@ print_test <- function(x, digits = 0, digits_p = 2) {
 #' @inheritParams print_test
 #' @param x Test object from `rstatix` among `chisq_test` or `fisher_test`.
 #'
+#' @return A character string containing the formatted test results with:
+#' \describe{
+#'   \item{Test statistic}{For Chi-squared test.}
+#'   \item{P-value}{Formatted p-value with significance stars.}
+#'   \item{Sample size}{Total count for sample size.}
+#' }
+#' For Fisher's exact test, only the P-value and sample size are included.
+#'
 #' @examples
 #' x <- c(A = 100, B = 78, C = 25)
 #' library(rstatix)
@@ -174,7 +191,21 @@ print_chi2_test <- function(x, digits = 3) {
 #' @details If x is numeric, it is treated as a contingency table and the names
 #' are considered as categories; otherwise, the levels of the factor or the
 #' characters are used.
-#' @return Data frame with pairwise test results.
+#' @return A tibble with pairwise test results containing the following columns:
+#' \describe{
+#'   \item{group1, group2}{Character vectors specifying the pair of groups being compared.}
+#'   \item{n}{Numeric vector specifying the total count or sample size for the comparison.}
+#'   \item{statistic}{Numeric vector specifying the test statistic (for chi-squared tests only).}
+#'   \item{df}{Numeric vector specifying the degrees of freedom (for chi-squared tests only).}
+#'   \item{p}{Raw p-value for the pairwise comparison, formatted as numeric or character
+#'            ("< 0.001" for very small p-values).}
+#'   \item{p.signif}{Character vectors specifying the significance codes for raw p-values: 'ns' (not significant).}
+#'   \item{FDR}{False Discovery Rate adjusted p-value using the specified method,
+#'              formatted as numeric or character ("< 0.001" for very small values).}
+#'   \item{fdr.signif}{Character vectors specifying the significance codes for FDR-adjusted p-values: 'ns' (not significant),
+#'                     '*' (p < 0.05), '**' (p < 0.01), '***' (p < 0.001).}
+#' }
+#' For Fisher's exact tests, the `statistic` and `df` columns are not included..
 #'
 #' @examples
 #' x <- c(rep("A", 100), rep("B", 78), rep("C", 25))
@@ -251,7 +282,8 @@ post_hoc_chi2 <- function(
             p = ifelse(p < 0.001, "< 0.001", round(p, digits)),
             FDR = ifelse(FDR < 0.001, "< 0.001", round(FDR, digits))
         ) %>%
-        select(-matches("method"))
+        select(-matches("method")) %>%
+        relocate(group1, group2)
 
     res[res == "****"] <- "***"
 

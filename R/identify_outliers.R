@@ -8,7 +8,14 @@
 #' @param weight Double specifying the multiplier for the detection threshold.
 #' @param replace Logical specifying whether to replace outliers with `NA`.
 #'
-#' @return Numeric vector with outliers replaced by `NA` or their indices.
+#' @return
+#' A numeric vector whose content depends on the value of \code{replace}:
+#' \describe{
+#'   \item{replace = FALSE}{A numeric vector containing only the detected outlier
+#'   values. The vector is named with the original indices or names of \code{x}.}
+#'   \item{replace = TRUE}{A numeric vector of the same length as \code{x}, where
+#'   detected outliers are replaced by \code{NA}.}
+#' }
 #'
 #' @examples
 #' x <- rnorm(100)
