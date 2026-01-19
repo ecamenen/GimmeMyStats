@@ -26,7 +26,21 @@ print_binomial(x, digits = 1, width = 15)
 
 ## Value
 
-Data frame with frequency counts and percentages for each category.
+A tibble with one row per level for each categorical level containing
+the following columns:
+
+- Variables:
+
+  Character vector specifying the name of each variable.
+
+- Levels:
+
+  Character vector specifying the category level for each variable.
+
+- Statistics:
+
+  Character vector combining the frequency count and the percentage for
+  each level.
 
 ## Examples
 

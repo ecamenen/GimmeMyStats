@@ -71,8 +71,16 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Data frame with two columns: <code>f</code> (category names) and <code>n</code> (frequency counts).</p>
-    </div>
+    <p>A tibble with one row per category and the following columns:</p><dl><dt>f</dt>
+<dd><p>Factor specifying the category labels, possibly wrapped to the specified width. When
+<code>collapse = TRUE</code>, multiple categories with identical frequencies are
+merged into a single label separated by commas.</p></dd>
+
+<dt>n</dt>
+<dd><p>Integer specifying the frequency count for each category.</p></dd>
+
+
+</dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

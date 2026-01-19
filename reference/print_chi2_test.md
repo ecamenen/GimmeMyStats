@@ -19,6 +19,24 @@ print_chi2_test(x, digits = 3)
   Integer specifying the number of decimal places for the test
   statistic.
 
+## Value
+
+A character string containing the formatted test results with:
+
+- Test statistic:
+
+  For Chi-squared test.
+
+- P-value:
+
+  Formatted p-value with significance stars.
+
+- Sample size:
+
+  Total count for sample size.
+
+For Fisher's exact test, only the P-value and sample size are included.
+
 ## Examples
 
 ``` r

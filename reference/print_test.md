@@ -25,6 +25,24 @@ print_test(x, digits = 0, digits_p = 2)
 
   Integer specifying the number of decimal places for the p-value.
 
+## Value
+
+A character string containing the formatted test results with:
+
+- Test name:
+
+  Name of the statistical test (ANOVA, Kruskal-Wallis, Wilcoxon, t-test,
+  Friedman, or mixed-effects model).
+
+- Test statistic:
+
+  Test statistic (F, K, W, T, or \\\chi^2\\) with degrees of freedom
+  when applicable.
+
+- P-value:
+
+  P-value with significance stars.
+
 ## Examples
 
 ``` r

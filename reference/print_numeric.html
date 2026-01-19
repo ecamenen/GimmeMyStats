@@ -64,8 +64,38 @@ statistic.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Data frame with descriptive statistics for each variable.</p>
-    </div>
+    <p>A tibble with one row per numeric variable and the following columns:</p><dl><dt>Variables</dt>
+<dd><p>Character specifying the variable name.</p></dd>
+
+<dt>Mean+/-SD</dt>
+<dd><p>Character specifying the mean and standard deviation.</p></dd>
+
+<dt>Median+/-IQR</dt>
+<dd><p>Character specifying the median and interquartile range.</p></dd>
+
+<dt>Q1-Q3</dt>
+<dd><p>Character specifying the first and third quartiles.</p></dd>
+
+<dt>Range</dt>
+<dd><p>Character specifying the minimum and maximum values.</p></dd>
+
+<dt>Kurtosis</dt>
+<dd><p>Numeric specifying the kurtosis coefficient.</p></dd>
+
+<dt>Skewness</dt>
+<dd><p>Numeric specifying the skewness coefficient.</p></dd>
+
+<dt>Normality</dt>
+<dd><p>Character specifying the Shapiro-Wilk normality test significance code.</p></dd>
+
+<dt>Zeros</dt>
+<dd><p>Integer specifying the number of zero values.</p></dd>
+
+<dt>NAs</dt>
+<dd><p>Integer specifying the number of missing values.</p></dd>
+
+
+</dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

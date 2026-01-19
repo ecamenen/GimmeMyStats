@@ -77,8 +77,16 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Numeric vector with outliers replaced by <code>NA</code> or their indices.</p>
-    </div>
+    <p>A numeric vector whose content depends on the value of <code>replace</code>:</p><dl><dt>replace = FALSE</dt>
+<dd><p>A numeric vector containing only the detected outlier
+values. The vector is named with the original indices or names of <code>x</code>.</p></dd>
+
+<dt>replace = TRUE</dt>
+<dd><p>A numeric vector of the same length as <code>x</code>, where
+detected outliers are replaced by <code>NA</code>.</p></dd>
+
+
+</dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

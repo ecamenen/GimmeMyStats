@@ -37,8 +37,18 @@ count_category(x, width = 15, collapse = FALSE, sort = TRUE, format = TRUE)
 
 ## Value
 
-Data frame with two columns: `f` (category names) and `n` (frequency
-counts).
+A tibble with one row per category and the following columns:
+
+- f:
+
+  Factor specifying the category labels, possibly wrapped to the
+  specified width. When `collapse = TRUE`, multiple categories with
+  identical frequencies are merged into a single label separated by
+  commas.
+
+- n:
+
+  Integer specifying the frequency count for each category.
 
 ## Examples
 

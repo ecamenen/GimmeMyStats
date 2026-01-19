@@ -30,3 +30,5 @@
   : Summarizes descriptive statistics for binomial variables
 - [`summary_numeric()`](https://ecamenen.github.io/GimmeMyStats/reference/summary_numeric.md)
   : Summarizes descriptive statistics for numeric variables
+- [`to_title()`](https://ecamenen.github.io/GimmeMyStats/reference/to_title.md)
+  : Convert Strings to Title Case

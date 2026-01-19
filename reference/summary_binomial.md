@@ -20,7 +20,16 @@ summary_binomial(x, ...)
 
 ## Value
 
-Data frame with formatted descriptive statistics.
+A tibble with descriptive statistics containing the following columns:
+
+- Variables:
+
+  Character vector specifying the name of each variable.
+
+- Statistics:
+
+  Character vector combining the reference level of a variable with its
+  frequency count and its percentage.
 
 ## Examples
 

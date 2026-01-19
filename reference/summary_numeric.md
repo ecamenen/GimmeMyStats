@@ -20,7 +20,15 @@ summary_numeric(x, ...)
 
 ## Value
 
-Data frame with formatted descriptive statistics.
+A tibble with one row per numeric variable and the following columns:
+
+- Variables:
+
+  Character specifying the variable name.
+
+- Median+/-IQR:
+
+  Character specifying the median and interquartile range.
 
 ## Examples
 

@@ -26,7 +26,48 @@ print_numeric(x, digits = 1, width = 15)
 
 ## Value
 
-Data frame with descriptive statistics for each variable.
+A tibble with one row per numeric variable and the following columns:
+
+- Variables:
+
+  Character specifying the variable name.
+
+- Mean+/-SD:
+
+  Character specifying the mean and standard deviation.
+
+- Median+/-IQR:
+
+  Character specifying the median and interquartile range.
+
+- Q1-Q3:
+
+  Character specifying the first and third quartiles.
+
+- Range:
+
+  Character specifying the minimum and maximum values.
+
+- Kurtosis:
+
+  Numeric specifying the kurtosis coefficient.
+
+- Skewness:
+
+  Numeric specifying the skewness coefficient.
+
+- Normality:
+
+  Character specifying the Shapiro-Wilk normality test significance
+  code.
+
+- Zeros:
+
+  Integer specifying the number of zero values.
+
+- NAs:
+
+  Integer specifying the number of missing values.
 
 ## Examples
 

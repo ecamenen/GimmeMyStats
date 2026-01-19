@@ -45,8 +45,30 @@ mcor_test(
 
 ## Value
 
-List containing two data frames corresponding to correlation
-coefficients and p-values.
+Depending on the values of `estimate` and `p.value`, one of the
+following:
+
+- estimate = TRUE, p.value = FALSE:
+
+  A numeric matrix of correlation coefficients, with columns
+  corresponding to variables in `x` and rows to variables in `y`.
+
+- estimate = FALSE, p.value = TRUE:
+
+  A numeric matrix of adjusted p-values, with columns corresponding to
+  variables in `x` and rows to variables in `y`.
+
+- estimate = TRUE, p.value = TRUE:
+
+  A named list with two elements:
+
+  estimate
+
+  :   Numeric matrix of correlation coefficients.
+
+  p.value
+
+  :   Numeric matrix of adjusted p-values.
 
 ## Examples
 

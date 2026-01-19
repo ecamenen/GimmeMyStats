@@ -9,11 +9,11 @@
 Source:
 [`DESCRIPTION`](https://github.com/ecamenen/GimmeMyStats/blob/release/1.0.0/DESCRIPTION)
 
-Camenen E (2026). *GimmeMyStats: Statistics utilities*. R package
+Camenen E (2026). *GimmeMyStats: Statistics Utilities*. R package
 version 1.0.0, <https://github.com/ecamenen/GimmeMyStats>.
 
     @Manual{,
-      title = {GimmeMyStats: Statistics utilities},
+      title = {GimmeMyStats: Statistics Utilities},
       author = {Etienne Camenen},
       year = {2026},
       note = {R package version 1.0.0},

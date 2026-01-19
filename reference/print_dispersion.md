@@ -29,6 +29,12 @@ print_dispersion(x, digits = 1, width = 15, method = "median")
   Character specifying the method: `median` for median and IQR, or
   `mean` for mean and SD.
 
+## Value
+
+A character string containing a measure of central tendency and
+dispersion. Depending on `method`, this is either the median and
+interquartile range or the mean and standard deviation.
+
 ## Examples
 
 ``` r

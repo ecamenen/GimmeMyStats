@@ -40,7 +40,17 @@ identify_outliers(
 
 ## Value
 
-Numeric vector with outliers replaced by `NA` or their indices.
+A numeric vector whose content depends on the value of `replace`:
+
+- replace = FALSE:
+
+  A numeric vector containing only the detected outlier values. The
+  vector is named with the original indices or names of `x`.
+
+- replace = TRUE:
+
+  A numeric vector of the same length as `x`, where detected outliers
+  are replaced by `NA`.
 
 ## Examples
 

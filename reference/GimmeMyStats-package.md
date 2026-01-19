@@ -1,8 +1,8 @@
-# GimmeMyStats: Statistics utilities
+# GimmeMyStats: Statistics Utilities
 
-Statistics utilities to facilitate reporting for regression and
-correlation modeling, hypothesis testing, variance analysis, outlier
-detection, and detailed descriptive statistics.
+Facilitate reporting for regression and correlation modeling, hypothesis
+testing, variance analysis, outlier detection, and detailed descriptive
+statistics.
 
 ## See also
 

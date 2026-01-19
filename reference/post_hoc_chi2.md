@@ -48,7 +48,50 @@ post_hoc_chi2(
 
 ## Value
 
-Data frame with pairwise test results.
+A tibble with pairwise test results containing the following columns:
+
+- group1, group2:
+
+  Character vectors specifying the pair of groups being compared.
+
+- n:
+
+  Numeric vector specifying the total count or sample size for the
+  comparison.
+
+- statistic:
+
+  Numeric vector specifying the test statistic (for chi-squared tests
+  only).
+
+- df:
+
+  Numeric vector specifying the degrees of freedom (for chi-squared
+  tests only).
+
+- p:
+
+  Raw p-value for the pairwise comparison, formatted as numeric or
+  character ("\< 0.001" for very small p-values).
+
+- p.signif:
+
+  Character vectors specifying the significance codes for raw p-values:
+  'ns' (not significant).
+
+- FDR:
+
+  False Discovery Rate adjusted p-value using the specified method,
+  formatted as numeric or character ("\< 0.001" for very small values).
+
+- fdr.signif:
+
+  Character vectors specifying the significance codes for FDR-adjusted
+  p-values: 'ns' (not significant), '*' (p \< 0.05), '**' (p \< 0.01),
+  '***' (p \< 0.001).
+
+For Fisher's exact tests, the `statistic` and `df` columns are not
+included..
 
 ## Details
 
@@ -65,36 +108,36 @@ post_hoc_chi2(x)
 #> Warning: With a single categorical data, Fisher's test cannot be performed. Using chi-squared test instead.
 #> Warning: With a single categorical data, Fisher's test cannot be performed. Using chi-squared test instead.
 #> # A tibble: 3 × 9
-#>       n statistic p          df p.signif group1 group2 FDR     fdr.signif
-#>   <int>     <dbl> <chr>   <dbl> <chr>    <chr>  <chr>  <chr>   <chr>     
-#> 1   178      2.72 0.099       1 ns       A      B      0.099   ns        
-#> 2   125     45    < 0.001     1 ***      A      C      < 0.001 ***       
-#> 3   103     27.3  < 0.001     1 ***      B      C      < 0.001 ***       
+#>   group1 group2     n statistic p          df p.signif FDR     fdr.signif
+#>   <chr>  <chr>  <int>     <dbl> <chr>   <dbl> <chr>    <chr>   <chr>     
+#> 1 A      B        178      2.72 0.099       1 ns       0.099   ns        
+#> 2 A      C        125     45    < 0.001     1 ***      < 0.001 ***       
+#> 3 B      C        103     27.3  < 0.001     1 ***      < 0.001 ***       
 
 x <- data.frame(G1 = c(Yes = 100, No = 78), G2 = c(Yes = 75, No = 23))
 post_hoc_chi2(x, count = TRUE, method = "chisq")
 #> # A tibble: 1 × 9
-#>       n statistic    df     p p.signif group1 group2   FDR fdr.signif
-#>   <dbl>     <dbl> <int> <dbl> <chr>    <chr>  <chr>  <dbl> <chr>     
-#> 1   276      10.4     1 0.001 **       G1     G2     0.001 **        
+#>   group1 group2     n statistic    df     p p.signif   FDR fdr.signif
+#>   <chr>  <chr>  <dbl>     <dbl> <int> <dbl> <chr>    <dbl> <chr>     
+#> 1 G1     G2       276      10.4     1 0.001 **       0.001 **        
 
 data("housetasks")
 housetasks[, c("Wife", "Husband")] %>%
     t() %>%
     post_hoc_chi2(count = TRUE, workspace = 1e6)
 #> # A tibble: 78 × 7
-#>        n p       p.signif group1  group2     FDR     fdr.signif
-#>    <int> <chr>   <chr>    <chr>   <chr>      <chr>   <chr>     
-#>  1   287 0.249   ns       Laundry Main_meal  0.29    ns        
-#>  2   242 0.009   **       Laundry Dinner     0.013   *         
-#>  3   255 < 0.001 ***      Laundry Breakfeast < 0.001 ***       
-#>  4   212 1       ns       Laundry Tidying    1       ns        
-#>  5   194 0.012   *        Laundry Dishes     0.016   *         
-#>  6   200 < 0.001 ***      Laundry Shopping   < 0.001 ***       
-#>  7   193 < 0.001 ***      Laundry Official   < 0.001 ***       
-#>  8   243 < 0.001 ***      Laundry Driving    < 0.001 ***       
-#>  9   192 < 0.001 ***      Laundry Finances   < 0.001 ***       
-#> 10   219 < 0.001 ***      Laundry Insurance  < 0.001 ***       
+#>    group1  group2         n p       p.signif FDR     fdr.signif
+#>    <chr>   <chr>      <int> <chr>   <chr>    <chr>   <chr>     
+#>  1 Laundry Main_meal    287 0.249   ns       0.29    ns        
+#>  2 Laundry Dinner       242 0.009   **       0.013   *         
+#>  3 Laundry Breakfeast   255 < 0.001 ***      < 0.001 ***       
+#>  4 Laundry Tidying      212 1       ns       1       ns        
+#>  5 Laundry Dishes       194 0.012   *        0.016   *         
+#>  6 Laundry Shopping     200 < 0.001 ***      < 0.001 ***       
+#>  7 Laundry Official     193 < 0.001 ***      < 0.001 ***       
+#>  8 Laundry Driving      243 < 0.001 ***      < 0.001 ***       
+#>  9 Laundry Finances     192 < 0.001 ***      < 0.001 ***       
+#> 10 Laundry Insurance    219 < 0.001 ***      < 0.001 ***       
 #> # ℹ 68 more rows
 
 x <- cbind(
@@ -103,9 +146,9 @@ x <- cbind(
 )
 post_hoc_chi2(x)
 #> # A tibble: 3 × 7
-#>       n p       p.signif group1 group2 FDR     fdr.signif
-#>   <int> <chr>   <chr>    <chr>  <chr>  <chr>   <chr>     
-#> 1    12 0.015   *        A      B      0.015   *         
-#> 2    14 < 0.001 ***      A      C      < 0.001 ***       
-#> 3    14 < 0.001 ***      B      C      < 0.001 ***       
+#>   group1 group2     n p       p.signif FDR     fdr.signif
+#>   <chr>  <chr>  <int> <chr>   <chr>    <chr>   <chr>     
+#> 1 A      B         12 0.015   *        0.015   *         
+#> 2 A      C         14 < 0.001 ***      < 0.001 ***       
+#> 3 B      C         14 < 0.001 ***      < 0.001 ***       
 ```
