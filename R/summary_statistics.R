@@ -192,6 +192,7 @@ count_category <- function(
 #'
 #' @inheritParams print_test
 #' @inheritParams print_multinomial
+#' @inherit print_multinomial return
 #' @param x Data frame, matrix, or vector containing binomial variables.
 #'
 #' @examples

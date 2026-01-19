@@ -6,7 +6,7 @@
 \alias{GimmeMyStats-package}
 \title{GimmeMyStats: Statistics Utilities}
 \description{
-Statistics utilities to facilitate reporting for regression and correlation modeling, hypothesis testing, variance analysis, outlier detection, and detailed descriptive statistics.
+Facilitate reporting for regression and correlation modeling, hypothesis testing, variance analysis, outlier detection, and detailed descriptive statistics.
 }
 \seealso{
 Useful links:

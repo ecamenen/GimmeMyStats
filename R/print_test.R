@@ -48,7 +48,7 @@ pval_stars <- function(p) {
 #' @param digits_p Integer specifying the number of decimal places for the
 #' p-value.
 #'
-#' #' @return A character string containing the formatted test results with:
+#' @return A character string containing the formatted test results with:
 #' \describe{
 #'   \item{Test name}{Name of the statistical test (ANOVA, Kruskal-Wallis, Wilcoxon,
 #'   t-test, Friedman, or mixed-effects model).}
