@@ -4,7 +4,15 @@
 \alias{print_multinomial}
 \title{Prints descriptive statistics for multinomial variables}
 \usage{
-print_multinomial(x, label = NULL, digits = 1, width = 15, n = nrow(x), ...)
+print_multinomial(
+  x,
+  label = NULL,
+  digits = 1,
+  width = 15,
+  n = nrow(x),
+  format = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{Data frame, matrix, or vector containing multinomial variables.}
@@ -17,6 +25,8 @@ statistic.}
 \item{width}{Integer specifying the maximum width for wrapping text.}
 
 \item{n}{Integer specifying the total number of observations.}
+
+\item{format}{Logical specifying whether to format category names if the input is a vector.}
 
 \item{...}{Additional arguments passed to \code{count_category}.}
 }

@@ -287,13 +287,15 @@ print_multinomial <- function(
         digits = 1,
         width = 15,
         n = nrow(x),
-        ...) {
+        format = FALSE,
+        ...
+        ) {
     if (is.null(label)) {
         label <- ifelse(!is.null(colnames(x)), colnames(x), "Variable")
     } else {
         label <- str_wrap(label, width)
     }
-    count_category(x, width = width, ...) %>%
+    count_category(x, width = width, format = format, ...) %>%
         set_colnames(c("Levels", "N")) %>%
         mutate(
             `%` = round((N / n) * 100, digits),
