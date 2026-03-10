@@ -19,6 +19,9 @@ test_that("mcor default works", {
 })
 
 test_that("mcor advanced works", {
+    res <- mcor_test(x, p.value = TRUE)
+    expect_length(res, 2)
+
     res <- mcor_test(
         x,
         y,

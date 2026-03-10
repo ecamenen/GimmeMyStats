@@ -2,7 +2,7 @@
 % Please edit documentation in R/print_test.R
 \name{print_chi2_test}
 \alias{print_chi2_test}
-\title{Prints the results of a Chi2 or Fisher's exact test}
+\title{Prints the results of a Chi2}
 \usage{
 print_chi2_test(x, digits = 3)
 }
@@ -12,8 +12,17 @@ print_chi2_test(x, digits = 3)
 \item{digits}{Integer specifying the number of decimal places for the test
 statistic.}
 }
+\value{
+A character string containing the formatted test results with:
+\describe{
+\item{Test statistic}{For Chi-squared test.}
+\item{P-value}{Formatted p-value with significance stars.}
+\item{Sample size}{Total count for sample size.}
+}
+For Fisher's exact test, only the P-value and sample size are included.
+}
 \description{
-Formats and prints the results of a chi-squared or Fisher's exact test.
+Formats the results of a Chi-squared or Fisher's exact test.
 }
 \examples{
 x <- c(A = 100, B = 78, C = 25)

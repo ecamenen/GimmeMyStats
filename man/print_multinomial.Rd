@@ -4,43 +4,44 @@
 \alias{print_multinomial}
 \title{Prints descriptive statistics for multinomial variables}
 \usage{
-print_multinomial(
-  x,
-  var = NULL,
-  digits = 1,
-  parse = FALSE,
-  width = 20,
-  collapse = FALSE,
-  label = NULL,
-  n = nrow(x)
-)
+print_multinomial(x, label = NULL, digits = 1, width = 15, n = nrow(x), ...)
 }
 \arguments{
 \item{x}{Data frame, matrix, or vector containing multinomial variables.}
 
-\item{var}{Character vector specifying the names of the categorical variables.}
+\item{label}{Character vector specifying the names of the categorical variables.}
 
 \item{digits}{Integer specifying the number of decimal places for the test
 statistic.}
 
-\item{parse}{Logical indicating whether to parse variable names.}
-
 \item{width}{Integer specifying the maximum width for wrapping text.}
 
-\item{collapse}{Logical indicating whether to collapse categories into a single string.}
-
-\item{label}{Character vector specifying labels for variables.}
-
 \item{n}{Integer specifying the total number of observations.}
+
+\item{...}{Additional arguments passed to \code{count_category}.}
 }
 \value{
-Data frame with frequency counts and percentages for each category.
+A tibble with one row per level for each categorical level containing the following columns:
+\describe{
+\item{Variables}{Character vector specifying the name of each variable.}
+\item{Levels}{Character vector specifying the category level for each variable.}
+\item{Statistics}{Character vector combining the frequency count and the percentage for each level.}
+}
 }
 \description{
 Calculates and prints frequency counts and percentages for multinomial (multi-level) categorical variables.
 }
 \examples{
 x <- data.frame(A = sample(c("X", "Y", "Z"), 100, replace = TRUE))
-print_multinomial(x, var = "A")
+print_multinomial(x, label = "A")
+x2 <- rbind(x, data.frame(A = rep("Level A", length(x[x == "Level X", ]))))
+print_multinomial(
+    x,
+    label = "Variable A",
+    sort = FALSE,
+    n = 90,
+    digits = 2,
+    width = 5
+)
 
 }
