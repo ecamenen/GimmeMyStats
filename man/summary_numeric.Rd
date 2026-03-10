@@ -4,16 +4,19 @@
 \alias{summary_numeric}
 \title{Summarizes descriptive statistics for numeric variables}
 \usage{
-summary_numeric(x, digits = 1)
+summary_numeric(x, ...)
 }
 \arguments{
-\item{x}{Numeric vector, matrix, or data frame.}
+\item{x}{Data frame, matrix, or vector containing numerical variables.}
 
-\item{digits}{Integer specifying the number of decimal places for the test
-statistic.}
+\item{...}{Additional arguments passed to \code{print_numeric}.}
 }
 \value{
-Data frame with formatted descriptive statistics.
+A tibble with one row per numeric variable and the following columns:
+\describe{
+\item{Variables}{Character specifying the variable name.}
+\item{Median+/-IQR}{Character specifying the median and interquartile range.}
+}
 }
 \description{
 Formats the output of \code{print_numeric} into a concise summary.
@@ -21,5 +24,6 @@ Formats the output of \code{print_numeric} into a concise summary.
 \examples{
 x <- data.frame(A = rnorm(100), B = rnorm(100))
 summary_numeric(x)
+summary_numeric(x, digits = 2, width = 5)
 
 }

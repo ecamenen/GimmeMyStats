@@ -5,14 +5,24 @@
 #' @inheritParams print_dispersion
 #' @param probabilities Numeric vector specifying probabilities for percentiles.
 #' @param method Character specifying the method: `iqr`, `percentiles`, `hampel`, `mad`, or `sd`.
-#' @param weight Numeric value specifying the multiplier for the detection threshold.
-#' @param replace Logical indicating whether to replace outliers with `NA`.
+#' @param weight Double specifying the multiplier for the detection threshold.
+#' @param replace Logical specifying whether to replace outliers with `NA`.
 #'
-#' @return Numeric vector with outliers replaced by `NA` or their indices.
+#' @return
+#' A numeric vector whose content depends on the value of \code{replace}:
+#' \describe{
+#'   \item{replace = FALSE}{A numeric vector containing only the detected outlier
+#'   values. The vector is named with the original indices or names of \code{x}.}
+#'   \item{replace = TRUE}{A numeric vector of the same length as \code{x}, where
+#'   detected outliers are replaced by \code{NA}.}
+#' }
 #'
 #' @examples
 #' x <- rnorm(100)
 #' identify_outliers(x, method = "iqr")
+#' identify_outliers(x, method = "percentiles", probabilities = c(0.1, 0.9))
+#' identify_outliers(x, method = "sd", weight = 3)
+#' identify_outliers(x, method = "mad", replace = TRUE)
 #'
 #' @export
 identify_outliers <- function(
@@ -20,47 +30,47 @@ identify_outliers <- function(
     probabilities = c(0.25, 0.75),
     method = "iqr",
     weight = 1.5,
-    replace = FALSE
-) {
-  if (!is.null(rownames(x)))
-    name_out <- rownames(x)
-  else if(!is.null(names(x))) {
-    name_out <- names(x)
-  } else {
-    name_out <- NULL
-  }
-  x <- unlist(x)
-  stopifnot(method %in% c("iqr", "percentiles", "hampel", "mad", "sd"))
-  med <- median(x, na.rm = TRUE)
-
-  if (method %in% c("hampel", "mad", "sd")) {
-    if (method %in% c("hampel", "mad")) {
-      mad3 <- weight * mad(x, na.rm = TRUE, constant = 1)
+    replace = FALSE) {
+    if (!is.null(rownames(x))) {
+        name_out <- rownames(x)
+    } else if (!is.null(names(x))) {
+        name_out <- names(x)
     } else {
-      mad3 <- weight * sd(x, na.rm = TRUE)
+        name_out <- NULL
     }
-    up <- med + mad3
-    low <- med - mad3
-  } else {
-    quant <- quantile(x, probs = probabilities, na.rm = TRUE)
-    if (method == "iqr") {
-      iqr <- (quant[2] - quant[1]) * weight
-      quant[2] <- med + iqr
-      quant[1] <- med - iqr
-    }
-    up <- quant[2]
-    low <- quant[1]
-  }
+    x <- unlist(x)
+    stopifnot(method %in% c("iqr", "percentiles", "hampel", "mad", "sd"))
+    med <- median(x, na.rm = TRUE)
 
-  if (!replace) {
-    i <- which(x < low | x > up)
-    x <- x[i]
-    if (is.null(name_out))
-    names(x) <- i
-    else
-      names(x) <- name_out[i]
-  } else {
-    x[which(x < low | x > up)] <- NA
-  }
-  return(x)
+    if (method %in% c("hampel", "mad", "sd")) {
+        if (method %in% c("hampel", "mad")) {
+            mad3 <- weight * mad(x, na.rm = TRUE, constant = 1)
+        } else {
+            mad3 <- weight * sd(x, na.rm = TRUE)
+        }
+        up <- med + mad3
+        low <- med - mad3
+    } else {
+        quant <- quantile(x, probs = probabilities, na.rm = TRUE)
+        if (method == "iqr") {
+            iqr <- (quant[2] - quant[1]) * weight
+            quant[2] <- med + iqr
+            quant[1] <- med - iqr
+        }
+        up <- quant[2]
+        low <- quant[1]
+    }
+
+    if (!replace) {
+        i <- which(x < low | x > up)
+        x <- x[i]
+        if (is.null(name_out)) {
+            names(x) <- i
+        } else {
+            names(x) <- name_out[i]
+        }
+    } else {
+        x[which(x < low | x > up)] <- NA
+    }
+    return(x)
 }

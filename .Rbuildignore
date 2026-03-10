@@ -17,3 +17,7 @@
 ^.*\.temp$
 ^GimmeMyStats\.Rproj$
 ^data-raw$
+^.*\.BiocCheck$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

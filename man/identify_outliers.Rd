@@ -13,18 +13,24 @@ identify_outliers(
 )
 }
 \arguments{
-\item{x}{Numeric vector.}
+\item{x}{Vector containing numerical values.}
 
 \item{probabilities}{Numeric vector specifying probabilities for percentiles.}
 
 \item{method}{Character specifying the method: \code{iqr}, \code{percentiles}, \code{hampel}, \code{mad}, or \code{sd}.}
 
-\item{weight}{Numeric value specifying the multiplier for the detection threshold.}
+\item{weight}{Double specifying the multiplier for the detection threshold.}
 
-\item{replace}{Logical indicating whether to replace outliers with \code{NA}.}
+\item{replace}{Logical specifying whether to replace outliers with \code{NA}.}
 }
 \value{
-Numeric vector with outliers replaced by \code{NA} or their indices.
+A numeric vector whose content depends on the value of \code{replace}:
+\describe{
+\item{replace = FALSE}{A numeric vector containing only the detected outlier
+values. The vector is named with the original indices or names of \code{x}.}
+\item{replace = TRUE}{A numeric vector of the same length as \code{x}, where
+detected outliers are replaced by \code{NA}.}
+}
 }
 \description{
 Detects outliers using methods like IQR, percentiles, Hampel, MAD, or SD.
@@ -32,5 +38,8 @@ Detects outliers using methods like IQR, percentiles, Hampel, MAD, or SD.
 \examples{
 x <- rnorm(100)
 identify_outliers(x, method = "iqr")
+identify_outliers(x, method = "percentiles", probabilities = c(0.1, 0.9))
+identify_outliers(x, method = "sd", weight = 3)
+identify_outliers(x, method = "mad", replace = TRUE)
 
 }

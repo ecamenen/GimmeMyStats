@@ -18,7 +18,7 @@ post_hoc_chi2(
 table and the names are considered as categories; otherwise, the levels of
 the factor or the characters are used.}
 
-\item{method}{Character specifying the type of test: \code{chisq} for chi-squared
+\item{method}{Character specifying the statistical test: \code{chisq} for chi-squared
 or \code{fisher} for Fisher's exact test.}
 
 \item{method_adjust}{Character specifying the p-value adjustment method.}
@@ -26,12 +26,26 @@ or \code{fisher} for Fisher's exact test.}
 \item{digits}{Integer specifying the number of decimal places for the test
 statistic.}
 
-\item{count}{Logical indicating if \code{x} is a contingency table.}
+\item{count}{Logical specifying if \code{x} is a contingency table.}
 
 \item{...}{Additional arguments passed to \code{chisq.test} or \code{fisher.test}.}
 }
 \value{
-Data frame with pairwise test results.
+A tibble with pairwise test results containing the following columns:
+\describe{
+\item{group1, group2}{Character vectors specifying the pair of groups being compared.}
+\item{n}{Numeric vector specifying the total count or sample size for the comparison.}
+\item{statistic}{Numeric vector specifying the test statistic (for chi-squared tests only).}
+\item{df}{Numeric vector specifying the degrees of freedom (for chi-squared tests only).}
+\item{p}{Raw p-value for the pairwise comparison, formatted as numeric or character
+("< 0.001" for very small p-values).}
+\item{p.signif}{Character vectors specifying the significance codes for raw p-values: 'ns' (not significant).}
+\item{FDR}{False Discovery Rate adjusted p-value using the specified method,
+formatted as numeric or character ("< 0.001" for very small values).}
+\item{fdr.signif}{Character vectors specifying the significance codes for FDR-adjusted p-values: 'ns' (not significant),
+'\emph{' (p < 0.05), '\strong{' (p < 0.01), '}}' (p < 0.001).}
+}
+For Fisher's exact tests, the \code{statistic} and \code{df} columns are not included..
 }
 \description{
 Identifies pairwise differences between categories following a chi-squared
@@ -46,7 +60,7 @@ characters are used.
 x <- c(rep("A", 100), rep("B", 78), rep("C", 25))
 post_hoc_chi2(x)
 
-x <- data.frame(G1 = c(Yes = 100, No = 78), G2 =  c(Yes = 75, No = 23))
+x <- data.frame(G1 = c(Yes = 100, No = 78), G2 = c(Yes = 75, No = 23))
 post_hoc_chi2(x, count = TRUE, method = "chisq")
 
 data("housetasks")

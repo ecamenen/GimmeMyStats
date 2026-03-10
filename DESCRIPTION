@@ -1,18 +1,25 @@
 Package: GimmeMyStats
-Title: Statistics utilities
-Version: 0.1.0
+Title: Statistics Utilities
+Version: 1.0.0
 Authors@R: 
     person("Etienne", "Camenen", , "etienne.camenen@gmail.com", role = c("aut", "cre"))
-Description: Statistics utilities to facilitate reporting for regression and correlation modeling, hypothesis testing, variance analysis, outlier detection, and detailed descriptive statistics.
+Description: Facilitate reporting for regression and correlation modeling,
+    hypothesis testing, variance analysis, outlier detection, and detailed
+    descriptive statistics.
 License: GPL-3
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
-LazyData: false
+URL: https://github.com/ecamenen/GimmeMyStats,
+    https://ecamenen.github.io/GimmeMyStats/
+BugReports: https://github.com/ecamenen/GimmeMyStats/issues
+Depends:
+    magrittr,
+    R (>= 3.8),
+    tidyverse
 Imports:
     dplyr,
     e1071,
     forcats,
+    lme4,
+    lmerTest,
     rstatix,
     stats,
     stringi,
@@ -20,13 +27,14 @@ Imports:
     tidyr,
     tidyselect,
     utils
-Depends:
-    R (>= 2.10),
-    magrittr,
-    tidyverse
 Suggests: 
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
 Config/testthat/edition: 3
-VignetteBuilder: knitr
+Encoding: UTF-8
+LazyData: false
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2

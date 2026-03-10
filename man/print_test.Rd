@@ -2,7 +2,7 @@
 % Please edit documentation in R/print_test.R
 \name{print_test}
 \alias{print_test}
-\title{Formats a hypothesis test}
+\title{Prints a hypothesis test}
 \usage{
 print_test(x, digits = 0, digits_p = 2)
 }
@@ -16,9 +16,18 @@ statistic.}
 \item{digits_p}{Integer specifying the number of decimal places for the
 p-value.}
 }
+\value{
+A character string containing the formatted test results with:
+\describe{
+\item{Test name}{Name of the statistical test (ANOVA, Kruskal-Wallis, Wilcoxon,
+t-test, Friedman, or mixed-effects model).}
+\item{Test statistic}{Test statistic (F, K, W, T, or \eqn{\chi^2})
+with degrees of freedom when applicable.}
+\item{P-value}{P-value with significance stars.}
+}
+}
 \description{
-Formats and prints the results of a hypothesis test (ANOVA, Kruskal-Wallis,
-or Wilcoxon).
+Formats the results of a hypothesis test (ANOVA, Kruskal-Wallis, or Wilcoxon).
 }
 \examples{
 library(rstatix)
@@ -30,6 +39,11 @@ res <- kruskal_test(ToothGrowth, len ~ dose)
 print_test(res)
 
 res <- wilcox_test(ToothGrowth, len ~ supp)
+print_test(res)
+
+library(lmerTest)
+data("sleepstudy", package = "lme4")
+res <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
 print_test(res)
 
 }
