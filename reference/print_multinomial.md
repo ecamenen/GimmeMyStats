@@ -6,7 +6,15 @@ Calculates and prints frequency counts and percentages for multinomial
 ## Usage
 
 ``` r
-print_multinomial(x, label = NULL, digits = 1, width = 15, n = nrow(x), ...)
+print_multinomial(
+  x,
+  label = NULL,
+  digits = 1,
+  width = 15,
+  n = nrow(x),
+  format = FALSE,
+  ...
+)
 ```
 
 ## Arguments
@@ -31,6 +39,11 @@ print_multinomial(x, label = NULL, digits = 1, width = 15, n = nrow(x), ...)
 - n:
 
   Integer specifying the total number of observations.
+
+- format:
+
+  Logical specifying whether to format category names if the input is a
+  vector.
 
 - ...:
 

@@ -5,7 +5,7 @@ Summarizes descriptive statistics for binomial variables
 ## Usage
 
 ``` r
-summary_binomial(x, ...)
+summary_binomial(x, ref = NULL, ...)
 ```
 
 ## Arguments
@@ -13,6 +13,10 @@ summary_binomial(x, ...)
 - x:
 
   Data frame, matrix, or vector containing binomial variables.
+
+- ref:
+
+  Character specifying the name of the reference level.
 
 - ...:
 
