@@ -311,32 +311,32 @@ the chi-square test is significant.*
     #> [1] stats     graphics  grDevices utils     datasets  methods   base     
     #> 
     #> other attached packages:
-    #>  [1] GimmeMyStats_1.0.0 magrittr_2.0.4     rstatix_0.7.3      lubridate_1.9.4   
-    #>  [5] forcats_1.0.1      stringr_1.6.0      dplyr_1.1.4        purrr_1.2.1       
-    #>  [9] readr_2.1.6        tidyr_1.3.2        tibble_3.3.1       ggplot2_4.0.1     
+    #>  [1] GimmeMyStats_1.0.0 magrittr_2.0.4     rstatix_0.7.3      lubridate_1.9.5   
+    #>  [5] forcats_1.0.1      stringr_1.6.0      dplyr_1.2.0        purrr_1.2.1       
+    #>  [9] readr_2.2.0        tidyr_1.3.2        tibble_3.3.1       ggplot2_4.0.2     
     #> [13] tidyverse_2.0.0   
     #> 
     #> loaded via a namespace (and not attached):
-    #>  [1] gtable_0.3.6        xfun_0.56           bslib_0.9.0        
+    #>  [1] gtable_0.3.6        xfun_0.56           bslib_0.10.0       
     #>  [4] lattice_0.22-7      numDeriv_2016.8-1.1 tzdb_0.5.0         
-    #>  [7] vctrs_0.7.0         tools_4.5.2         Rdpack_2.6.4       
+    #>  [7] vctrs_0.7.1         tools_4.5.2         Rdpack_2.6.6       
     #> [10] generics_0.1.4      proxy_0.4-29        pkgconfig_2.0.3    
     #> [13] Matrix_1.7-4        RColorBrewer_1.1-3  S7_0.2.1           
     #> [16] desc_1.4.3          lifecycle_1.0.5     compiler_4.5.2     
-    #> [19] farver_2.1.2        textshaping_1.0.4   lmerTest_3.2-0     
-    #> [22] carData_3.0-5       htmltools_0.5.9     class_7.3-23       
+    #> [19] farver_2.1.2        textshaping_1.0.5   lmerTest_3.2-1     
+    #> [22] carData_3.0-6       htmltools_0.5.9     class_7.3-23       
     #> [25] sass_0.4.10         yaml_2.3.12         Formula_1.2-5      
     #> [28] nloptr_2.2.1        pillar_1.11.1       pkgdown_2.2.0      
-    #> [31] car_3.1-3           jquerylib_0.1.4     MASS_7.3-65        
-    #> [34] cachem_1.1.0        reformulas_0.4.3.1  boot_1.3-32        
+    #> [31] car_3.1-5           jquerylib_0.1.4     MASS_7.3-65        
+    #> [34] cachem_1.1.0        reformulas_0.4.4    boot_1.3-32        
     #> [37] abind_1.4-8         nlme_3.1-168        tidyselect_1.2.1   
     #> [40] digest_0.6.39       stringi_1.8.7       splines_4.5.2      
     #> [43] fastmap_1.2.0       grid_4.5.2          cli_3.6.5          
-    #> [46] utf8_1.2.6          broom_1.0.11        e1071_1.7-17       
+    #> [46] utf8_1.2.6          broom_1.0.12        e1071_1.7-17       
     #> [49] withr_3.0.2         scales_1.4.0        backports_1.5.0    
-    #> [52] timechange_0.3.0    rmarkdown_2.30      lme4_1.1-38        
-    #> [55] ragg_1.5.0          hms_1.1.4           evaluate_1.0.5     
-    #> [58] knitr_1.51          rbibutils_2.4       rlang_1.1.7        
+    #> [52] timechange_0.4.0    rmarkdown_2.30      lme4_2.0-1         
+    #> [55] ragg_1.5.1          hms_1.1.4           evaluate_1.0.5     
+    #> [58] knitr_1.51          rbibutils_2.4.1     rlang_1.1.7        
     #> [61] Rcpp_1.1.1          glue_1.8.0          minqa_1.2.8        
-    #> [64] jsonlite_2.0.0      R6_2.6.1            systemfonts_1.3.1  
-    #> [67] fs_1.6.6
+    #> [64] jsonlite_2.0.0      R6_2.6.1            systemfonts_1.3.2  
+    #> [67] fs_1.6.7

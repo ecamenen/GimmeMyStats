@@ -63,11 +63,11 @@ count_category(x)
 #> # A tibble: 5 × 2
 #>   f           n
 #>   <fct>   <int>
-#> 1 Level 1     1
-#> 2 Level 4     4
-#> 3 Level 3     5
-#> 4 Level 2     5
-#> 5 Level 5     8
+#> 1 Level 5     1
+#> 2 Level 4     2
+#> 3 Level 1     2
+#> 4 Level 3     6
+#> 5 Level 2     9
 
 # Data frame of categorical variable
 df <- sapply(seq(k), function(x) runif(10) %>% round()) %>% as.data.frame()
@@ -76,36 +76,36 @@ count_category(df)
 #> # A tibble: 5 × 2
 #>   f           n
 #>   <fct>   <int>
-#> 1 Level 1     2
-#> 2 Level 5     3
-#> 3 Level 3     4
-#> 4 Level 4     7
-#> 5 Level 2     7
+#> 1 Level 1     3
+#> 2 Level 2     4
+#> 3 Level 5     5
+#> 4 Level 4     5
+#> 5 Level 3     5
 count_category(x, sort = FALSE, width = 5)
 #> # A tibble: 5 × 2
 #>   f              n
 #>   <fct>      <int>
-#> 1 "Level\n1"     1
-#> 2 "Level\n2"     5
-#> 3 "Level\n3"     5
-#> 4 "Level\n4"     4
-#> 5 "Level\n5"     8
+#> 1 "Level\n1"     2
+#> 2 "Level\n2"     9
+#> 3 "Level\n3"     6
+#> 4 "Level\n4"     2
+#> 5 "Level\n5"     1
 count_category(x, sort = seq(k), format = FALSE)
 #> # A tibble: 5 × 2
 #>   f         n
 #>   <fct> <int>
-#> 1 1         1
-#> 2 2         5
-#> 3 3         5
-#> 4 4         4
-#> 5 5         8
+#> 1 1         2
+#> 2 2         9
+#> 3 3         6
+#> 4 4         2
+#> 5 5         1
 x2 <- c(x, rep("Level 6", n[1]))
 count_category(x2, collapse = TRUE)
 #> # A tibble: 4 × 2
-#>   f                       n
-#>   <fct>               <int>
-#> 1 "Level 6, Level\n1"     1
-#> 2 "Level 4"               4
-#> 3 "Level 3, Level\n2"     5
-#> 4 "Level 5"               8
+#>   f                                n
+#>   <fct>                        <int>
+#> 1 "Level 5"                        1
+#> 2 "Level 6, Level\n4, Level 1"     2
+#> 3 "Level 3"                        6
+#> 4 "Level 2"                        9
 ```
