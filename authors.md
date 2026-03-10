@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/ecamenen/GimmeMyStats/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/ecamenen/GimmeMyStats/blob/develop/DESCRIPTION)
 
 Camenen E (2026). *GimmeMyStats: Statistics Utilities*. R package
 version 1.0.0, <https://github.com/ecamenen/GimmeMyStats>.
