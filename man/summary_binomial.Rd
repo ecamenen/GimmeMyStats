@@ -4,10 +4,12 @@
 \alias{summary_binomial}
 \title{Summarizes descriptive statistics for binomial variables}
 \usage{
-summary_binomial(x, ...)
+summary_binomial(x, ref = NULL, ...)
 }
 \arguments{
 \item{x}{Data frame, matrix, or vector containing binomial variables.}
+
+\item{ref}{Character specifying the name of the reference level.}
 
 \item{...}{Additional arguments passed to \code{print_binomial}.}
 }

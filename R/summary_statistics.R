@@ -221,6 +221,7 @@ print_binomial <- function(x, digits = 1, width = 15) {
 #' Summarizes descriptive statistics for binomial variables
 #'
 #' @inheritParams print_binomial
+#' @param ref Character specifying the name of the reference level.
 #' @param ... Additional arguments passed to `print_binomial`.
 #'
 #' @return A tibble with descriptive statistics containing the following columns:
@@ -235,11 +236,16 @@ print_binomial <- function(x, digits = 1, width = 15) {
 #' summary_binomial(x, digits = 2, width = 5)
 #'
 #' @export
-summary_binomial <- function(x, ...) {
-    print_binomial(x, ...) %>%
-        group_by(Variables) %>%
-        slice(1) %>%
-        summarise(Statistics = paste(Levels, ":", Statistics))
+summary_binomial <- function(x, ref = NULL, ...) {
+    res <- print_binomial(x, ...) %>%
+        group_by(Variables)
+    if (!is.null(ref)) {
+        res <- filter(res, Levels == !!ref)
+    } else {
+        res <- slice(res, 1)
+    }
+
+    summarise(res, Statistics = paste(Levels, ":", Statistics))
 }
 
 #' Prints descriptive statistics for multinomial variables
