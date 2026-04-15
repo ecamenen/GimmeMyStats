@@ -26,7 +26,7 @@ statistic.}
 
 \item{n}{Integer specifying the total number of observations.}
 
-\item{format}{Logical specifying whether to format category names if the input is a vector.}
+\item{format}{Logical specifying whether to format level names if the input is a vector.}
 
 \item{...}{Additional arguments passed to \code{count_category}.}
 }

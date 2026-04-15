@@ -7,27 +7,27 @@
 count_category(x, width = 15, collapse = FALSE, sort = TRUE, format = TRUE)
 }
 \arguments{
-\item{x}{Data frame or vector containing categorical variables.}
+\item{x}{Either a character or factor vector, or a data frame of numerical values. For the latter, each column represents the absence (0) or presence (1) for each level of a categorical variable.}
 
 \item{width}{Integer specifying the maximum width for wrapping text.}
 
-\item{collapse}{Logical specifying whether to merge categories with identical proportions.}
+\item{collapse}{Logical specifying whether to merge levels with identical proportions.}
 
-\item{sort}{Logical or character vector. If \code{TRUE}, orders categories by frequency. If \code{FALSE}, orders by names. If a character vector, renames and orders categories accordingly.}
+\item{sort}{Logical or character vector. If \code{TRUE}, orders levels by frequency. If \code{FALSE}, orders by names. If a vector, renames and orders levels accordingly.}
 
-\item{format}{Logical specifying whether to format category names if the input is a vector.}
+\item{format}{Logical specifying whether to format level names if the input is a vector.}
 }
 \value{
-A tibble with one row per category and the following columns:
+A tibble with one row per level and the following columns:
 \describe{
-\item{f}{Factor specifying the category labels, possibly wrapped to the specified width. When
-\code{collapse = TRUE}, multiple categories with identical frequencies are
+\item{f}{Factor specifying the level labels, possibly wrapped to the specified width. When
+\code{collapse = TRUE}, multiple levels with identical frequencies are
 merged into a single label separated by commas.}
-\item{n}{Integer specifying the frequency count for each category.}
+\item{n}{Integer specifying the frequency count for each level.}
 }
 }
 \description{
-Formats a data frame or vector containing categorical variables and calculates the frequency of each category.
+Formats a data frame or vector containing a multinomial (multi-level) variable and calculates the frequency of each levels.
 }
 \examples{
 # Vector of categorical variable
@@ -39,8 +39,8 @@ x <- paste("Level", seq(k)) \%>\%
 count_category(x)
 
 # Data frame of categorical variable
-df <- sapply(seq(k), function(x) runif(10) \%>\% round()) \%>\% as.data.frame()
-colnames(df) <- paste("Level", seq(k))
+df <- table(seq_along(x), factor(x, levels = paste("Level", seq(k)))) \%>\%
+as.data.frame.matrix()
 count_category(df)
 count_category(x, sort = FALSE, width = 5)
 count_category(x, sort = seq(k), format = FALSE)
