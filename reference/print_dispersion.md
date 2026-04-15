@@ -39,7 +39,7 @@ interquartile range or the mean and standard deviation.
 
 ``` r
 print_dispersion(runif(10))
-#> [1] "0.5+/-0.5"
+#> [1] "0.4+/-0.6"
 print_dispersion(runif(10), method = "mean", digits = 2, width = 5)
-#> [1] "0.5\n+/-0.32"
+#> [1] "0.48\n+/-0.33"
 ```

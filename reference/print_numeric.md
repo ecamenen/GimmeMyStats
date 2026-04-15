@@ -77,14 +77,14 @@ print_numeric(x)
 #> # A tibble: 2 × 10
 #>   Variables `Mean+/-SD` `Median+/-IQR` `Q1-Q3` Range Kurtosis Skewness Normality
 #>   <chr>     <chr>       <chr>          <chr>   <chr>    <dbl>    <dbl> <chr>    
-#> 1 A         0.1+/-1     0.1+/-1.2      -0.5;0… -2.4…        0      0.1 ns       
-#> 2 B         0+/-1       0.2+/-1.2      -0.6;0… -3.1…        0     -0.4 ns       
+#> 1 A         0.1+/-1     0.1+/-1.2      -0.5;0… -2.4…      0.1      0.1 ns       
+#> 2 B         0+/-1       0.1+/-1.2      -0.5;0… -3.1…      0.1     -0.5 ns       
 #> # ℹ 2 more variables: Zeros <int>, NAs <int>
 print_numeric(x, digits = 2, width = 5)
 #> # A tibble: 2 × 10
 #>   Variables `Mean+/-SD` `Median+/-IQR` `Q1-Q3` Range Kurtosis Skewness Normality
 #>   <chr>     <chr>       <chr>          <chr>   <chr>    <dbl>    <dbl> <chr>    
-#> 1 A         "0.1\n+/-0… "0.07\n+/-1.2… -0.53;… -2.4…     0.03     0.09 ns       
-#> 2 B         "0.02\n+/-… "0.17\n+/-1.2… -0.56;… -3.1…     0.02    -0.4  ns       
+#> 1 A         "0.11\n+/-… "0.12\n+/-1.2… -0.53;… -2.4…     0.07     0.1  ns       
+#> 2 B         "0.03\n+/-… "0.14\n+/-1.1… -0.53;… -3.1…     0.06    -0.46 ns       
 #> # ℹ 2 more variables: Zeros <int>, NAs <int>
 ```

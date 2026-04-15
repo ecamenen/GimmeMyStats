@@ -43,10 +43,10 @@ summary_binomial(x)
 #> # A tibble: 1 × 2
 #>   Variables Statistics  
 #>   <chr>     <chr>       
-#> 1 A         X : 53 (53%)
+#> 1 A         X : 54 (54%)
 summary_binomial(x, digits = 2, width = 5)
 #> # A tibble: 1 × 2
 #>   Variables Statistics     
 #>   <chr>     <chr>          
-#> 1 A         "X : 53\n(53%)"
+#> 1 A         "X : 54\n(54%)"
 ```

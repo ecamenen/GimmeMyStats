@@ -50,12 +50,12 @@ print_binomial(x)
 #> # A tibble: 2 × 3
 #>   Variables Levels Statistics
 #>   <chr>     <chr>  <chr>     
-#> 1 A         X      56 (56%)  
-#> 2 A         Y      44 (44%)  
+#> 1 A         X      49 (49%)  
+#> 2 A         Y      51 (51%)  
 print_binomial(x, digits = 2, width = 5)
 #> # A tibble: 2 × 3
 #>   Variables Levels Statistics 
 #>   <chr>     <chr>  <chr>      
-#> 1 A         X      "56\n(56%)"
-#> 2 A         Y      "44\n(44%)"
+#> 1 A         X      "49\n(49%)"
+#> 2 A         Y      "51\n(51%)"
 ```

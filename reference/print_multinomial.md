@@ -42,7 +42,7 @@ print_multinomial(
 
 - format:
 
-  Logical specifying whether to format category names if the input is a
+  Logical specifying whether to format level names if the input is a
   vector.
 
 - ...:
@@ -76,8 +76,8 @@ print_multinomial(x, label = "A")
 #>   Variables Levels Statistics
 #>   <chr>     <fct>  <chr>     
 #> 1 A         X      28 (28%)  
-#> 2 A         Z      34 (34%)  
-#> 3 A         Y      38 (38%)  
+#> 2 A         Y      35 (35%)  
+#> 3 A         Z      37 (37%)  
 x2 <- rbind(x, data.frame(A = rep("Level A", length(x[x == "Level X", ]))))
 print_multinomial(
     x,
@@ -91,6 +91,6 @@ print_multinomial(
 #>   Variables     Levels Statistics    
 #>   <chr>         <fct>  <chr>         
 #> 1 "Variable\nA" X      "28\n(31.11%)"
-#> 2 "Variable\nA" Y      "38\n(42.22%)"
-#> 3 "Variable\nA" Z      "34\n(37.78%)"
+#> 2 "Variable\nA" Y      "35\n(38.89%)"
+#> 3 "Variable\nA" Z      "37\n(41.11%)"
 ```

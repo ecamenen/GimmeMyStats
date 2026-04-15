@@ -38,12 +38,12 @@ summary_numeric(x)
 #> # A tibble: 2 × 2
 #>   Variables `Median+/-IQR`
 #>   <chr>     <chr>         
-#> 1 A         0.1+/-1.4     
-#> 2 B         -0.1+/-1.2    
+#> 1 A         -0.1+/-1.4    
+#> 2 B         0.1+/-1.2     
 summary_numeric(x, digits = 2, width = 5)
 #> # A tibble: 2 × 2
 #>   Variables `Median+/-IQR`  
 #>   <chr>     <chr>           
-#> 1 A         "0.09\n+/-1.37" 
-#> 2 B         "-0.05\n+/-1.21"
+#> 1 A         "-0.07\n+/-1.43"
+#> 2 B         "0.07\n+/-1.2"  
 ```
