@@ -202,17 +202,16 @@ count_category <- function(
 #' @export
 print_binomial <- function(x, digits = 1, width = 15) {
     as.data.frame(x) %>%
-        pivot_longer(everything()) %>%
-        set_colnames(c("Variables", "value")) %>%
+        pivot_longer(everything(), names_to = "Variables", values_to = "value") %>%
+        group_by(Variables, value) %>%
+        summarise(N = n(), .groups = "drop") %>%
         group_by(Variables) %>%
-        reframe(
-            fct_count(value) %>%
-                set_colnames(c("Levels", "N")) %>%
-                mutate(
-                    `%` = (N / length(value) * 100) %>% round(digits),
-                    Statistics = paste0(N, " (", `%`, "%)")
-                )
+        mutate(
+            `%` = (N / sum(N) * 100) %>% round(digits),
+            Statistics = paste0(N, " (", `%`, "%)"),
+            Levels = as.character(value)
         ) %>%
+        ungroup() %>%
         mutate(across(c(Variables, Levels, Statistics), ~ str_wrap(.x, width = width))) %>%
         select(Variables, Levels, Statistics)
 }
