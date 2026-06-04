@@ -15,6 +15,7 @@ descriptive statistics.
 ## Installation
 
 ``` r
+
 install.packages("GimmeMyStats")
 ```
 
@@ -22,6 +23,7 @@ You can install the development version from
 [GitHub](https://github.com/ecamenen/GimmeMyStats) with:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("ecamenen/GimmeMyStats")
 ```
